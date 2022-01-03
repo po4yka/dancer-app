@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/androidstudio,android,gradle,java,kotlin,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio,android,gradle,java,kotlin,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/java,gradle,kotlin,android,androidstudio,visualstudiocode,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,kotlin,android,androidstudio,visualstudiocode,macos
 
 ### Android ###
 # Built application files
@@ -135,6 +135,35 @@ hs_err_pid*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -247,11 +276,7 @@ obj/
 .idea/uiDesigner.xml
 
 # OS-specific files
-.DS_Store
 .DS_Store?
-._*
-.Spotlight-V100
-.Trashes
 ehthumbs.db
 Thumbs.db
 
@@ -286,4 +311,4 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-# End of https://www.toptal.com/developers/gitignore/api/androidstudio,android,gradle,java,kotlin,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/java,gradle,kotlin,android,androidstudio,visualstudiocode,macos
