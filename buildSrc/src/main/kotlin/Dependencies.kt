@@ -48,4 +48,9 @@ object Dependencies {
 
         const val composeUiTestJunit = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
     }
+
+    object Ktlint {
+        const val pluginName = "org.jlleitschuh.gradle.ktlint"
+        const val gitHook = "plugins.git-hook"
+    }
 }

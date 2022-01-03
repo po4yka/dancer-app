@@ -9,8 +9,8 @@ import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("org.jlleitschuh.gradle.ktlint")
     id("com.github.ben-manes.versions").version(Versions.gradleVersionsPlugin)
-    id("org.jlleitschuh.gradle.ktlint").version(Versions.JLLeitschuhKtlintGradle)
     id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
 }
 
