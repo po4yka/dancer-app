@@ -1,13 +1,14 @@
 import Dependencies.AndroidX
+import Dependencies.Compose
 import Dependencies.Kotlin
 import Dependencies.Test
-import Dependencies.Compose
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.github.ben-manes.versions").version(Versions.gradleVersionsPlugin)
+    id("org.jlleitschuh.gradle.ktlint").version(Versions.JLLeitschuhKtlintGradle)
 }
 
 android {

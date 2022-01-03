@@ -22,4 +22,5 @@ object Versions {
 
     /* UTILS */
     const val gradleVersionsPlugin = "0.40.0"
+    const val JLLeitschuhKtlintGradle = "10.2.1"
 }
