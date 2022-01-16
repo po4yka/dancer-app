@@ -71,6 +71,7 @@ dependencies {
     implementation(Kotlin.coroutines)
 
     implementation(Compose.composeUi)
+    implementation(Compose.composeActivity)
     implementation(Compose.composeUiTooling)
     implementation(Compose.composeFoundation)
     implementation(Compose.composeMaterial)

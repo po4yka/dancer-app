@@ -16,6 +16,7 @@ object Dependencies {
 
     object Compose {
         const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
+        const val composeActivity = "androidx.activity:activity-compose:${Versions.compose}"
         const val composeCompiler = "androidx.compose.compiler:compiler:${Versions.composeCompiler}"
 
         // Tooling support (Previews, etc.)
@@ -32,6 +33,8 @@ object Dependencies {
             "androidx.compose.material:material-icons-core:${Versions.compose}"
         const val composeIconsExtended =
             "androidx.compose.material:material-icons-extended:${Versions.compose}"
+
+        const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
     }
 
     object Test {

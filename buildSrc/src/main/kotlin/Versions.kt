@@ -10,7 +10,8 @@ object Versions {
     const val material = "1.4.0"
     const val compose = "1.0.5"
     const val composeCompiler = "1.1.0-rc02"
-    const val constraintLayout = "2.1.2"
+    const val composeNavigation = "2.4.0-rc01"
+    const val constraintLayout = "2.1.3"
 
     /* TESTING */
     const val junit = "4.13.2"
@@ -21,7 +22,7 @@ object Versions {
     const val mockitoKotlin = "2.2.0"
 
     /* UTILS */
-    const val gradleVersionsPlugin = "0.40.0"
+    const val gradleVersionsPlugin = "0.41.0"
     const val JLLeitschuhKtlintGradle = "10.2.1"
     const val detekt = "1.19.0"
 }
