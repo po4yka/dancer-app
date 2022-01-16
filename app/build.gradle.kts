@@ -130,6 +130,7 @@ tasks.withType<DependencyUpdatesTask> {
 
 // Reference: https://github.com/detekt/detekt#with-gradle
 detekt {
+    config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
     buildUponDefaultConfig = true // preconfigure defaults
     allRules = false // activate all available (even unstable) rules.
 }
