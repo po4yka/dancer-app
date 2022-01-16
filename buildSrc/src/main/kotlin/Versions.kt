@@ -4,11 +4,14 @@ object Versions {
     const val kotlin = "1.6.10"
     const val kotlinCoroutines = "1.6.0"
 
-    // FIXME: temporary can't upgrade to 1.4.0, see: https://stackoverflow.com/a/69067455/10498948
+    // FIXME: temporary can't upgrade AppCompat to 1.4.1, see: https://stackoverflow.com/a/69067455/10498948
     const val appCompat = "1.3.1"
     const val coreKtx = "1.7.0"
-    const val material = "1.4.0"
+    const val material = "1.5.0"
+
+    /* COMPOSE */
     const val compose = "1.0.5"
+    const val composeActivity = "1.4.0"
     const val composeCompiler = "1.1.0-rc02"
     const val composeNavigation = "2.4.0-rc01"
     const val constraintLayout = "2.1.3"

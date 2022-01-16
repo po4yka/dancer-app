@@ -11,12 +11,12 @@ object Dependencies {
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
         const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
-        const val Material = "com.google.android.material:material:${Versions.material}"
+        const val material = "com.google.android.material:material:${Versions.material}"
     }
 
     object Compose {
         const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
-        const val composeActivity = "androidx.activity:activity-compose:${Versions.compose}"
+        const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
         const val composeCompiler = "androidx.compose.compiler:compiler:${Versions.composeCompiler}"
 
         // Tooling support (Previews, etc.)
@@ -34,7 +34,9 @@ object Dependencies {
         const val composeIconsExtended =
             "androidx.compose.material:material-icons-extended:${Versions.compose}"
 
-        const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
+        // Compose navigation
+        const val composeNavigation =
+            "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
     }
 
     object Test {

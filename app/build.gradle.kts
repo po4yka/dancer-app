@@ -21,7 +21,7 @@ android {
     defaultConfig {
         // FIXME: temporary solution, see: https://stackoverflow.com/a/69067455/10498948
         configurations.all {
-            resolutionStrategy { force("androidx.core:core-ktx:1.6.0") }
+            resolutionStrategy { force("androidx.core:core-ktx:1.7.0-alpha01") }
         }
 
         applicationId = Config.applicationId
@@ -64,7 +64,7 @@ android {
 dependencies {
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
-    implementation(AndroidX.Material)
+    implementation(AndroidX.material)
     implementation(AndroidX.constraintLayout)
 
     implementation(Kotlin.stdlib)
@@ -76,6 +76,7 @@ dependencies {
     implementation(Compose.composeFoundation)
     implementation(Compose.composeMaterial)
     implementation(Compose.composeIconsCore)
+    implementation(Compose.composeNavigation)
     implementation(Compose.composeIconsExtended)
 
     testImplementation(Test.junit)
