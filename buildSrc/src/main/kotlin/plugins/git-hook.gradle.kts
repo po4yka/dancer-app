@@ -1,16 +1,26 @@
+// Reference: https://blog.sebastiano.dev/ooga-chaka-git-hooks-to-enforce-code-quality/
 package plugins
 
 import Dependencies.Ktlint
+
+fun isLinuxOrMacOs(): Boolean {
+    val osName = System.getProperty("os.name").toLowerCase()
+    return osName.contains("linux") || osName.contains("mac os") || osName.contains("macos")
+}
 
 tasks {
     register<Copy>("copyGitHooks") {
         description = "Copies the git hooks from scripts/git-hooks to the .git folder."
         group = Ktlint.gitHook
-        from("$rootDir/scripts") {
+        from("$rootDir/git-hooks") {
             include("**/*.sh")
             rename("(.*).sh", "$1")
         }
         into("$rootDir/.git/hooks")
+        onlyIf { isLinuxOrMacOs() }
+        doLast {
+            logger.info("Git hook copied successfully.")
+        }
     }
 
     register<Exec>("installGitHooks") {
@@ -19,7 +29,7 @@ tasks {
         workingDir(rootDir)
         commandLine("chmod")
         args("-R", "+x", ".git/hooks/")
-        dependsOn(named("copyGitHooks"))
+        dependsOn(named("copyGitHooks")).onlyIf { isLinuxOrMacOs() }
         doLast {
             logger.info("Git hooks installed successfully.")
         }
