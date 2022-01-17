@@ -10,7 +10,7 @@ object Versions {
     const val material = "1.5.0"
 
     /* COMPOSE */
-    const val compose = "1.0.5"
+    const val compose = "1.1.0-rc01"
     const val composeActivity = "1.4.0"
     const val composeCompiler = "1.1.0-rc02"
     const val composeNavigation = "2.4.0-rc01"
