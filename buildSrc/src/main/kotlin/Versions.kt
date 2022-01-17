@@ -16,6 +16,9 @@ object Versions {
     const val composeNavigation = "2.4.0-rc01"
     const val constraintLayout = "2.1.3"
 
+    /* CAMERA 2 */
+    const val camera = "1.0.2"
+
     /* TESTING */
     const val junit = "4.13.2"
     const val extJUnit = "1.1.3"

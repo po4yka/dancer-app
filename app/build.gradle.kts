@@ -79,6 +79,10 @@ dependencies {
     implementation(Compose.composeNavigation)
     implementation(Compose.composeIconsExtended)
 
+    implementation(AndroidX.camera2)
+    implementation(AndroidX.cameraLifecycle)
+    implementation(AndroidX.cameraView)
+
     testImplementation(Test.junit)
     testImplementation(Test.extJUnit)
 

@@ -12,6 +12,10 @@ object Dependencies {
             "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
         const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
         const val material = "com.google.android.material:material:${Versions.material}"
+
+        const val camera2 = "androidx.camera:camera-camera2:${Versions.camera}"
+        const val cameraLifecycle = "androidx.camera:camera-lifecycle:${Versions.camera}"
+        const val cameraView = "androidx.camera:camera-view:${Versions.camera}"
     }
 
     object Compose {
