@@ -18,6 +18,7 @@ object Versions {
 
     /* CAMERA 2 */
     const val camera = "1.0.2"
+    const val cameraView = "1.0.0-alpha32"
 
     /* TESTING */
     const val junit = "4.13.2"

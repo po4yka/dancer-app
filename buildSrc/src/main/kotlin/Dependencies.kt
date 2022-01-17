@@ -15,7 +15,7 @@ object Dependencies {
 
         const val camera2 = "androidx.camera:camera-camera2:${Versions.camera}"
         const val cameraLifecycle = "androidx.camera:camera-lifecycle:${Versions.camera}"
-        const val cameraView = "androidx.camera:camera-view:${Versions.camera}"
+        const val cameraView = "androidx.camera:camera-view:${Versions.cameraView}"
     }
 
     object Compose {
