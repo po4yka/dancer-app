@@ -41,6 +41,12 @@ object Dependencies {
         // Compose navigation
         const val composeNavigation =
             "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
+
+        // Utils from Google
+        const val accompanistInsets =
+            "com.google.accompanist:accompanist-insets:${Versions.accompanist}"
+        const val accompanistSystemUiController =
+            "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
     }
 
     object Test {

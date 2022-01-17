@@ -15,6 +15,7 @@ object Versions {
     const val composeCompiler = "1.1.0-rc02"
     const val composeNavigation = "2.4.0-rc01"
     const val constraintLayout = "2.1.3"
+    const val accompanist = "0.22.0-rc"
 
     /* CAMERA 2 */
     const val camera = "1.0.2"
