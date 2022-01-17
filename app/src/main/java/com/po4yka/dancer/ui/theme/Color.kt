@@ -2,7 +2,18 @@ package com.po4yka.dancer.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val SteelGray150 = Color(0xFFB8C1CC)
+val SteelGray200 = Color(0xFFAEB7C2)
+val SteelGray250 = Color(0xFFA3ADB8)
+val SteelGray500 = Color(0xFF6D7885)
+
+val Alpha60 = Color(0xFFFFFFFF)
+
+val Azure100 = Color(0xFF2787F5)
+val Azure300 = Color(0xFF3F8AE0)
+val Azure350 = Color(0xFF2975CC)
+val Blue300 = Color(0xFF528BCC)
+val BlueA300 = Color(0xFF4772A6)
+val BlueA500 = Color(0xFF3C6A9E)
+val BlueA800 = Color(0xFF28436E)
+val Sky300 = Color(0xFF71AAEB)
