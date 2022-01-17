@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dancer</string>
+    <string name="work_in_progress">This is currently work in progress</string>
 </resources>
