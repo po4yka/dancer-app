@@ -16,6 +16,7 @@ plugins {
 
 android {
     compileSdk = Config.compileSdkVersion
+    ndkVersion = Config.ndkVersion
     buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
