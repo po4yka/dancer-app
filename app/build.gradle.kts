@@ -80,6 +80,7 @@ dependencies {
     implementation(Compose.composeIconsExtended)
     implementation(Compose.accompanistInsets)
     implementation(Compose.accompanistSystemUiController)
+    implementation(Compose.accompanistPermission)
 
     implementation(AndroidX.camera2)
     implementation(AndroidX.cameraLifecycle)
