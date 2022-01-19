@@ -47,6 +47,8 @@ object Dependencies {
             "com.google.accompanist:accompanist-insets:${Versions.accompanist}"
         const val accompanistSystemUiController =
             "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
+        const val accompanistPermission =
+            "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
     }
 
     object Test {

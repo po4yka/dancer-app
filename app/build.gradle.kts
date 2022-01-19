@@ -16,6 +16,7 @@ plugins {
 
 android {
     compileSdk = Config.compileSdkVersion
+    ndkVersion = Config.ndkVersion
     buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
@@ -80,6 +81,7 @@ dependencies {
     implementation(Compose.composeIconsExtended)
     implementation(Compose.accompanistInsets)
     implementation(Compose.accompanistSystemUiController)
+    implementation(Compose.accompanistPermission)
 
     implementation(AndroidX.camera2)
     implementation(AndroidX.cameraLifecycle)

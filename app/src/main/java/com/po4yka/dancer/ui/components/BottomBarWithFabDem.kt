@@ -19,12 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.ui.navigation.BottomNav
 import com.po4yka.dancer.ui.navigation.MainScreenNavigation
 import com.po4yka.dancer.ui.navigation.Screen
 import com.po4yka.dancer.ui.theme.Azure100
 import com.po4yka.dancer.ui.theme.SteelGray500
 
+@ExperimentalPermissionsApi
 @Composable
 fun BottomBarWithFabDem(navController: NavHostController) {
     Scaffold(
@@ -74,6 +76,7 @@ fun BottomBarWithFabDem(navController: NavHostController) {
     }
 }
 
+@ExperimentalPermissionsApi
 @Preview(showBackground = true)
 @Composable
 fun BottomBarWithFabDemPreview() {
