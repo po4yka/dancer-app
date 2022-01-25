@@ -1,5 +1,6 @@
 import Dependencies.AndroidX
 import Dependencies.Compose
+import Dependencies.Hilt
 import Dependencies.Kotlin
 import Dependencies.Test
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
@@ -82,6 +83,13 @@ dependencies {
     implementation(Compose.accompanistInsets)
     implementation(Compose.accompanistSystemUiController)
     implementation(Compose.accompanistPermission)
+
+    implementation(Hilt.hiltAndroid)
+    implementation(Hilt.hiltNavigationCompose)
+    implementation(Hilt.hiltCompiler)
+    implementation(Hilt.hiltAndroidxCompiler)
+    implementation(Hilt.hiltAndroidTesting)
+    implementation(Hilt.hiltAndroidTestCompiler)
 
     implementation(AndroidX.camera2)
     implementation(AndroidX.cameraLifecycle)

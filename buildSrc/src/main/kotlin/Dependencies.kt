@@ -51,6 +51,18 @@ object Dependencies {
             "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
     }
 
+    object Hilt {
+        const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltCoreVersion}"
+        const val hiltNavigationCompose =
+            "androidx.hilt:hilt-navigation-compose:${Versions.hiltComposeNavigation}"
+        const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hiltCoreVersion}"
+        const val hiltAndroidxCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltVersion}"
+        const val hiltAndroidTesting =
+            "com.google.dagger:hilt-android-testing:${Versions.hiltCoreVersion}"
+        const val hiltAndroidTestCompiler =
+            "com.google.dagger:hilt-compiler:${Versions.hiltCoreVersion}"
+    }
+
     object Test {
         const val junit = "junit:junit:${Versions.junit}"
         const val extJUnit = "androidx.test.ext:junit:${Versions.extJUnit}"

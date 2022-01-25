@@ -17,6 +17,11 @@ object Versions {
     const val constraintLayout = "2.1.3"
     const val accompanist = "0.22.0-rc"
 
+    /* HILT */
+    const val hiltCoreVersion = "2.40.5"
+    const val hiltVersion = "1.0.0"
+    const val hiltComposeNavigation = "1.0.0-rc01"
+
     /* CAMERA 2 */
     const val camera = "1.0.2"
     const val cameraView = "1.0.0-alpha32"
