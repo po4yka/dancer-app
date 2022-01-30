@@ -14,6 +14,7 @@ buildscript {
         classpath(GradleConfig.android)
         classpath(GradleConfig.kotlin)
         classpath("com.android.tools.build:gradle:${Versions.gradle}")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltGradlePlugin}")
         classpath("org.jlleitschuh.gradle:ktlint-gradle:${Versions.JLLeitschuhKtlintGradle}")
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -47,11 +48,10 @@ tasks.getByPath(":app:preBuild").apply {
 
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions.apply {
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-Xopt-in=kotlin.time.ExperimentalTime",
-            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-Xopt-in=kotlinx.coroutines.FlowPreview"
-        )
+        freeCompilerArgs = freeCompilerArgs +
+            "-opt-in=kotlin.time.ExperimentalTime" +
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi" +
+            "-opt-in=kotlinx.coroutines.FlowPreview"
     }
 }
 

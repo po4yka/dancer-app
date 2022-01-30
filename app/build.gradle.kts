@@ -3,28 +3,27 @@ import Dependencies.Compose
 import Dependencies.Hilt
 import Dependencies.Kotlin
 import Dependencies.Test
+import Dependencies.Utils
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 
 plugins {
-    id("com.android.application")
     id("kotlin-android")
+    id("com.android.application")
+    id("dagger.hilt.android.plugin")
     id("org.jlleitschuh.gradle.ktlint")
     id("com.github.ben-manes.versions").version(Versions.gradleVersionsPlugin)
     id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
+
+    kotlin("kapt")
 }
 
 android {
     compileSdk = Config.compileSdkVersion
-    ndkVersion = Config.ndkVersion
     buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
-        // FIXME: temporary solution, see: https://stackoverflow.com/a/69067455/10498948
-        configurations.all {
-            resolutionStrategy { force("androidx.core:core-ktx:1.7.0-alpha01") }
-        }
 
         applicationId = Config.applicationId
         minSdk = Config.minSdkVersion
@@ -50,6 +49,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
     kotlinOptions {
         jvmTarget = Config.jvmTarget
     }
@@ -67,6 +71,7 @@ dependencies {
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.material)
+    implementation(AndroidX.startup)
     implementation(AndroidX.constraintLayout)
 
     implementation(Kotlin.stdlib)
@@ -80,20 +85,22 @@ dependencies {
     implementation(Compose.composeIconsCore)
     implementation(Compose.composeNavigation)
     implementation(Compose.composeIconsExtended)
-    implementation(Compose.accompanistInsets)
-    implementation(Compose.accompanistSystemUiController)
-    implementation(Compose.accompanistPermission)
 
     implementation(Hilt.hiltAndroid)
     implementation(Hilt.hiltNavigationCompose)
-    implementation(Hilt.hiltCompiler)
-    implementation(Hilt.hiltAndroidxCompiler)
-    implementation(Hilt.hiltAndroidTesting)
-    implementation(Hilt.hiltAndroidTestCompiler)
+    kapt(Hilt.hiltCompiler)
+    kapt(Hilt.hiltAndroidxCompiler)
+    androidTestImplementation(Hilt.hiltAndroidTesting)
+    kaptAndroidTest(Hilt.hiltAndroidTestCompiler)
 
     implementation(AndroidX.camera2)
     implementation(AndroidX.cameraLifecycle)
     implementation(AndroidX.cameraView)
+
+    implementation(Utils.accompanistInsets)
+    implementation(Utils.accompanistSystemUiController)
+    implementation(Utils.accompanistPermission)
+    implementation(Utils.timber)
 
     testImplementation(Test.junit)
     testImplementation(Test.extJUnit)
@@ -109,7 +116,7 @@ dependencies {
 /* Gradle Versions Plugin Setup */
 
 fun String.isNonStable(): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { toUpperCase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA", "RC").any { toUpperCase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(this)
     return isStable.not()
