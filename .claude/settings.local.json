@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(tree:*)",
+      "Bash(./gradlew compileDebugKotlin:*)",
+      "Bash(./gradlew assembleDebug:*)",
+      "Bash(cat:*)",
+      "Bash(find /Users/npochaev/GitHub/dancer-app/app/src/main/java/com/po4yka/dancer/data -name \"*.kt\" -exec sh -c 'echo \"\"FILE: {}\"\" && wc -l {} && echo' ;)",
+      "Bash(./gradlew :app:compileDebugKotlin:*)",
+      "Bash(find:*)",
+      "Bash(./gradlew:*)",
+      "WebSearch",
+      "Bash(unzip:*)",
+      "Bash(readelf:*)",
+      "Bash(xargs:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

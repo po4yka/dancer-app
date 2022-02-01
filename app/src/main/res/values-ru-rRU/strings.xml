@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="work_in_progress">В данный момент находится в разработке</string>
+    <string name="important_permission">Данное разрешение важно для корректного функционирования приложения. Пожалуйста, предоставьте его.</string>
+    <string name="ok">Ок</string>
+    <string name="allow">Разрешить</string>
+    <string name="not_now">Не сейчас</string>
+    <string name="show_gallery_content">Показать содержимое галереи</string>
+    <string name="camera_permission_allow">Разрешить для распознания изображения с камеры</string>
+    <string name="nope">Нет</string>
+    <string name="permission_request">Запрос разрешения</string>
+    <string name="open_settings">Открыть настройки</string>
+    <string name="permission_granted">Готово!</string>
+    <string name="feature_not_available">Функция не доступна</string>
+    <string name="recognize_from_camera">Определить с камеры</string>
+    <string name="table_probability">Вероятность</string>
+    <string name="table_value">Значение</string>
+    <string name="table_movement">Движение</string>
+    <string name="recognition_mode">Режим распознавания</string>
+    <string name="change_camera">Сменить камеру</string>
+    <string name="gallery_permission_request_text">Для использования изображений из галереи, нужно предоставить разрешение на доступ к хранилищу</string>
+    <string name="camera_permission_request_text">Для того, чтобы пользоваться камерой, необходимо предоставить разрешение</string>
+    <string name="can_not_work_with_no_gallery_access">К сожалению, ограниченная функциональность доступна без доступа к камере</string>
+    <string name="can_not_work_with_no_camera">К сожалению, ограниченная функциональность доступна без доступа к галерее</string>
+    <string name="remove_image">Удалить изображение</string>
+    <string name="save_image">Сохранить изображение</string>
+    <string name="captured_image">Снятое изображение</string>
+</resources>

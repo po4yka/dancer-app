@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="result_table_header_font_size" type="dimen">16sp</item>
+    <item name="result_table_body_font_size" type="dimen">14sp</item>
+
+    <item name="result_table_column_count" type="integer">2</item>
+
+    <item name="result_table_header_first_column_start_margin" type="dimen">8dp</item>
+    <item name="result_table_header_second_column_start_margin" type="dimen">4dp</item>
+    <item name="result_table_header_first_column_end_margin" type="dimen">4dp</item>
+    <item name="result_table_header_second_column_end_margin" type="dimen">8dp</item>
+    <item name="result_table_first_default_column_start_margin" type="dimen">8dp</item>
+    <item name="result_table_second_default_column_start_margin" type="dimen">4dp</item>
+
+    <item name="result_table_default_column_end_margin" type="dimen">4dp</item>
+    <item name="result_table_zero_size" type="dimen">0dp</item>
+</resources>

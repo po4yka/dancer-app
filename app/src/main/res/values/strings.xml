@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name" translatable="false">Dancer</string>
+    <string name="app_name_debug" translatable="false">Dancer Debug</string>
+
+    <string name="work_in_progress">This is currently work in progress</string>
+    <string name="important_permission">This permission is really important for this app. Please grant the permission.</string>
+    <string name="ok">OK</string>
+    <string name="allow">"Allow"</string>
+    <string name="not_now">Not Now</string>
+    <string name="recognize_from_camera">Recognize from camera</string>
+    <string name="show_gallery_content">Show gallery content</string>
+    <string name="camera_permission_allow">Allow Permission to recognize dances shot on camera.</string>
+    <string name="nope">Nope</string>
+    <string name="permission_request">"Permission request"</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="permission_granted">It worked!</string>
+    <string name="feature_not_available">Feature not available</string>
+    <string name="can_not_work_with_no_camera">Unfortunately, a reduced functionality is available without a camera access permission</string>
+    <string name="can_not_work_with_no_gallery_access">Unfortunately, a reduced functionality is available without a gallery access permission</string>
+    <string name="camera_permission_request_text">You said you wanted a picture, so I\'m going to have to ask for permission.</string>
+    <string name="gallery_permission_request_text">To use pictures from the gallery, you need access to the repository.</string>
+    <string name="table_movement">Movement</string>
+    <string name="table_probability">Probability</string>
+    <string name="table_value">Value</string>
+
+    <string name="dab_left" translatable="false">dab_left</string>
+    <string name="dab_right" translatable="false">dab_right</string>
+    <string name="lottery_1" translatable="false">lottery_1</string>
+    <string name="lottery_2_right" translatable="false">lottery_2_right</string>
+    <string name="lottery_2_left" translatable="false">lottery_2_left</string>
+    <string name="say_so_1_left" translatable="false">say_so_1_left</string>
+    <string name="say_so_1_right" translatable="false">say_so_1_right</string>
+    <string name="say_so_2" translatable="false">say_so_2</string>
+    <string name="wap_1_left" translatable="false">wap_1_left</string>
+    <string name="wap_1_right" translatable="false">wap_1_right</string>
+    <string name="wap_2" translatable="false">wap_2</string>
+    <string name="wap_3_left" translatable="false">wap_3_left</string>
+    <string name="wap_3_right" translatable="false">wap_3_right</string>
+    <string name="wap_4_left" translatable="false">wap_4_left</string>
+    <string name="wap_4_right" translatable="false">wap_4_right</string>
+    <string name="recognition_mode">Recognition mode</string>
+    <string name="change_camera">Change lens</string>
+    <string name="remove_image">Remove image</string>
+    <string name="save_image">Save image</string>
+    <string name="captured_image">Captured image</string>
+</resources>
