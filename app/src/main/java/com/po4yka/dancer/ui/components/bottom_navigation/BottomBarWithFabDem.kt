@@ -4,6 +4,7 @@ import androidx.compose.material.FabPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -16,9 +17,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalPermissionsApi
 @Composable
 fun BottomBarWithFabDem(
-    externalRouters: Map<String, Router> = emptyMap(),
+    modifier: Modifier = Modifier,
+    externalRouters: Map<String, Router> = emptyMap()
 ) {
-    // Stored in memory NavHostController
+    // Stored in memory, NavHostController
     // Live through recompose and configuration changed cycle by rememberSaveable
     val navController = rememberNavController()
 
@@ -26,7 +28,7 @@ fun BottomBarWithFabDem(
 
     Scaffold(
         bottomBar = {
-            BottomBar(navController, bottomBarState)
+            BottomBar(navController, bottomBarState, modifier)
         },
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
@@ -34,6 +36,11 @@ fun BottomBarWithFabDem(
             NavigationFloatingButton(navController, bottomBarState)
         }
     ) {
-        MainScreenNavigation(navController, externalRouters, bottomBarState)
+        MainScreenNavigation(
+            navController = navController,
+            externalRouters = externalRouters,
+            bottomBarState = bottomBarState,
+            modifier = modifier
+        )
     }
 }

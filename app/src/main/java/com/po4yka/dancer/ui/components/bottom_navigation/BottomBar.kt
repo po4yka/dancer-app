@@ -29,7 +29,11 @@ import com.po4yka.dancer.ui.theme.Sky300
 import com.po4yka.dancer.ui.theme.SteelGray500
 
 @Composable
-fun BottomBar(navController: NavController, bottomBarState: MutableState<Boolean>) {
+fun BottomBar(
+    navController: NavController,
+    bottomBarState: MutableState<Boolean>,
+    modifier: Modifier = Modifier
+) {
 
     val navItems = listOf(
         NavScreen.Gallery,
@@ -42,7 +46,7 @@ fun BottomBar(navController: NavController, bottomBarState: MutableState<Boolean
         exit = slideOutVertically(targetOffsetY = { it }),
         content = {
             BottomAppBar(
-                modifier = Modifier
+                modifier = modifier
                     .height(65.dp)
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),

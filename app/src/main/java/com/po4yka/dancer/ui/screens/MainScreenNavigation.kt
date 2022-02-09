@@ -3,6 +3,7 @@ package com.po4yka.dancer.ui.screens
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,6 +19,7 @@ fun MainScreenNavigation(
     navController: NavHostController,
     externalRouters: Map<String, Router>,
     bottomBarState: MutableState<Boolean>,
+    modifier: Modifier = Modifier
 ) {
 
     NavHost(navController = navController, startDestination = NavScreen.Gallery.route) {
@@ -40,7 +42,7 @@ fun MainScreenNavigation(
             LaunchedEffect(Unit) {
                 bottomBarState.value = false
             }
-            CameraScreen()
+            CameraScreen(modifier = modifier)
         }
     }
 }

@@ -13,6 +13,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.po4yka.dancer.ui.root.RootViewModel
 import com.po4yka.dancer.ui.theme.DancerTheme
+import com.po4yka.dancer.ui.theme.SteelGray500
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -38,6 +39,10 @@ class MainActivity : ComponentActivity() {
                     SideEffect {
                         systemUiController.setSystemBarsColor(
                             Color.Transparent,
+                            darkIcons = false
+                        )
+                        systemUiController.setNavigationBarColor(
+                            SteelGray500,
                             darkIcons = false
                         )
                     }
