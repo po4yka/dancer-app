@@ -1,0 +1,51 @@
+package com.po4yka.dancer.navigation
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import com.po4yka.dancer.ui.theme.Azure100
+
+@Composable
+fun NavigationFloatingButton(navController: NavController, bottomBarState: MutableState<Boolean>) {
+    AnimatedVisibility(
+        visible = bottomBarState.value,
+        enter = slideInVertically(initialOffsetY = { it }),
+        exit = slideOutVertically(targetOffsetY = { it }),
+        content = {
+            FloatingActionButton(
+                shape = CircleShape,
+                onClick = {
+                    NavScreen.Camera.route.let {
+                        navController.navigate(it) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                    NavScreen.Camera.route.let { navController.navigate(it) }
+                },
+                backgroundColor = Azure100,
+                contentColor = Color.White
+            ) {
+                Icon(
+                    modifier = Modifier,
+                    painter = painterResource(id = NavScreen.Camera.iconId),
+                    contentDescription = NavScreen.Camera.contentDescription,
+                    tint = Color.White
+                )
+            }
+        }
+    )
+}

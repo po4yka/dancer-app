@@ -2,6 +2,7 @@ import Dependencies.AndroidX
 import Dependencies.Compose
 import Dependencies.Hilt
 import Dependencies.Kotlin
+import Dependencies.Lifecycle
 import Dependencies.Test
 import Dependencies.Utils
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
@@ -15,6 +16,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
     id("com.github.ben-manes.versions").version(Versions.gradleVersionsPlugin)
     id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
+    id("kotlin-parcelize")
 
     kotlin("kapt")
 }
@@ -78,7 +80,6 @@ dependencies {
     implementation(Kotlin.coroutines)
 
     implementation(Compose.composeUi)
-    implementation(Compose.composeActivity)
     implementation(Compose.composeUiTooling)
     implementation(Compose.composeFoundation)
     implementation(Compose.composeMaterial)
@@ -93,13 +94,20 @@ dependencies {
     androidTestImplementation(Hilt.hiltAndroidTesting)
     kaptAndroidTest(Hilt.hiltAndroidTestCompiler)
 
+    implementation(Lifecycle.composeActivity)
+    implementation(Lifecycle.composeViewModel)
+    implementation(Lifecycle.lifecycleKtx)
+
     implementation(AndroidX.camera2)
+    implementation(AndroidX.cameraVideo)
     implementation(AndroidX.cameraLifecycle)
     implementation(AndroidX.cameraView)
+    implementation(AndroidX.cameraExtensions)
 
     implementation(Utils.accompanistInsets)
     implementation(Utils.accompanistSystemUiController)
     implementation(Utils.accompanistPermission)
+    implementation(Utils.accompanistUi)
     implementation(Utils.timber)
 
     testImplementation(Test.junit)

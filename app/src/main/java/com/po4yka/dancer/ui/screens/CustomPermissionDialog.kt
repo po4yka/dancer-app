@@ -1,4 +1,4 @@
-package com.po4yka.dancer.ui.navigation
+package com.po4yka.dancer.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image

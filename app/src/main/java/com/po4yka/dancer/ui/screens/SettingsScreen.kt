@@ -1,4 +1,4 @@
-package com.po4yka.dancer.ui
+package com.po4yka.dancer.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +20,7 @@ import com.po4yka.dancer.R
 import com.po4yka.dancer.ui.theme.DancerTheme
 
 @Composable
-fun GalleryScreen(modifier: Modifier = Modifier) {
+fun SettingsScreen(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -37,7 +37,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
         )
         Spacer(Modifier.height(16.dp))
         Text(
-            text = "Here will be the gallery",
+            text = "Here will be the settings",
             style = MaterialTheme.typography.body2,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
@@ -48,8 +48,8 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
 @Preview("default")
 @Preview("large font", fontScale = 2f)
 @Composable
-fun GalleryScreenPreview() {
+fun SettingsScreenPreview() {
     DancerTheme {
-        GalleryScreen()
+        SettingsScreen()
     }
 }

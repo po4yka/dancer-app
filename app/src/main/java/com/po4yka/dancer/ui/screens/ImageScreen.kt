@@ -1,4 +1,4 @@
-package com.po4yka.dancer.ui
+package com.po4yka.dancer.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,10 +17,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.po4yka.dancer.R
+import com.po4yka.dancer.models.ImageModel
 import com.po4yka.dancer.ui.theme.DancerTheme
 
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
+fun ImageScreen(model: ImageModel, modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -37,7 +38,7 @@ fun SettingsScreen(modifier: Modifier = Modifier) {
         )
         Spacer(Modifier.height(16.dp))
         Text(
-            text = "Here will be the settings",
+            text = "Here will be image information",
             style = MaterialTheme.typography.body2,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
@@ -48,8 +49,8 @@ fun SettingsScreen(modifier: Modifier = Modifier) {
 @Preview("default")
 @Preview("large font", fontScale = 2f)
 @Composable
-fun SettingsScreenPreview() {
+fun ImageScreenPreview() {
     DancerTheme {
-        GalleryScreen()
+        ImageScreen(ImageModel())
     }
 }
