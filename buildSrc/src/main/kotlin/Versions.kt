@@ -7,17 +7,17 @@ object Versions {
     const val appCompat = "1.4.1"
     const val coreKtx = "1.7.0"
     const val material = "1.5.0"
-    const val startup = "1.1.0"
+    const val startup = "1.1.1"
 
     /* COMPOSE */
-    const val compose = "1.1.0-rc03"
-    const val composeCompiler = "1.1.0-rc03"
-    const val composeNavigation = "2.4.0"
+    const val compose = "1.1.0"
+    const val composeCompiler = "1.1.0"
+    const val composeNavigation = "2.4.1"
     const val constraintLayout = "2.1.3"
 
     /* LIFECYCLE */
     const val composeActivity = "1.4.0"
-    const val lifecycle = "2.5.0-alpha01"
+    const val lifecycle = "2.5.0-alpha02"
 
     /* HILT */
     const val hiltCoreVersion = "2.40.5"
@@ -42,6 +42,6 @@ object Versions {
     const val JLLeitschuhKtlintGradle = "10.2.1"
     const val detekt = "1.19.0"
 
-    const val accompanist = "0.22.1-rc"
+    const val accompanist = "0.23.0"
     const val timber = "5.0.1"
 }
