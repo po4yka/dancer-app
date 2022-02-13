@@ -1,7 +1,7 @@
 package com.po4yka.dancer.models
 
 import android.os.Parcelable
-import java.util.*
+import java.util.UUID
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

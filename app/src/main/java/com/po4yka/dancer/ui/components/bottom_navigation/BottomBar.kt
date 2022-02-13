@@ -8,13 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,7 +26,7 @@ import com.po4yka.dancer.ui.theme.SteelGray500
 @Composable
 fun BottomBar(
     navController: NavController,
-    bottomBarState: MutableState<Boolean>,
+    isVisible: Boolean,
     modifier: Modifier = Modifier
 ) {
 
@@ -41,7 +36,7 @@ fun BottomBar(
     )
 
     AnimatedVisibility(
-        visible = bottomBarState.value,
+        visible = isVisible,
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
         content = {

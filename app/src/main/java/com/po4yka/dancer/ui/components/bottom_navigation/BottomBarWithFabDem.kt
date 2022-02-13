@@ -2,8 +2,10 @@ package com.po4yka.dancer.ui.components.bottom_navigation
 
 import androidx.compose.material.FabPosition
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ui.Scaffold
@@ -21,10 +23,10 @@ fun BottomBarWithFabDem(
     externalRouters: Map<String, Router> = emptyMap()
 ) {
     // Stored in memory, NavHostController
-    // Live through recompose and configuration changed cycle by rememberSaveable
+    // Live through recompose and configuration changed cycle by rememberSavable
     val navController = rememberNavController()
 
-    val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+    var bottomBarState by rememberSaveable { (mutableStateOf(true)) }
 
     Scaffold(
         bottomBar = {
@@ -39,7 +41,7 @@ fun BottomBarWithFabDem(
         MainScreenNavigation(
             navController = navController,
             externalRouters = externalRouters,
-            bottomBarState = bottomBarState,
+            onBottomBarStateChanged = { isVisible -> bottomBarState = isVisible },
             modifier = modifier
         )
     }

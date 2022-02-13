@@ -6,3 +6,10 @@
 ![Language](https://img.shields.io/github/languages/top/po4yka/dancer-app?color=blue&logo=kotlin)
 
 > It's a part of bsc final undergraduate paper
+
+## Used Articles
+
+### Navigation
+
+- [Mobile Development YouTube channel and examples](https://www.youtube.com/playlist?list=PL_RkZ4J60MDn4y00uF4sslWUdYMHEDM_6)
+

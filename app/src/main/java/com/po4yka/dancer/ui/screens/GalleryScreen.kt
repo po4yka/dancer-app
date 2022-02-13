@@ -23,7 +23,11 @@ import com.po4yka.dancer.navigation.Router
 import com.po4yka.dancer.ui.theme.DancerTheme
 
 @Composable
-fun GalleryScreen(navController: NavController, router: Router?, modifier: Modifier = Modifier) {
+fun GalleryScreen(
+    @Suppress("UNUSED_PARAMETER") navController: NavController,
+    @Suppress("UNUSED_PARAMETER") router: Router?,
+    modifier: Modifier = Modifier
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier

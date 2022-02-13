@@ -7,7 +7,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -16,9 +15,13 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.po4yka.dancer.ui.theme.Azure100
 
 @Composable
-fun NavigationFloatingButton(navController: NavController, bottomBarState: MutableState<Boolean>) {
+fun NavigationFloatingButton(
+    navController: NavController,
+    isVisible: Boolean,
+    modifier: Modifier = Modifier
+) {
     AnimatedVisibility(
-        visible = bottomBarState.value,
+        visible = isVisible,
         enter = slideInVertically(initialOffsetY = { it }),
         exit = slideOutVertically(targetOffsetY = { it }),
         content = {
@@ -37,7 +40,8 @@ fun NavigationFloatingButton(navController: NavController, bottomBarState: Mutab
                     NavScreen.Camera.route.let { navController.navigate(it) }
                 },
                 backgroundColor = Azure100,
-                contentColor = Color.White
+                contentColor = Color.White,
+                modifier = modifier
             ) {
                 Icon(
                     modifier = Modifier,

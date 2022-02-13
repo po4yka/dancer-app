@@ -21,7 +21,7 @@ import com.po4yka.dancer.models.ImageModel
 import com.po4yka.dancer.ui.theme.DancerTheme
 
 @Composable
-fun ImageScreen(model: ImageModel, modifier: Modifier = Modifier) {
+fun ImageScreen(@Suppress("UNUSED_PARAMETER") model: ImageModel, modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier

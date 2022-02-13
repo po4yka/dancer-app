@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
@@ -35,15 +36,16 @@ class MainActivity : ComponentActivity() {
             CompositionLocalProvider {
                 DancerTheme {
                     val systemUiController = rememberSystemUiController()
+                    val useDarkIcons = MaterialTheme.colors.isLight
 
                     SideEffect {
                         systemUiController.setSystemBarsColor(
                             Color.Transparent,
-                            darkIcons = false
+                            darkIcons = useDarkIcons
                         )
                         systemUiController.setNavigationBarColor(
                             SteelGray500,
-                            darkIcons = false
+                            darkIcons = useDarkIcons
                         )
                     }
 

@@ -34,6 +34,8 @@ object Dependencies {
         const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
         const val composeCompiler = "androidx.compose.compiler:compiler:${Versions.composeCompiler}"
 
+        const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
+
         // Tooling support (Previews, etc.)
         const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
 

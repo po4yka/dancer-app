@@ -11,6 +11,9 @@ fun createExternalRouter(block: (String, Bundle) -> Unit): Router = object : Rou
 
 interface Router {
     fun routeTo(screen: String, params: Bundle = bundleOf()) {
-        throw NotImplementedError(message = "You used router, but didn't implemented it for screen $screen with params $params")
+        throw NotImplementedError(
+            message =
+            "You used router, but didn't implemented it for screen $screen with params $params"
+        )
     }
 }
