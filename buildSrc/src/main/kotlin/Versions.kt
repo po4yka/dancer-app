@@ -20,7 +20,7 @@ object Versions {
     const val lifecycle = "2.5.0-alpha02"
 
     /* HILT */
-    const val hiltCoreVersion = "2.40.5"
+    const val hiltCoreVersion = "2.41"
     const val hiltVersion = "1.0.0"
     const val hiltComposeNavigation = "1.0.0"
     const val hiltGradlePlugin = "2.38.1"

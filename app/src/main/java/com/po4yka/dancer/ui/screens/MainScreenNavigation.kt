@@ -28,14 +28,15 @@ fun MainScreenNavigation(
             }
             GalleryScreen(
                 navController = navController,
-                router = externalRouters[route]
+                router = externalRouters[route],
+                modifier = modifier
             )
         }
         composable(NavScreen.Settings.route) {
             LaunchedEffect(Unit) {
                 onBottomBarStateChanged.invoke(true)
             }
-            SettingsScreen()
+            SettingsScreen(modifier = modifier)
         }
         composable(NavScreen.Camera.route) {
             LaunchedEffect(Unit) {

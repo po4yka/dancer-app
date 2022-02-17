@@ -1,6 +1,7 @@
 package com.po4yka.dancer.navigation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.shape.CircleShape
@@ -23,7 +24,7 @@ fun NavigationFloatingButton(
     AnimatedVisibility(
         visible = isVisible,
         enter = slideInVertically(initialOffsetY = { it }),
-        exit = slideOutVertically(targetOffsetY = { it }),
+        exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(),
         content = {
             FloatingActionButton(
                 shape = CircleShape,
@@ -37,7 +38,6 @@ fun NavigationFloatingButton(
                             restoreState = true
                         }
                     }
-                    NavScreen.Camera.route.let { navController.navigate(it) }
                 },
                 backgroundColor = Azure100,
                 contentColor = Color.White,

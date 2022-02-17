@@ -29,6 +29,8 @@ fun MainScreen() {
 
             NavHost(navController = navController, startDestination = NavScreen.Main.route) {
                 composable(NavScreen.Main.route) {
+                    // Set external roads, mostly for nested navigation.
+                    // For example: from Gallery screen to the image info screen.
                     val routeExternalRoad =
                         NavScreen.Gallery.route to createExternalRouter { screen, params ->
                             navController.navigate(screen, params)

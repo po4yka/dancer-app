@@ -15,9 +15,9 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 suspend fun Context.getCameraProvider(): ProcessCameraProvider = suspendCoroutine { continuation ->
-    ProcessCameraProvider.getInstance(this).also { future ->
-        future.addListener({
-            continuation.resume(future.get())
+    ProcessCameraProvider.getInstance(this).also { cameraProvider ->
+        cameraProvider.addListener({
+            continuation.resume(cameraProvider.get())
         }, executor)
     }
 }
