@@ -1,4 +1,4 @@
-package com.po4yka.dancer.ui.components.bottom_navigation
+package com.po4yka.dancer.ui.components.bottomnav
 
 import androidx.compose.material.FabPosition
 import androidx.compose.runtime.Composable

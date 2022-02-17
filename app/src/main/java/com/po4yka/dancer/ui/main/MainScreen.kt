@@ -14,7 +14,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.navigation.NavScreen
 import com.po4yka.dancer.navigation.createExternalRouter
 import com.po4yka.dancer.navigation.navigate
-import com.po4yka.dancer.ui.components.bottom_navigation.BottomBarWithFabDem
+import com.po4yka.dancer.ui.components.bottomnav.BottomBarWithFabDem
 import com.po4yka.dancer.ui.theme.DancerTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

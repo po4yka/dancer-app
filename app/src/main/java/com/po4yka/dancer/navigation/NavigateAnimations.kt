@@ -22,7 +22,8 @@ fun PresentModal(content: @Composable () -> Unit) {
         }
             .apply { targetState = true },
         modifier = Modifier,
-        enter = slideInVertically(initialOffsetY = { 50 }) + fadeIn(initialAlpha = 0.3f),
+        enter = slideInVertically(initialOffsetY = { NavigateAnimations.initialOffset }) +
+            fadeIn(initialAlpha = NavigateAnimations.initialAlpha),
         exit = slideOutVertically() + fadeOut()
     ) {
         content()
@@ -45,4 +46,9 @@ fun PresentNested(content: @Composable () -> Unit) {
     ) {
         content()
     }
+}
+
+private object NavigateAnimations {
+    const val initialOffset = 50
+    const val initialAlpha = 0.3f
 }

@@ -85,14 +85,19 @@ fun CameraScreen(
             }
             LaunchedEffect(previewUseCase) {
                 val cameraProvider = context.getCameraProvider()
+                val printFailedCamera: (ex: Exception) -> Unit = { ex: Exception ->
+                    Timber.e(ex, "Failed to bind camera use cases")
+                }
                 try {
                     // Must unbind the use-cases before rebinding them.
                     cameraProvider.unbindAll()
                     cameraProvider.bindToLifecycle(
                         lifecycleOwner, cameraSelector, previewUseCase, imageCaptureUseCase
                     )
-                } catch (ex: Exception) {
-                    Timber.e(ex, "Failed to bind camera use cases")
+                } catch (ex: IllegalStateException) {
+                    printFailedCamera(ex)
+                } catch (ex: IllegalArgumentException) {
+                    printFailedCamera(ex)
                 }
             }
         }
