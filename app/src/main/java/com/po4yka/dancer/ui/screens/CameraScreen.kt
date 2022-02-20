@@ -30,6 +30,7 @@ import com.po4yka.dancer.ui.components.camera.CameraControls
 import com.po4yka.dancer.ui.components.camera.CameraPreview
 import com.po4yka.dancer.utils.executor
 import com.po4yka.dancer.utils.getCameraProvider
+import com.po4yka.dancer.utils.switchLens
 import com.po4yka.dancer.utils.takePicture
 import java.io.File
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,7 +42,6 @@ import timber.log.Timber
 @Composable
 fun CameraScreen(
     modifier: Modifier = Modifier,
-    cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA,
     onImageFile: (File) -> Unit = { },
 ) {
     val context = LocalContext.current
@@ -58,6 +58,7 @@ fun CameraScreen(
             val lifecycleOwner = LocalLifecycleOwner.current
             val coroutineScope = rememberCoroutineScope()
             var previewUseCase by remember { mutableStateOf<UseCase>(Preview.Builder().build()) }
+            var cameraLens by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK) }
             val imageCaptureUseCase by remember {
                 mutableStateOf(
                     ImageCapture.Builder()
@@ -80,12 +81,15 @@ fun CameraScreen(
                             onImageFile(imageCaptureUseCase.takePicture(context.executor))
                         }
                     },
-                    onLensChangeClicked = {}, // TODO: pass correct value
+                    onLensChangeClicked = {
+                        cameraLens = switchLens(cameraLens)
+                    },
                     onRecognitionModeSwitchClicked = {} // TODO: pass correct value
                 )
             }
-            LaunchedEffect(previewUseCase) {
+            LaunchedEffect(previewUseCase, cameraLens) {
                 val cameraProvider = context.getCameraProvider()
+                val cameraSelector = CameraSelector.Builder().requireLensFacing(cameraLens).build()
                 val printFailedCamera: (ex: Exception) -> Unit = { ex: Exception ->
                     Timber.e(ex, "Failed to bind camera use cases")
                 }
