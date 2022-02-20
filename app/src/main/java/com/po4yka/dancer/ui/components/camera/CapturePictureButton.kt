@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.po4yka.dancer.ui.theme.SteelGray150
 
 @Composable
 fun CapturePictureButton(
@@ -28,14 +29,18 @@ fun CapturePictureButton(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed by interactionSource.collectIsPressedAsState()
-    val color = if (isPressed) Color.Blue else Color.Black
+    val accentColor = if (isPressed) SteelGray150 else Color.White
     val contentPadding = PaddingValues(if (isPressed) 8.dp else 12.dp)
+
     OutlinedButton(
         modifier = modifier,
         shape = CircleShape,
-        border = BorderStroke(2.dp, Color.Black),
+        border = BorderStroke(2.dp, accentColor),
         contentPadding = contentPadding,
-        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Black),
+        colors = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color.Transparent,
+            contentColor = SteelGray150
+        ),
         onClick = { /* GNDN */ },
         enabled = false
     ) {
@@ -44,7 +49,7 @@ fun CapturePictureButton(
                 .fillMaxSize(),
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = color
+                backgroundColor = accentColor
             ),
             interactionSource = interactionSource,
             onClick = onClick
@@ -60,7 +65,8 @@ fun PreviewCapturePictureButton() {
     Scaffold(
         modifier = Modifier
             .size(125.dp)
-            .wrapContentSize()
+            .wrapContentSize(),
+        backgroundColor = Color.Gray
     ) { innerPadding ->
         CapturePictureButton(
             modifier = Modifier

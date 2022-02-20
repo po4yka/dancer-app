@@ -6,8 +6,9 @@ import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,8 +26,8 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.R
 import com.po4yka.dancer.ui.components.Permission
 import com.po4yka.dancer.ui.components.PermissionNotAvailable
+import com.po4yka.dancer.ui.components.camera.CameraControls
 import com.po4yka.dancer.ui.components.camera.CameraPreview
-import com.po4yka.dancer.ui.components.camera.CapturePictureButton
 import com.po4yka.dancer.utils.executor
 import com.po4yka.dancer.utils.getCameraProvider
 import com.po4yka.dancer.utils.takePicture
@@ -53,7 +54,7 @@ fun CameraScreen(
             PermissionNotAvailable()
         }
     ) {
-        Box(modifier = modifier) {
+        Box {
             val lifecycleOwner = LocalLifecycleOwner.current
             val coroutineScope = rememberCoroutineScope()
             var previewUseCase by remember { mutableStateOf<UseCase>(Preview.Builder().build()) }
@@ -71,16 +72,16 @@ fun CameraScreen(
                         previewUseCase = it
                     }
                 )
-                CapturePictureButton(
-                    modifier = Modifier
-                        .size(100.dp)
-                        .padding(16.dp)
+                CameraControls(
+                    modifier = modifier
                         .align(Alignment.BottomCenter),
-                    onClick = {
+                    onCaptureClicked = {
                         coroutineScope.launch {
                             onImageFile(imageCaptureUseCase.takePicture(context.executor))
                         }
-                    }
+                    },
+                    onLensChangeClicked = {}, // TODO: pass correct value
+                    onRecognitionModeSwitchClicked = {} // TODO: pass correct value
                 )
             }
             LaunchedEffect(previewUseCase) {
@@ -102,4 +103,16 @@ fun CameraScreen(
             }
         }
     }
+}
+
+@ExperimentalPermissionsApi
+@ExperimentalCoroutinesApi
+@androidx.compose.ui.tooling.preview.Preview
+@Composable
+fun CameraScreenPreview() {
+    Scaffold(
+        modifier = Modifier
+            .size(125.dp)
+            .wrapContentSize()
+    ) { CameraScreen() }
 }

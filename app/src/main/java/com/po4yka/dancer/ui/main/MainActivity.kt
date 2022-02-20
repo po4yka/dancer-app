@@ -5,11 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.po4yka.dancer.ui.root.RootViewModel
@@ -34,22 +37,43 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             CompositionLocalProvider {
-                DancerTheme {
-                    val systemUiController = rememberSystemUiController()
-                    val useDarkIcons = MaterialTheme.colors.isLight
+                ProvideWindowInsets {
+                    DancerTheme {
+                        val systemUiController = rememberSystemUiController()
+                        val useDarkIcons = MaterialTheme.colors.isLight
+                        // TODO: change to `MaterialTheme.colors.primaryVariant` after theming setup
+                        val originalNavBarColor = SteelGray500
+                        val setDefaultNavBarColor = {
+                            systemUiController.setNavigationBarColor(
+                                color = originalNavBarColor,
+                                darkIcons = useDarkIcons
+                            )
+                        }
+                        val setCustomNavBarColor =
+                            { newColor: Color, forcedUseDarkIcons: Boolean? ->
+                                systemUiController.setNavigationBarColor(
+                                    color = newColor,
+                                    darkIcons = forcedUseDarkIcons ?: !useDarkIcons
+                                )
+                            }
 
-                    SideEffect {
-                        systemUiController.setSystemBarsColor(
-                            Color.Transparent,
-                            darkIcons = useDarkIcons
-                        )
-                        systemUiController.setNavigationBarColor(
-                            SteelGray500,
-                            darkIcons = useDarkIcons
+                        SideEffect {
+                            systemUiController.setStatusBarColor(
+                                color = Color.Transparent,
+                                darkIcons = useDarkIcons
+                            )
+                            systemUiController.setNavigationBarColor(
+                                originalNavBarColor,
+                                darkIcons = useDarkIcons
+                            )
+                        }
+
+                        MainScreen(
+                            onNavBarColorChange = setCustomNavBarColor,
+                            setDefaultNavBarColor = setDefaultNavBarColor,
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
-
-                    MainScreen()
                 }
             }
         }
