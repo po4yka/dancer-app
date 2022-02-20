@@ -25,7 +25,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionRequired
 import com.google.accompanist.permissions.rememberPermissionState
 import com.po4yka.dancer.R
-import com.po4yka.dancer.ui.navigation.CustomPermissionDialog
+import com.po4yka.dancer.ui.screens.CustomPermissionDialog
 
 @ExperimentalPermissionsApi
 @Composable
@@ -44,8 +44,7 @@ fun Permission(
 
     when {
         permissionState.hasPermission -> {
-            // TODO: handle camera open
-            Text("Permission Granted")
+            content()
         }
         permissionState.shouldShowRationale || !permissionState.permissionRequested -> {
             if (doNotShowRationale.value) {

@@ -14,4 +14,6 @@
     <string name="feature_not_available">Feature not available</string>
     <string name="can_not_work_with_no_camera">Unfortunately, a reduced functionality is available without a camera</string>
     <string name="camera_permission_request_text">You said you wanted a picture, so I\'m going to have to ask for permission.</string>
+    <string name="change_camera">Сменить камеру</string>
+    <string name="recognition_mode">Режим распознавания</string>
 </resources>

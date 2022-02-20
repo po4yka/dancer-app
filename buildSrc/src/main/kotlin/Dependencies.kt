@@ -13,15 +13,28 @@ object Dependencies {
         const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
         const val material = "com.google.android.material:material:${Versions.material}"
 
+        const val startup = "androidx.startup:startup-runtime:${Versions.startup}"
+
         const val camera2 = "androidx.camera:camera-camera2:${Versions.camera}"
+        const val cameraVideo = "androidx.camera:camera-video:${Versions.cameraViewAndVideo}"
         const val cameraLifecycle = "androidx.camera:camera-lifecycle:${Versions.camera}"
-        const val cameraView = "androidx.camera:camera-view:${Versions.cameraView}"
+        const val cameraView = "androidx.camera:camera-view:${Versions.cameraViewAndVideo}"
+        const val cameraExtensions =
+            "androidx.camera:camera-extensions:${Versions.cameraViewAndVideo}"
+    }
+
+    object Lifecycle {
+        const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
+        const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
+        const val composeViewModel =
+            "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycle}"
     }
 
     object Compose {
         const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
-        const val composeActivity = "androidx.activity:activity-compose:${Versions.composeActivity}"
         const val composeCompiler = "androidx.compose.compiler:compiler:${Versions.composeCompiler}"
+
+        const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
 
         // Tooling support (Previews, etc.)
         const val composeUiTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
@@ -41,14 +54,18 @@ object Dependencies {
         // Compose navigation
         const val composeNavigation =
             "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
+    }
 
-        // Utils from Google
-        const val accompanistInsets =
-            "com.google.accompanist:accompanist-insets:${Versions.accompanist}"
-        const val accompanistSystemUiController =
-            "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
-        const val accompanistPermission =
-            "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
+    object Hilt {
+        const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltCoreVersion}"
+        const val hiltNavigationCompose =
+            "androidx.hilt:hilt-navigation-compose:${Versions.hiltComposeNavigation}"
+        const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hiltCoreVersion}"
+        const val hiltAndroidxCompiler = "androidx.hilt:hilt-compiler:${Versions.hiltVersion}"
+        const val hiltAndroidTesting =
+            "com.google.dagger:hilt-android-testing:${Versions.hiltCoreVersion}"
+        const val hiltAndroidTestCompiler =
+            "com.google.dagger:hilt-compiler:${Versions.hiltCoreVersion}"
     }
 
     object Test {
@@ -69,5 +86,19 @@ object Dependencies {
     object Ktlint {
         const val pluginName = "org.jlleitschuh.gradle.ktlint"
         const val gitHook = "plugins.git-hook"
+    }
+
+    object Utils {
+        const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+
+        // Accompanist stuff
+        const val accompanistInsets =
+            "com.google.accompanist:accompanist-insets:${Versions.accompanist}"
+        const val accompanistSystemUiController =
+            "com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}"
+        const val accompanistPermission =
+            "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
+        const val accompanistUi =
+            "com.google.accompanist:accompanist-insets-ui:${Versions.accompanist}"
     }
 }

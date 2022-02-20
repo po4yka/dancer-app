@@ -1,4 +1,4 @@
-package com.po4yka.dancer.ui
+package com.po4yka.dancer.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,11 +16,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.po4yka.dancer.R
+import com.po4yka.dancer.navigation.Router
 import com.po4yka.dancer.ui.theme.DancerTheme
 
 @Composable
-fun GalleryScreen(modifier: Modifier = Modifier) {
+fun GalleryScreen(
+    @Suppress("UNUSED_PARAMETER") navController: NavController,
+    @Suppress("UNUSED_PARAMETER") router: Router?,
+    modifier: Modifier = Modifier
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -50,6 +57,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
 @Composable
 fun GalleryScreenPreview() {
     DancerTheme {
-        GalleryScreen()
+        val navController = rememberNavController()
+        GalleryScreen(navController, null)
     }
 }
