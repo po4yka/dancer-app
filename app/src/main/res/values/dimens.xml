@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="result_table_header_cell_width" type="dimen">60dp</item>
+    <item name="result_table_body_cell_width" type="dimen">50dp</item>
+    <item name="result_table_header_font_size" type="dimen">8sp</item>
+</resources>
