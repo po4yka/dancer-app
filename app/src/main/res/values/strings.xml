@@ -16,4 +16,22 @@
     <string name="camera_permission_request_text">You said you wanted a picture, so I\'m going to have to ask for permission.</string>
     <string name="change_camera">Сменить камеру</string>
     <string name="recognition_mode">Режим распознавания</string>
+    <string name="table_movement">Movement</string>
+    <string name="table_probability">Probability</string>
+
+    <string name="movement_dab_left" translatable="false">dab_left</string>
+    <string name="movement_dab_right" translatable="false">dab_right</string>
+    <string name="movement_lottery_1" translatable="false">lottery_1</string>
+    <string name="movement_lottery_2_right" translatable="false">lottery_2_right</string>
+    <string name="movement_lottery_2_left" translatable="false">lottery_2_left</string>
+    <string name="movement_say_so_1_left" translatable="false">say_so_1_left</string>
+    <string name="movement_say_so_1_right" translatable="false">say_so_1_right</string>
+    <string name="movement_say_so_2" translatable="false">say_so_2</string>
+    <string name="movement_wap_1_left" translatable="false">wap_1_left</string>
+    <string name="movement_wap_1_right" translatable="false">wap_1_right</string>
+    <string name="movement_wap_2" translatable="false">wap_2</string>
+    <string name="movement_wap_3_left" translatable="false">wap_3_left</string>
+    <string name="movement_wap_3_right" translatable="false">wap_3_right</string>
+    <string name="movement_wap_4_left" translatable="false">wap_4_left</string>
+    <string name="movement_wap_4_right" translatable="false">wap_4_right</string>
 </resources>
