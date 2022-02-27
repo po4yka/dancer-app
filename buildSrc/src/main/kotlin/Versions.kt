@@ -1,7 +1,7 @@
 object Versions {
 
-    const val gradle = "7.1.1"
-    const val kotlin = "1.6.10"
+    const val gradle = "7.1.2"
+    const val kotlin = "1.6.20-RC"
     const val kotlinCoroutines = "1.6.0"
 
     const val appCompat = "1.4.1"
@@ -10,14 +10,14 @@ object Versions {
     const val startup = "1.1.1"
 
     /* COMPOSE */
-    const val compose = "1.1.0"
-    const val composeCompiler = "1.1.0"
+    const val compose = "1.1.1"
+    const val composeCompiler = "1.1.1"
     const val composeNavigation = "2.4.1"
     const val constraintLayout = "2.1.3"
 
     /* LIFECYCLE */
     const val composeActivity = "1.4.0"
-    const val lifecycle = "2.5.0-alpha02"
+    const val lifecycle = "2.5.0-alpha03"
 
     /* HILT */
     const val hiltCoreVersion = "2.41"
@@ -27,7 +27,7 @@ object Versions {
 
     /* CAMERA 2 */
     const val camera = "1.0.2"
-    const val cameraViewAndVideo = "1.1.0-beta01"
+    const val cameraViewAndVideo = "1.1.0-beta02"
 
     /* TESTING */
     const val junit = "4.13.2"
@@ -42,6 +42,6 @@ object Versions {
     const val JLLeitschuhKtlintGradle = "10.2.1"
     const val detekt = "1.19.0"
 
-    const val accompanist = "0.23.0"
+    const val accompanist = "0.23.1"
     const val timber = "5.0.1"
 }
