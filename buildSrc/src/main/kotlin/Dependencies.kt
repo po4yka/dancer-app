@@ -91,6 +91,9 @@ object Dependencies {
     object Utils {
         const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
+        const val detektFormatting =
+            "io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detekt}"
+
         // Accompanist stuff
         const val accompanistInsets =
             "com.google.accompanist:accompanist-insets:${Versions.accompanist}"

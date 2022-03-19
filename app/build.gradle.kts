@@ -111,6 +111,8 @@ dependencies {
     implementation(Utils.accompanistUi)
     implementation(Utils.timber)
 
+    detektPlugins(Utils.detektFormatting)
+
     testImplementation(Test.junit)
     testImplementation(Test.extJUnit)
 
@@ -166,6 +168,7 @@ detekt {
     config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
     buildUponDefaultConfig = true // preconfigure defaults
     allRules = false // activate all available (even unstable) rules.
+    autoCorrect = true
 }
 
 tasks.withType<Detekt>().configureEach {
