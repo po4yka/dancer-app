@@ -1,7 +1,7 @@
 object Versions {
 
     const val gradle = "7.1.2"
-    const val kotlin = "1.6.20-RC"
+    const val kotlin = "1.6.10"
     const val kotlinCoroutines = "1.6.0"
 
     const val appCompat = "1.4.1"
