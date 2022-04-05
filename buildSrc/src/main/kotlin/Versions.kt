@@ -1,8 +1,8 @@
 object Versions {
 
     const val gradle = "7.1.2"
-    const val kotlin = "1.6.10"
-    const val kotlinCoroutines = "1.6.0"
+    const val kotlin = "1.6.20"
+    const val kotlinCoroutines = "1.6.1"
 
     const val appCompat = "1.4.1"
     const val coreKtx = "1.7.0"
@@ -17,7 +17,7 @@ object Versions {
 
     /* LIFECYCLE */
     const val composeActivity = "1.4.0"
-    const val lifecycle = "2.5.0-alpha04"
+    const val lifecycle = "2.5.0-alpha05"
 
     /* HILT */
     const val hiltCoreVersion = "2.41"
@@ -40,7 +40,7 @@ object Versions {
     /* UTILS */
     const val gradleVersionsPlugin = "0.42.0"
     const val JLLeitschuhKtlintGradle = "10.2.1"
-    const val detekt = "1.20.0-RC1"
+    const val detekt = "1.20.0-RC2"
 
     const val accompanist = "0.23.1"
     const val timber = "5.0.1"
