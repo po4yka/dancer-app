@@ -56,6 +56,11 @@ object Dependencies {
             "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
     }
 
+    object TensorFlow {
+        const val vision = "org.tensorflow:tensorflow-lite-task-vision:${Versions.tensorFlow}"
+        const val support = "org.tensorflow:tensorflow-lite-support:${Versions.tensorFlow}"
+    }
+
     object Hilt {
         const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltCoreVersion}"
         const val hiltNavigationCompose =

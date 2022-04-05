@@ -1,7 +1,7 @@
 object Versions {
 
     const val gradle = "7.1.2"
-    const val kotlin = "1.6.20"
+    const val kotlin = "1.6.10"
     const val kotlinCoroutines = "1.6.1"
 
     const val appCompat = "1.4.1"
@@ -18,6 +18,9 @@ object Versions {
     /* LIFECYCLE */
     const val composeActivity = "1.4.0"
     const val lifecycle = "2.5.0-alpha05"
+
+    /* TensorFlow */
+    const val tensorFlow = "0.3.1"
 
     /* HILT */
     const val hiltCoreVersion = "2.41"

@@ -3,6 +3,7 @@ import Dependencies.Compose
 import Dependencies.Hilt
 import Dependencies.Kotlin
 import Dependencies.Lifecycle
+import Dependencies.TensorFlow
 import Dependencies.Test
 import Dependencies.Utils
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
@@ -104,6 +105,9 @@ dependencies {
     implementation(AndroidX.cameraLifecycle)
     implementation(AndroidX.cameraView)
     implementation(AndroidX.cameraExtensions)
+
+    implementation(TensorFlow.vision)
+    implementation(TensorFlow.support)
 
     implementation(Utils.accompanistInsets)
     implementation(Utils.accompanistSystemUiController)
