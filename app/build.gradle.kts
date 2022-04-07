@@ -63,10 +63,15 @@ android {
 
     buildFeatures {
         compose = true
+        mlModelBinding = true
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
+    }
+
+    androidResources {
+        noCompress.add("tflite")
     }
 }
 
@@ -106,6 +111,8 @@ dependencies {
     implementation(AndroidX.cameraView)
     implementation(AndroidX.cameraExtensions)
 
+    implementation(TensorFlow.metadata)
+    implementation(TensorFlow.gpu)
     implementation(TensorFlow.vision)
     implementation(TensorFlow.support)
 

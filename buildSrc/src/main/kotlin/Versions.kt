@@ -6,21 +6,27 @@ object Versions {
 
     const val appCompat = "1.4.1"
     const val coreKtx = "1.7.0"
+    const val paging = "3.1.1"
+    const val pagingCompose = "1.0.0-alpha14"
     const val material = "1.5.0"
     const val startup = "1.1.1"
+
+    const val coil = "1.4.0"
 
     /* COMPOSE */
     const val compose = "1.1.1"
     const val composeCompiler = "1.1.1"
-    const val composeNavigation = "2.4.1"
+    const val composeNavigation = "2.4.2"
     const val constraintLayout = "2.1.3"
 
     /* LIFECYCLE */
     const val composeActivity = "1.4.0"
-    const val lifecycle = "2.5.0-alpha05"
+    const val lifecycle = "2.5.0-alpha06"
 
     /* TensorFlow */
     const val tensorFlow = "0.3.1"
+    const val tensorflowMetadata = "0.3.1"
+    const val tensorflowGpu = "2.8.0"
 
     /* HILT */
     const val hiltCoreVersion = "2.41"
@@ -30,7 +36,7 @@ object Versions {
 
     /* CAMERA 2 */
     const val camera = "1.0.2"
-    const val cameraViewAndVideo = "1.1.0-beta02"
+    const val cameraViewAndVideo = "1.1.0-beta03"
 
     /* TESTING */
     const val junit = "4.13.2"

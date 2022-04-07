@@ -276,7 +276,7 @@ formatting:
   ImportOrdering:
     active: false
     autoCorrect: true
-    layout: '*,java.**,javax.**,kotlin.**,^'
+    layout: '*,kotlin.**,javax.**,kotlin.**,^'
   Indentation:
     active: false
     autoCorrect: true
@@ -743,4 +743,4 @@ style:
   WildcardImport:
     active: true
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
-    excludeImports: [ 'java.util.*', 'kotlinx.android.synthetic.*' ]
+    excludeImports: [ 'kotlin.util.*', 'kotlinx.android.synthetic.*' ]

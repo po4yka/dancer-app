@@ -57,6 +57,9 @@ object Dependencies {
     }
 
     object TensorFlow {
+        const val metadata =
+            "org.tensorflow:tensorflow-lite-metadata:${Versions.tensorflowMetadata}"
+        const val gpu = "org.tensorflow:tensorflow-lite-gpu:${Versions.tensorflowGpu}"
         const val vision = "org.tensorflow:tensorflow-lite-task-vision:${Versions.tensorFlow}"
         const val support = "org.tensorflow:tensorflow-lite-support:${Versions.tensorFlow}"
     }
@@ -71,6 +74,10 @@ object Dependencies {
             "com.google.dagger:hilt-android-testing:${Versions.hiltCoreVersion}"
         const val hiltAndroidTestCompiler =
             "com.google.dagger:hilt-compiler:${Versions.hiltCoreVersion}"
+    }
+
+    object Coil {
+        const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
     }
 
     object Test {

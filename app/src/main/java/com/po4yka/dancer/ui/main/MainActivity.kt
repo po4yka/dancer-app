@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                             { newColor: Color, forcedUseDarkIcons: Boolean? ->
                                 systemUiController.setNavigationBarColor(
                                     color = newColor,
-                                    darkIcons = forcedUseDarkIcons ?: !useDarkIcons
+                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons
                                 )
                             }
 
