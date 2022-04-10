@@ -59,6 +59,7 @@ android {
 
     kotlinOptions {
         jvmTarget = Config.jvmTarget
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 
     buildFeatures {
@@ -76,6 +77,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":gallerypicker"))
+
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.material)

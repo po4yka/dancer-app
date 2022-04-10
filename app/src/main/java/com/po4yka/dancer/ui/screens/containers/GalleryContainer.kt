@@ -1,6 +1,6 @@
 package com.po4yka.dancer.ui.screens.containers
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import com.po4yka.dancer.models.ImageModel
 import com.po4yka.dancer.navigation.NavScreen
@@ -8,9 +8,14 @@ import com.po4yka.dancer.navigation.NavigationController
 import com.po4yka.dancer.navigation.Router
 import com.po4yka.dancer.ui.screens.GalleryScreen
 import com.po4yka.dancer.ui.screens.ImageScreen
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalAnimationApi
 @Composable
+@androidx.camera.core.ExperimentalGetImage
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalCoroutinesApi::class,
+)
 fun GalleryContainer(
     externalRouter: Router,
 ) {

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
@@ -21,9 +22,13 @@ import com.po4yka.dancer.ui.theme.SteelGray500
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalPermissionsApi
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
+@androidx.camera.core.ExperimentalGetImage
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class,
+)
 class MainActivity : ComponentActivity() {
 
     @VisibleForTesting

@@ -2,6 +2,7 @@ package com.po4yka.dancer.ui.screens
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -17,6 +18,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalPermissionsApi
 @ExperimentalCoroutinesApi
+@ExperimentalFoundationApi
+@androidx.camera.core.ExperimentalGetImage
 @Composable
 fun MainScreenNavigation(
     navController: NavHostController,
@@ -77,7 +80,7 @@ fun MainScreenNavigation(
         composable(NavScreen.Camera.route) {
             LaunchedEffect(Unit) {
                 onBottomBarStateChanged.invoke(false)
-                onNavBarColorChange.invoke(Color.Transparent, null)
+                onNavBarColorChange.invoke(Color.Transparent, false)
             }
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current

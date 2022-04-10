@@ -1,5 +1,6 @@
 package com.po4yka.dancer.ui.screens
 
+import android.os.Parcelable
 import android.util.Size
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -19,7 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,13 +37,18 @@ import com.po4yka.dancer.R
 import com.po4yka.dancer.classifier.MoveAnalyzer
 import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NET_WIDTH
 import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NEW_HEIGHT
+import com.po4yka.dancer.models.RecognitionModelName
+import com.po4yka.dancer.models.RecognitionModelPredictionResult
+import com.po4yka.dancer.models.RecognitionState
 import com.po4yka.dancer.ui.components.Permission
 import com.po4yka.dancer.ui.components.PermissionNotAvailable
 import com.po4yka.dancer.ui.components.camera.CameraControls
 import com.po4yka.dancer.ui.components.camera.CameraPreview
+import com.po4yka.dancer.ui.components.resulttable.ResultTable
 import com.po4yka.dancer.utils.executor
 import com.po4yka.dancer.utils.getCameraProvider
 import com.po4yka.dancer.utils.switchLens
+import com.po4yka.dancer.utils.switchRecognitionMode
 import com.po4yka.dancer.utils.takePicture
 import java.io.File
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -74,6 +84,9 @@ fun CameraScreen(
                 )
             }
             var cameraLens by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK) }
+            var recognitionState by remember { mutableStateOf(RecognitionState.ACTIVE) }
+
+            val movesProbabilities = rememberMutableStateListOf<RecognitionModelPredictionResult>()
 
             val imageCaptureUseCase: ImageCapture by remember {
                 mutableStateOf(
@@ -92,7 +105,12 @@ fun CameraScreen(
                 )
             }
 
-            val analyzer = MoveAnalyzer(context)
+            val analyzer = MoveAnalyzer(context) { newProbabilities ->
+                movesProbabilities.apply {
+                    clear()
+                    newProbabilities.forEach { add(it) }
+                }
+            }
             imageAnalysisUseCase.setAnalyzer(executor) { imageProxy: ImageProxy ->
                 analyzer.analyze(imageProxy)
                 imageProxy.close()
@@ -105,9 +123,21 @@ fun CameraScreen(
                         previewUseCase = it
                     }
                 )
+                if (recognitionState == RecognitionState.ACTIVE) {
+                    if (!analyzer.isActive) analyzer.start()
+                    if (movesProbabilities.size == RecognitionModelName.values().size) {
+                        ResultTable(
+                            modifier = Modifier.align(Alignment.TopCenter),
+                            recognitionModelPredictionResults = movesProbabilities
+                        )
+                    }
+                } else {
+                    analyzer.stop()
+                }
                 CameraControls(
                     modifier = modifier
                         .align(Alignment.BottomCenter),
+                    recognitionMode = recognitionState,
                     onCaptureClicked = {
                         coroutineScope.launch {
                             onImageFile(imageCaptureUseCase.takePicture(context.executor))
@@ -116,7 +146,9 @@ fun CameraScreen(
                     onLensChangeClicked = {
                         cameraLens = switchLens(cameraLens)
                     },
-                    onRecognitionModeSwitchClicked = {} // TODO: pass correct value
+                    onRecognitionModeSwitchClicked = {
+                        recognitionState = switchRecognitionMode(recognitionState)
+                    }
                 )
             }
 
@@ -154,6 +186,18 @@ fun CameraScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun <T : Parcelable> rememberMutableStateListOf(vararg elements: T): SnapshotStateList<T> {
+    return rememberSaveable(
+        saver = listSaver(
+            save = { it.toList() },
+            restore = { it.toMutableStateList() }
+        )
+    ) {
+        elements.toList().toMutableStateList()
     }
 }
 

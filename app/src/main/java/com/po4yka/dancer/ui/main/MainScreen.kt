@@ -1,5 +1,6 @@
 package com.po4yka.dancer.ui.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -18,9 +19,13 @@ import com.po4yka.dancer.ui.components.bottomnav.BottomBarWithFabDem
 import com.po4yka.dancer.ui.theme.DancerTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalPermissionsApi
-@ExperimentalCoroutinesApi
 @Composable
+@androidx.camera.core.ExperimentalGetImage
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class,
+)
 fun MainScreen(
     onNavBarColorChange: (newColor: Color, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
@@ -49,10 +54,14 @@ fun MainScreen(
     }
 }
 
-@ExperimentalPermissionsApi
-@ExperimentalCoroutinesApi
-@Preview("MainScreen")
 @Composable
+@Preview("MainScreen")
+@androidx.camera.core.ExperimentalGetImage
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class,
+)
 fun MainScreenPreview() {
     DancerTheme {
         MainScreen(

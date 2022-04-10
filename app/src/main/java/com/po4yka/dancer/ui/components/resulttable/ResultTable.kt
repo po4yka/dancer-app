@@ -1,7 +1,9 @@
 package com.po4yka.dancer.ui.components.resulttable
 
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
@@ -10,11 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.po4yka.dancer.R
@@ -26,84 +28,126 @@ import kotlin.random.Random
 
 @Composable
 fun ResultTable(
+    modifier: Modifier = Modifier,
     recognitionModelPredictionResults: List<RecognitionModelPredictionResult>
 ) {
-    val headerCellWidth = dimensionResource(id = R.dimen.result_table_header_cell_width)
-    val bodyCellWidth = dimensionResource(id = R.dimen.result_table_body_cell_width)
-    val cellWidth: (Int) -> Dp = { index ->
-        when (index) {
-            0 -> headerCellWidth
-            else -> bodyCellWidth
-        }
-    }
 
-    val headerFontSize = dimensionResource(id = R.dimen.result_table_header_font_size).value.sp
-    val headerCellTitle: @Composable (Int) -> Unit = { index ->
-        val value = when (index) {
-            0 -> stringResource(id = R.string.table_movement)
-            1 -> stringResource(id = R.string.table_probability)
-            else -> ""
-        }
-
-        Text(
-            text = value,
-            fontSize = headerFontSize,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(4.dp),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            fontWeight = FontWeight.Black
-        )
-    }
-
-    val cellText: @Composable (Int, RecognitionModelPredictionResult) -> Unit = { index, item ->
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
-        val value = when (index) {
-            0 -> stringResource(id = item.name.movementNameId)
-            1 -> String.format(df.format(item.probability))
-            else -> ""
-        }
-
-        Text(
-            text = value,
-            fontSize = 6.sp,
-            color = Color.White,
-            textAlign = TextAlign.Left,
-            modifier = Modifier
-                .padding(18.dp, 4.dp, 4.dp, 4.dp)
-                .height(6.dp),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
-    }
+    val headerCellTitle = getHeaderCell()
+    val cellText = getDefaultCell()
+    val detectedRow = getDetectedRow()
 
     Table(
         columnCount = 2,
-        cellWidth = cellWidth,
-        data = recognitionModelPredictionResults,
+        data = recognitionModelPredictionResults.sortedByDescending { it.probability },
         colorSettings = TableColorSettings(
             backgroundColor = Color.Transparent,
             strokeColor = Color.White
         ),
-        modifier = Modifier.verticalScroll(rememberScrollState()),
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .wrapContentWidth(),
         headerCellContent = headerCellTitle,
-        cellContent = cellText
+        cellBodyContent = cellText,
+        customCells = listOf(
+            Pair(1, detectedRow)
+        )
     )
+}
+
+@Composable
+private fun getHeaderCell() = getCellText(
+    textGenerator = { index, _ ->
+        when (index) {
+            0 -> stringResource(id = R.string.table_movement)
+            1 -> stringResource(id = R.string.table_probability)
+            else -> ""
+        }
+    },
+    fontSize = dimensionResource(id = R.dimen.result_table_header_font_size).value.sp,
+    startMarginGenerator = { index ->
+        when (index) {
+            0 -> 16
+            1 -> 8
+            else -> 0
+        }.dp
+    },
+    endPaddingGenerator = { index ->
+        when (index) {
+            0 -> 8
+            1 -> 16
+            else -> 0
+        }.dp
+    }
+)
+
+@Composable
+private fun getDefaultCell() = getCellText(
+    textGenerator = textGenerator@{ index, item ->
+        if (item == null) return@textGenerator ""
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.CEILING
+        when (index) {
+            0 -> stringResource(id = item.name.movementNameId)
+            1 -> String.format(df.format(item.probability))
+            else -> ""
+        }
+    },
+    fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
+    startMarginGenerator = { 4.dp },
+    endPaddingGenerator = { 4.dp }
+)
+
+@Composable
+private fun getDetectedRow() = getCellText(
+    textGenerator = textGenerator@{ index, item ->
+        if (item == null) return@textGenerator ""
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.CEILING
+        when (index) {
+            0 -> stringResource(id = item.name.movementNameId)
+            1 -> String.format(df.format(item.probability))
+            else -> ""
+        }
+    },
+    fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
+    textColor = Color.Green,
+    startMarginGenerator = { 4.dp },
+    endPaddingGenerator = { 4.dp }
+)
+
+@Composable
+private fun getCellText(
+    textGenerator: @Composable (Int, RecognitionModelPredictionResult?) -> String,
+    fontSize: TextUnit,
+    textColor: Color = Color.White,
+    startMarginGenerator: (index: Int) -> Dp = { _ -> 0.dp },
+    endPaddingGenerator: (index: Int) -> Dp = { _ -> 0.dp }
+): @Composable (Int, RecognitionModelPredictionResult?) -> Unit {
+    return { index, item ->
+        Text(
+            text = textGenerator(index, item),
+            fontSize = fontSize,
+            color = textColor,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(start = startMarginGenerator(index), end = endPaddingGenerator(index))
+                .wrapContentSize()
+                .fillMaxWidth(),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
 }
 
 @Preview
 @Composable
 fun ResultTablePreview() {
-    val lowerBound = 0.0
-    val upperBound = 1.0
     val resultTables = RecognitionModelName.values().map {
         RecognitionModelPredictionResult(
             it,
-            Random.nextDouble(lowerBound, upperBound)
+            Random.nextFloat()
         )
     }
 
-    ResultTable(resultTables)
+    ResultTable(recognitionModelPredictionResults = resultTables)
 }
