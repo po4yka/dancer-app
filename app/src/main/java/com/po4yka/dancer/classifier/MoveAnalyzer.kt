@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
+import com.po4yka.dancer.models.RecognitionResults
 
 @androidx.camera.core.ExperimentalGetImage
 class MoveAnalyzer(
     private val context: Context,
-    private val onMovementsClassified: (List<RecognitionModelPredictionResult>) -> Unit
+    private val onMovementsClassified: (RecognitionResults) -> Unit
 ) : ImageAnalysis.Analyzer {
 
     val isActive: Boolean
@@ -22,8 +23,14 @@ class MoveAnalyzer(
             RecognitionModelPredictionResult.convertFromModel(classificationResultsFromModel)
         } else {
             emptyList()
-        }
-        onMovementsClassified.invoke(classificationRes)
+        }.sortedByDescending { it.probability }
+
+        onMovementsClassified.invoke(
+            RecognitionResults(
+                isDetected = classificationRes.firstOrNull()?.probability ?: 0f > THRESHOLD_VALUE,
+                results = classificationRes
+            )
+        )
 
         imageProxy.close()
     }
@@ -35,5 +42,9 @@ class MoveAnalyzer(
     fun stop() {
         classifier?.stop()
         classifier = null
+    }
+
+    private companion object {
+        const val THRESHOLD_VALUE = 6f
     }
 }

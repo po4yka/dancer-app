@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.po4yka.dancer.R
 import com.po4yka.dancer.models.RecognitionModelName
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
+import com.po4yka.dancer.models.RecognitionResult
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.random.Random
@@ -29,6 +30,7 @@ import kotlin.random.Random
 @Composable
 fun ResultTable(
     modifier: Modifier = Modifier,
+    isDetected: RecognitionResult = RecognitionResult.NOT_DETECTED,
     recognitionModelPredictionResults: List<RecognitionModelPredictionResult>
 ) {
 
@@ -38,19 +40,27 @@ fun ResultTable(
 
     Table(
         columnCount = 2,
-        data = recognitionModelPredictionResults.sortedByDescending { it.probability },
+        data = recognitionModelPredictionResults,
         colorSettings = TableColorSettings(
             backgroundColor = Color.Transparent,
-            strokeColor = Color.White
+            strokeColor = if (isDetected == RecognitionResult.DETECTED) {
+                Color.White
+            } else {
+                Color.Red
+            }
         ),
         modifier = modifier
             .verticalScroll(rememberScrollState())
             .wrapContentWidth(),
         headerCellContent = headerCellTitle,
         cellBodyContent = cellText,
-        customCells = listOf(
-            Pair(1, detectedRow)
-        )
+        customCells = if (isDetected == RecognitionResult.DETECTED) {
+            listOf(
+                Pair(1, detectedRow)
+            )
+        } else {
+            emptyList()
+        }
     )
 }
 

@@ -39,6 +39,7 @@ import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NET_
 import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NEW_HEIGHT
 import com.po4yka.dancer.models.RecognitionModelName
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
+import com.po4yka.dancer.models.RecognitionResult
 import com.po4yka.dancer.models.RecognitionState
 import com.po4yka.dancer.ui.components.Permission
 import com.po4yka.dancer.ui.components.PermissionNotAvailable
@@ -84,13 +85,16 @@ fun CameraScreen(
                 )
             }
             var cameraLens by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK) }
+
             var recognitionState by remember { mutableStateOf(RecognitionState.ACTIVE) }
+            var recognitionSuccess by remember { mutableStateOf(RecognitionResult.NOT_DETECTED) }
 
             val movesProbabilities = rememberMutableStateListOf<RecognitionModelPredictionResult>()
 
             val imageCaptureUseCase: ImageCapture by remember {
                 mutableStateOf(
-                    ImageCapture.Builder()
+                    ImageCapture
+                        .Builder()
                         .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                         .build()
                 )
@@ -98,14 +102,19 @@ fun CameraScreen(
 
             val imageAnalysisUseCase: ImageAnalysis by remember {
                 mutableStateOf(
-                    ImageAnalysis.Builder()
+                    ImageAnalysis
+                        .Builder()
                         .setTargetResolution(Size(IMAGE_NET_WIDTH, IMAGE_NEW_HEIGHT))
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
                         .build()
                 )
             }
 
-            val analyzer = MoveAnalyzer(context) { newProbabilities ->
+            val analyzer = MoveAnalyzer(context) { analyzeResults ->
+                val newProbabilities = analyzeResults.results
+                recognitionSuccess =
+                    if (analyzeResults.isDetected) RecognitionResult.DETECTED else RecognitionResult.NOT_DETECTED
                 movesProbabilities.apply {
                     clear()
                     newProbabilities.forEach { add(it) }
@@ -113,7 +122,6 @@ fun CameraScreen(
             }
             imageAnalysisUseCase.setAnalyzer(executor) { imageProxy: ImageProxy ->
                 analyzer.analyze(imageProxy)
-                imageProxy.close()
             }
 
             Box {
@@ -128,6 +136,7 @@ fun CameraScreen(
                     if (movesProbabilities.size == RecognitionModelName.values().size) {
                         ResultTable(
                             modifier = Modifier.align(Alignment.TopCenter),
+                            isDetected = recognitionSuccess,
                             recognitionModelPredictionResults = movesProbabilities
                         )
                     }
@@ -154,7 +163,10 @@ fun CameraScreen(
 
             LaunchedEffect(previewUseCase, cameraLens) {
                 val cameraProvider = context.getCameraProvider()
-                val cameraSelector = CameraSelector.Builder().requireLensFacing(cameraLens).build()
+                val cameraSelector = CameraSelector
+                    .Builder()
+                    .requireLensFacing(cameraLens)
+                    .build()
                 val printFailedCamera: (ex: Exception) -> Unit = { ex: Exception ->
                     Timber.e(ex, "Failed to bind camera use cases")
                 }

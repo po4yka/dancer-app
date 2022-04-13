@@ -1,37 +1,35 @@
 package com.po4yka.dancer.utils
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.ImageFormat
 import android.graphics.Matrix
-import android.graphics.Rect
-import android.graphics.YuvImage
 import android.media.Image
-import java.io.ByteArrayOutputStream
 
 object ImageExt {
 
-    fun Image.toBitmap(): Bitmap {
-        val yBuffer = planes[0].buffer // Y
-        val vuBuffer = planes[2].buffer // VU
+    /**
+     * Bitmap converter for only ARGB_8888 configured images
+     *
+     * @return converted bitmap
+     */
+    fun Image.toBitmap(): Bitmap? {
+        val buffer = planes[0].buffer
+        val pixelStride = planes[0].pixelStride
+        val rowStride = planes[0].rowStride
+        val rowPadding = rowStride - pixelStride * width
+        val bitmap = Bitmap.createBitmap(
+            width + rowPadding / pixelStride,
+            height, Bitmap.Config.ARGB_8888
+        )
+        bitmap.copyPixelsFromBuffer(buffer)
 
-        val ySize = yBuffer.remaining()
-        val vuSize = vuBuffer.remaining()
-
-        val nv21 = ByteArray(ySize + vuSize)
-
-        yBuffer.get(nv21, 0, ySize)
-        vuBuffer.get(nv21, ySize, vuSize)
-
-        val yuvImage = YuvImage(nv21, ImageFormat.NV21, this.width, this.height, null)
-        val out = ByteArrayOutputStream()
-        yuvImage.compressToJpeg(Rect(0, 0, yuvImage.width, yuvImage.height), 50, out)
-        val imageBytes = out.toByteArray()
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        return bitmap
     }
 
     fun Bitmap.flip(x: Float, y: Float, cx: Float, cy: Float): Bitmap {
         val matrix = Matrix().apply { postScale(x, y, cx, cy) }
         return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
     }
+
+    fun Bitmap.rotate(degrees: Float): Bitmap =
+        Bitmap.createBitmap(this, 0, 0, width, height, Matrix().apply { postRotate(degrees) }, true)
 }
