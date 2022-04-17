@@ -17,10 +17,7 @@ fun GalleryScreen(
     @Suppress("UNUSED_PARAMETER") router: Router?,
     modifier: Modifier = Modifier
 ) {
-    GalleryPicker(
-        modifier = modifier,
-        onPhotoSelected = { }
-    )
+    GalleryPicker(modifier = modifier)
 }
 
 @Preview("default")
