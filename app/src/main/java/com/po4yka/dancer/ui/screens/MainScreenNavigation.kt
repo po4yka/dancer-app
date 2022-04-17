@@ -2,6 +2,7 @@ package com.po4yka.dancer.ui.screens
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -10,19 +11,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.navigation.NavScreen
 import com.po4yka.dancer.navigation.Router
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalPermissionsApi
-@ExperimentalCoroutinesApi
+@androidx.camera.core.ExperimentalGetImage
 @Composable
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class,
+)
 fun MainScreenNavigation(
     navController: NavHostController,
     externalRouters: Map<String, Router>,
     onBottomBarStateChanged: (Boolean) -> Unit,
-    onNavBarColorChange: (newColor: Color, forcedUseDarkIcons: Boolean?) -> Unit,
+    onNavBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
+    onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -31,6 +39,8 @@ fun MainScreenNavigation(
         composable(NavScreen.Gallery.route) {
             LaunchedEffect(Unit) {
                 onBottomBarStateChanged.invoke(true)
+                onNavBarColorChange.invoke(null, false)
+                onStatusBarColorChange.invoke(null, null)
             }
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current
@@ -51,11 +61,16 @@ fun MainScreenNavigation(
                 navController = navController,
                 router = externalRouters[route],
                 modifier = modifier
+                    .statusBarsPadding()
+                    .navigationBarsPadding(bottom = true)
             )
         }
+
         composable(NavScreen.Settings.route) {
             LaunchedEffect(Unit) {
                 onBottomBarStateChanged.invoke(true)
+                onNavBarColorChange.invoke(null, false)
+                onStatusBarColorChange.invoke(null, null)
             }
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current
@@ -74,10 +89,12 @@ fun MainScreenNavigation(
 
             SettingsScreen(modifier = modifier)
         }
+
         composable(NavScreen.Camera.route) {
             LaunchedEffect(Unit) {
                 onBottomBarStateChanged.invoke(false)
-                onNavBarColorChange.invoke(Color.Transparent, null)
+                onNavBarColorChange.invoke(Color.Transparent, false)
+                onStatusBarColorChange.invoke(Color.Transparent, false)
             }
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current

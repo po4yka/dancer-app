@@ -21,6 +21,9 @@ object Dependencies {
         const val cameraView = "androidx.camera:camera-view:${Versions.cameraViewAndVideo}"
         const val cameraExtensions =
             "androidx.camera:camera-extensions:${Versions.cameraViewAndVideo}"
+
+        const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
+        const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
     }
 
     object Lifecycle {
@@ -56,6 +59,14 @@ object Dependencies {
             "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
     }
 
+    object TensorFlow {
+        const val metadata =
+            "org.tensorflow:tensorflow-lite-metadata:${Versions.tensorflowMetadata}"
+        const val gpu = "org.tensorflow:tensorflow-lite-gpu:${Versions.tensorflowGpu}"
+        const val vision = "org.tensorflow:tensorflow-lite-task-vision:${Versions.tensorFlow}"
+        const val support = "org.tensorflow:tensorflow-lite-support:${Versions.tensorFlow}"
+    }
+
     object Hilt {
         const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltCoreVersion}"
         const val hiltNavigationCompose =
@@ -66,6 +77,10 @@ object Dependencies {
             "com.google.dagger:hilt-android-testing:${Versions.hiltCoreVersion}"
         const val hiltAndroidTestCompiler =
             "com.google.dagger:hilt-compiler:${Versions.hiltCoreVersion}"
+    }
+
+    object Coil {
+        const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
     }
 
     object Test {

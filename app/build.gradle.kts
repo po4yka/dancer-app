@@ -3,6 +3,7 @@ import Dependencies.Compose
 import Dependencies.Hilt
 import Dependencies.Kotlin
 import Dependencies.Lifecycle
+import Dependencies.TensorFlow
 import Dependencies.Test
 import Dependencies.Utils
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
@@ -58,18 +59,26 @@ android {
 
     kotlinOptions {
         jvmTarget = Config.jvmTarget
+        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 
     buildFeatures {
         compose = true
+        mlModelBinding = true
     }
 
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
+
+    androidResources {
+        noCompress.add("tflite")
+    }
 }
 
 dependencies {
+    implementation(project(":gallerypicker"))
+
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
     implementation(AndroidX.material)
@@ -104,6 +113,11 @@ dependencies {
     implementation(AndroidX.cameraLifecycle)
     implementation(AndroidX.cameraView)
     implementation(AndroidX.cameraExtensions)
+
+    implementation(TensorFlow.metadata)
+    implementation(TensorFlow.gpu)
+    implementation(TensorFlow.vision)
+    implementation(TensorFlow.support)
 
     implementation(Utils.accompanistInsets)
     implementation(Utils.accompanistSystemUiController)

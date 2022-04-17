@@ -11,10 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.po4yka.dancer.R
+import com.po4yka.dancer.models.RecognitionState
 import com.po4yka.dancer.ui.components.models.ButtonActionRes
 
 @Composable
 fun CameraControls(
+    recognitionMode: RecognitionState,
     onCaptureClicked: () -> Unit,
     onLensChangeClicked: () -> Unit,
     onRecognitionModeSwitchClicked: () -> Unit,
@@ -41,8 +43,11 @@ fun CameraControls(
         CameraActionButton(
             onClick = onRecognitionModeSwitchClicked,
             buttonActionRes = ButtonActionRes(
-                // TODO: change for off based on mode
-                actionIconId = R.drawable.ic_eye_open,
+                actionIconId = if (recognitionMode == RecognitionState.ACTIVE) {
+                    R.drawable.ic_eye_open
+                } else {
+                    R.drawable.ic_eye_close
+                },
                 actionDescriptionStrId = R.string.recognition_mode
             ),
             modifier = Modifier
@@ -61,6 +66,7 @@ fun CameraControlsPreview() {
             .wrapContentSize()
     ) { innerPadding ->
         CameraControls(
+            recognitionMode = RecognitionState.ACTIVE,
             onCaptureClicked = {},
             onLensChangeClicked = {},
             onRecognitionModeSwitchClicked = {},

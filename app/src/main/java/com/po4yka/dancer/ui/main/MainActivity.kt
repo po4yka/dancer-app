@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.VisibleForTesting
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.CompositionLocalProvider
@@ -21,9 +22,13 @@ import com.po4yka.dancer.ui.theme.SteelGray500
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalPermissionsApi
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
+@androidx.camera.core.ExperimentalGetImage
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class,
+)
 class MainActivity : ComponentActivity() {
 
     @VisibleForTesting
@@ -50,18 +55,32 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         val setCustomNavBarColor =
-                            { newColor: Color, forcedUseDarkIcons: Boolean? ->
+                            { newColor: Color?, forcedUseDarkIcons: Boolean? ->
                                 systemUiController.setNavigationBarColor(
-                                    color = newColor,
-                                    darkIcons = forcedUseDarkIcons ?: !useDarkIcons
+                                    color = newColor ?: originalNavBarColor,
+                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons
+                                )
+                            }
+                        val setCustomStatusBarColor =
+                            { newColor: Color?, forcedUseDarkIcons: Boolean? ->
+                                systemUiController.setStatusBarColor(
+                                    color = newColor ?: getStatusBarColorBasedOnTheme(useDarkIcons),
+                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons
                                 )
                             }
 
                         SideEffect {
-                            systemUiController.setStatusBarColor(
-                                color = Color.Transparent,
-                                darkIcons = useDarkIcons
-                            )
+                            if (useDarkIcons) {
+                                systemUiController.setStatusBarColor(
+                                    color = Color.White,
+                                    darkIcons = true
+                                )
+                            } else {
+                                systemUiController.setStatusBarColor(
+                                    color = Color.Transparent,
+                                    darkIcons = false
+                                )
+                            }
                             systemUiController.setNavigationBarColor(
                                 originalNavBarColor,
                                 darkIcons = useDarkIcons
@@ -70,6 +89,7 @@ class MainActivity : ComponentActivity() {
 
                         MainScreen(
                             onNavBarColorChange = setCustomNavBarColor,
+                            onStatusBarColorChange = setCustomStatusBarColor,
                             setDefaultNavBarColor = setDefaultNavBarColor,
                             modifier = Modifier.fillMaxSize()
                         )
@@ -78,4 +98,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    private fun getStatusBarColorBasedOnTheme(useDarkIcons: Boolean) =
+        if (useDarkIcons) Color.White else Color.Transparent
 }

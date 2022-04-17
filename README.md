@@ -13,3 +13,10 @@
 
 - [Mobile Development YouTube channel and examples](https://www.youtube.com/playlist?list=PL_RkZ4J60MDn4y00uF4sslWUdYMHEDM_6)
 
+### Android CameraX: Preview, Analyze, Capture
+
+#### ProAndroidDev Medium articles
+
+- [Android CameraX: Preview, Analyze, Capture.](https://proandroiddev.com/android-camerax-preview-analyze-capture-1b3f403a9395)
+- [Compose a Smart CameraX on Android](https://proandroiddev.com/compose-a-smart-camerax-277f4933b54b)
+

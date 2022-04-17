@@ -1,5 +1,6 @@
 package com.po4yka.dancer.ui.components.bottomnav
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.FabPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,11 +17,16 @@ import com.po4yka.dancer.navigation.Router
 import com.po4yka.dancer.ui.screens.MainScreenNavigation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
-@ExperimentalPermissionsApi
 @Composable
+@androidx.camera.core.ExperimentalGetImage
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class,
+)
 fun BottomBarWithFabDem(
-    onNavBarColorChange: (newColor: Color, forcedUseDarkIcons: Boolean?) -> Unit,
+    onNavBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
+    onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
     modifier: Modifier = Modifier,
     externalRouters: Map<String, Router> = emptyMap()
@@ -45,6 +51,7 @@ fun BottomBarWithFabDem(
             navController = navController,
             externalRouters = externalRouters,
             onNavBarColorChange = onNavBarColorChange,
+            onStatusBarColorChange = onStatusBarColorChange,
             setDefaultNavBarColor = setDefaultNavBarColor,
             onBottomBarStateChanged = { isVisible -> bottomBarState = isVisible },
             modifier = modifier
