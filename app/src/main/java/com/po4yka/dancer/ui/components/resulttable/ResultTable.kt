@@ -1,5 +1,6 @@
 package com.po4yka.dancer.ui.components.resulttable
 
+import android.content.Context
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -10,19 +11,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.integerResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.po4yka.dancer.R
+import com.po4yka.dancer.models.PoseDetectionStateResult
 import com.po4yka.dancer.models.RecognitionModelName
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
-import com.po4yka.dancer.models.RecognitionResult
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.random.Random
@@ -30,20 +32,22 @@ import kotlin.random.Random
 @Composable
 fun ResultTable(
     modifier: Modifier = Modifier,
-    isDetected: RecognitionResult = RecognitionResult.NOT_DETECTED,
+    isDetected: PoseDetectionStateResult = PoseDetectionStateResult.NOT_DETECTED,
     recognitionModelPredictionResults: List<RecognitionModelPredictionResult>
 ) {
 
-    val headerCellTitle = getHeaderCell()
-    val cellText = getDefaultCell()
-    val detectedRow = getDetectedRow()
+    val context = LocalContext.current
+
+    val headerCellTitle = getHeaderCell(context)
+    val cellText = getDefaultCell(context)
+    val detectedRow = getDetectedRow(context)
 
     Table(
-        columnCount = 2,
+        columnCount = integerResource(id = R.integer.result_table_column_count),
         data = recognitionModelPredictionResults,
         colorSettings = TableColorSettings(
             backgroundColor = Color.Transparent,
-            strokeColor = if (isDetected == RecognitionResult.DETECTED) {
+            strokeColor = if (isDetected == PoseDetectionStateResult.DETECTED) {
                 Color.White
             } else {
                 Color.Red
@@ -54,7 +58,7 @@ fun ResultTable(
             .wrapContentWidth(),
         headerCellContent = headerCellTitle,
         cellBodyContent = cellText,
-        customCells = if (isDetected == RecognitionResult.DETECTED) {
+        customCells = if (isDetected == PoseDetectionStateResult.DETECTED) {
             listOf(
                 Pair(1, detectedRow)
             )
@@ -65,7 +69,8 @@ fun ResultTable(
 }
 
 @Composable
-private fun getHeaderCell() = getCellText(
+private fun getHeaderCell(context: Context) = getCellText(
+    context = context,
     textGenerator = { index, _ ->
         when (index) {
             0 -> stringResource(id = R.string.table_movement)
@@ -75,23 +80,28 @@ private fun getHeaderCell() = getCellText(
     },
     fontSize = dimensionResource(id = R.dimen.result_table_header_font_size).value.sp,
     startMarginGenerator = { index ->
-        when (index) {
-            0 -> 16
-            1 -> 8
-            else -> 0
-        }.dp
+        context.resources.getDimension(
+            when (index) {
+                0 -> R.dimen.result_table_header_first_column_start_margin
+                1 -> R.dimen.result_table_header_second_column_start_margin
+                else -> R.dimen.result_table_zero_size
+            }
+        )
     },
     endPaddingGenerator = { index ->
-        when (index) {
-            0 -> 8
-            1 -> 16
-            else -> 0
-        }.dp
+        context.resources.getDimension(
+            when (index) {
+                0 -> R.dimen.result_table_header_first_column_end_margin
+                1 -> R.dimen.result_table_header_second_column_end_margin
+                else -> R.dimen.result_table_zero_size
+            }
+        )
     }
 )
 
 @Composable
-private fun getDefaultCell() = getCellText(
+private fun getDefaultCell(context: Context) = getCellText(
+    context = context,
     textGenerator = textGenerator@{ index, item ->
         if (item == null) return@textGenerator ""
         val df = DecimalFormat("#.##")
@@ -103,12 +113,23 @@ private fun getDefaultCell() = getCellText(
         }
     },
     fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
-    startMarginGenerator = { 4.dp },
-    endPaddingGenerator = { 4.dp }
+    startMarginGenerator = { index ->
+        context.resources.getDimension(
+            when (index) {
+                0 -> R.dimen.result_table_first_default_column_start_margin
+                1 -> R.dimen.result_table_second_default_column_start_margin
+                else -> R.dimen.result_table_zero_size
+            }
+        )
+    },
+    endPaddingGenerator = {
+        context.resources.getDimension(R.dimen.result_table_default_column_end_margin)
+    }
 )
 
 @Composable
-private fun getDetectedRow() = getCellText(
+private fun getDetectedRow(context: Context) = getCellText(
+    context = context,
     textGenerator = textGenerator@{ index, item ->
         if (item == null) return@textGenerator ""
         val df = DecimalFormat("#.##")
@@ -121,17 +142,32 @@ private fun getDetectedRow() = getCellText(
     },
     fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
     textColor = Color.Green,
-    startMarginGenerator = { 4.dp },
-    endPaddingGenerator = { 4.dp }
+    startMarginGenerator = { index ->
+        context.resources.getDimension(
+            when (index) {
+                0 -> R.dimen.result_table_first_default_column_start_margin
+                1 -> R.dimen.result_table_second_default_column_start_margin
+                else -> R.dimen.result_table_zero_size
+            }
+        )
+    },
+    endPaddingGenerator = {
+        context.resources.getDimension(R.dimen.result_table_default_column_end_margin)
+    }
 )
 
 @Composable
 private fun getCellText(
+    context: Context,
     textGenerator: @Composable (Int, RecognitionModelPredictionResult?) -> String,
     fontSize: TextUnit,
     textColor: Color = Color.White,
-    startMarginGenerator: (index: Int) -> Dp = { _ -> 0.dp },
-    endPaddingGenerator: (index: Int) -> Dp = { _ -> 0.dp }
+    startMarginGenerator: (index: Int) -> Float = { _ ->
+        context.resources.getDimension(R.dimen.result_table_zero_size)
+    },
+    endPaddingGenerator: (index: Int) -> Float = { _ ->
+        context.resources.getDimension(R.dimen.result_table_zero_size)
+    }
 ): @Composable (Int, RecognitionModelPredictionResult?) -> Unit {
     return { index, item ->
         Text(
@@ -140,7 +176,10 @@ private fun getCellText(
             color = textColor,
             textAlign = TextAlign.Start,
             modifier = Modifier
-                .padding(start = startMarginGenerator(index), end = endPaddingGenerator(index))
+                .padding(
+                    start = Dp(startMarginGenerator(index)),
+                    end = Dp(endPaddingGenerator(index))
+                )
                 .wrapContentSize()
                 .fillMaxWidth(),
             maxLines = 1,

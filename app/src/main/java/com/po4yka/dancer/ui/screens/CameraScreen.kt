@@ -1,5 +1,6 @@
 package com.po4yka.dancer.ui.screens
 
+import android.content.Context
 import android.os.Parcelable
 import android.util.Size
 import androidx.camera.core.CameraSelector
@@ -32,14 +33,15 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.R
 import com.po4yka.dancer.classifier.MoveAnalyzer
 import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NET_WIDTH
 import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NEW_HEIGHT
+import com.po4yka.dancer.models.PoseDetectionStateResult
 import com.po4yka.dancer.models.RecognitionModelName
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
-import com.po4yka.dancer.models.RecognitionResult
 import com.po4yka.dancer.models.RecognitionState
 import com.po4yka.dancer.ui.components.Permission
 import com.po4yka.dancer.ui.components.PermissionNotAvailable
@@ -56,10 +58,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@ExperimentalPermissionsApi
-@ExperimentalCoroutinesApi
 @androidx.camera.core.ExperimentalGetImage
 @Composable
+@OptIn(
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class
+)
 fun CameraScreen(
     modifier: Modifier = Modifier,
     onImageFile: (File) -> Unit = { },
@@ -86,8 +90,12 @@ fun CameraScreen(
             }
             var cameraLens by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK) }
 
-            var recognitionState by remember { mutableStateOf(RecognitionState.ACTIVE) }
-            var recognitionSuccess by remember { mutableStateOf(RecognitionResult.NOT_DETECTED) }
+            var recognitionState by remember {
+                mutableStateOf(RecognitionState.ACTIVE)
+            }
+            var recognitionSuccess by remember {
+                mutableStateOf(PoseDetectionStateResult.NOT_DETECTED)
+            }
 
             val movesProbabilities = rememberMutableStateListOf<RecognitionModelPredictionResult>()
 
@@ -114,7 +122,11 @@ fun CameraScreen(
             val analyzer = MoveAnalyzer(context) { analyzeResults ->
                 val newProbabilities = analyzeResults.results
                 recognitionSuccess =
-                    if (analyzeResults.isDetected) RecognitionResult.DETECTED else RecognitionResult.NOT_DETECTED
+                    if (analyzeResults.isDetected) {
+                        PoseDetectionStateResult.DETECTED
+                    } else {
+                        PoseDetectionStateResult.NOT_DETECTED
+                    }
                 movesProbabilities.apply {
                     clear()
                     newProbabilities.forEach { add(it) }
@@ -162,34 +174,14 @@ fun CameraScreen(
             }
 
             LaunchedEffect(previewUseCase, cameraLens) {
-                val cameraProvider = context.getCameraProvider()
-                val cameraSelector = CameraSelector
-                    .Builder()
-                    .requireLensFacing(cameraLens)
-                    .build()
-                val printFailedCamera: (ex: Exception) -> Unit = { ex: Exception ->
-                    Timber.e(ex, "Failed to bind camera use cases")
-                }
-
-                try {
-                    // Must unbind the use-cases before rebinding them.
-                    cameraProvider.unbindAll()
-                    cameraProvider.bindToLifecycle(
-                        lifecycleOwner,
-                        cameraSelector,
-                        previewUseCase,
-                        imageCaptureUseCase
-                    )
-                    cameraProvider.bindToLifecycle(
-                        lifecycleOwner,
-                        cameraSelector,
-                        imageAnalysisUseCase
-                    )
-                } catch (ex: IllegalStateException) {
-                    printFailedCamera(ex)
-                } catch (ex: IllegalArgumentException) {
-                    printFailedCamera(ex)
-                }
+                launchedEffects(
+                    context,
+                    lifecycleOwner,
+                    previewUseCase,
+                    imageCaptureUseCase,
+                    imageAnalysisUseCase,
+                    cameraLens
+                )
             }
 
             DisposableEffect(lifecycleOwner) {
@@ -210,6 +202,44 @@ fun <T : Parcelable> rememberMutableStateListOf(vararg elements: T): SnapshotSta
         )
     ) {
         elements.toList().toMutableStateList()
+    }
+}
+
+private suspend fun launchedEffects(
+    context: Context,
+    lifecycleOwner: LifecycleOwner,
+    previewUseCase: UseCase,
+    imageCaptureUseCase: ImageCapture,
+    imageAnalysisUseCase: ImageAnalysis,
+    cameraLens: Int
+) {
+    val cameraProvider = context.getCameraProvider()
+    val cameraSelector = CameraSelector
+        .Builder()
+        .requireLensFacing(cameraLens)
+        .build()
+    val printFailedCamera: (ex: Exception) -> Unit = { ex: Exception ->
+        Timber.e(ex, "Failed to bind camera use cases")
+    }
+
+    try {
+        // Must unbind the use-cases before rebinding them.
+        cameraProvider.unbindAll()
+        cameraProvider.bindToLifecycle(
+            lifecycleOwner,
+            cameraSelector,
+            previewUseCase,
+            imageCaptureUseCase
+        )
+        cameraProvider.bindToLifecycle(
+            lifecycleOwner,
+            cameraSelector,
+            imageAnalysisUseCase
+        )
+    } catch (ex: IllegalStateException) {
+        printFailedCamera(ex)
+    } catch (ex: IllegalArgumentException) {
+        printFailedCamera(ex)
     }
 }
 

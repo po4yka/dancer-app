@@ -13,7 +13,8 @@ import java.io.OutputStream
 
 object MediaHelper {
 
-    @SuppressWarnings("deprecation")
+    private const val MAX_QUALITY = 100
+
     fun saveMediaToStorage(context: Context, bitmap: Bitmap, filename: String) {
 
         var fos: OutputStream? = null
@@ -33,6 +34,7 @@ object MediaHelper {
                 fos = imageUri?.let { resolver.openOutputStream(it) }
             }
         } else {
+            @Suppress("DEPRECATION")
             val imagesDir =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             val image = File(imagesDir, filename)
@@ -40,7 +42,7 @@ object MediaHelper {
         }
 
         fos?.use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, MAX_QUALITY, it)
         }
     }
 }

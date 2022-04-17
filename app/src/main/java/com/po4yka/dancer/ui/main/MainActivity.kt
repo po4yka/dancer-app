@@ -55,18 +55,32 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         val setCustomNavBarColor =
-                            { newColor: Color, forcedUseDarkIcons: Boolean? ->
+                            { newColor: Color?, forcedUseDarkIcons: Boolean? ->
                                 systemUiController.setNavigationBarColor(
-                                    color = newColor,
+                                    color = newColor ?: originalNavBarColor,
+                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons
+                                )
+                            }
+                        val setCustomStatusBarColor =
+                            { newColor: Color?, forcedUseDarkIcons: Boolean? ->
+                                systemUiController.setStatusBarColor(
+                                    color = newColor ?: getStatusBarColorBasedOnTheme(useDarkIcons),
                                     darkIcons = forcedUseDarkIcons ?: useDarkIcons
                                 )
                             }
 
                         SideEffect {
-                            systemUiController.setStatusBarColor(
-                                color = Color.Transparent,
-                                darkIcons = useDarkIcons
-                            )
+                            if (useDarkIcons) {
+                                systemUiController.setStatusBarColor(
+                                    color = Color.White,
+                                    darkIcons = true
+                                )
+                            } else {
+                                systemUiController.setStatusBarColor(
+                                    color = Color.Transparent,
+                                    darkIcons = false
+                                )
+                            }
                             systemUiController.setNavigationBarColor(
                                 originalNavBarColor,
                                 darkIcons = useDarkIcons
@@ -75,6 +89,7 @@ class MainActivity : ComponentActivity() {
 
                         MainScreen(
                             onNavBarColorChange = setCustomNavBarColor,
+                            onStatusBarColorChange = setCustomStatusBarColor,
                             setDefaultNavBarColor = setDefaultNavBarColor,
                             modifier = Modifier.fillMaxSize()
                         )
@@ -83,4 +98,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    private fun getStatusBarColorBasedOnTheme(useDarkIcons: Boolean) =
+        if (useDarkIcons) Color.White else Color.Transparent
 }

@@ -98,7 +98,7 @@ complexity:
     threshold: 600
   LongMethod:
     active: true
-    threshold: 100
+    threshold: 200
   LongParameterList:
     active: true
     functionThreshold: 7
@@ -665,12 +665,7 @@ style:
   RedundantVisibilityModifierRule:
     active: false
   ReturnCount:
-    active: true
-    max: 2
-    excludedFunctions: 'equals'
-    excludeLabeled: false
-    excludeReturnFromLambda: true
-    excludeGuardClauses: false
+    active: false
   SafeCast:
     active: true
   SerialVersionUIDInSerializableClass:

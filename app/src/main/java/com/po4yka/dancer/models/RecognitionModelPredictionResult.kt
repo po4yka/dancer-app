@@ -10,7 +10,9 @@ data class RecognitionModelPredictionResult(
 ) : Parcelable {
 
     companion object {
-        fun convertFromModel(modelResults: Map<String, Float>): List<RecognitionModelPredictionResult> {
+        fun convertFromModel(
+            modelResults: Map<String, Float>
+        ): List<RecognitionModelPredictionResult> {
             return modelResults.map {
                 RecognitionModelPredictionResult(
                     RecognitionModelHelper.getClassById(it.key),

@@ -27,7 +27,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     ExperimentalCoroutinesApi::class,
 )
 fun MainScreen(
-    onNavBarColorChange: (newColor: Color, forcedUseDarkIcons: Boolean?) -> Unit,
+    onNavBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
+    onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -45,6 +46,7 @@ fun MainScreen(
                     }
                 BottomBarWithFabDem(
                     onNavBarColorChange = onNavBarColorChange,
+                    onStatusBarColorChange = onStatusBarColorChange,
                     setDefaultNavBarColor = setDefaultNavBarColor,
                     modifier = Modifier.navigationBarsPadding(),
                     externalRouters = mapOf(routeExternalRoad)
@@ -65,7 +67,8 @@ fun MainScreen(
 fun MainScreenPreview() {
     DancerTheme {
         MainScreen(
-            onNavBarColorChange = { _: Color, _: Boolean? -> },
+            onNavBarColorChange = { _: Color?, _: Boolean? -> },
+            onStatusBarColorChange = { _: Color?, _: Boolean? -> },
             setDefaultNavBarColor = { }
         )
     }

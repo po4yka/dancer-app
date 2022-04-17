@@ -25,7 +25,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     ExperimentalCoroutinesApi::class,
 )
 fun BottomBarWithFabDem(
-    onNavBarColorChange: (newColor: Color, forcedUseDarkIcons: Boolean?) -> Unit,
+    onNavBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
+    onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
     modifier: Modifier = Modifier,
     externalRouters: Map<String, Router> = emptyMap()
@@ -50,6 +51,7 @@ fun BottomBarWithFabDem(
             navController = navController,
             externalRouters = externalRouters,
             onNavBarColorChange = onNavBarColorChange,
+            onStatusBarColorChange = onStatusBarColorChange,
             setDefaultNavBarColor = setDefaultNavBarColor,
             onBottomBarStateChanged = { isVisible -> bottomBarState = isVisible },
             modifier = modifier

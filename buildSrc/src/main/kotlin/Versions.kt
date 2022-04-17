@@ -5,7 +5,7 @@ object Versions {
     const val kotlinCoroutines = "1.6.1"
 
     const val appCompat = "1.4.1"
-    const val coreKtx = "1.7.0"
+    const val coreKtx = "1.9.0-alpha02"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"
     const val material = "1.5.0"

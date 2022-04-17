@@ -2,7 +2,7 @@ package com.po4yka.dancer.classifier
 
 import android.content.Context
 import androidx.camera.core.ImageProxy
-import com.po4yka.dancer.ml.DancerBalanced
+import com.po4yka.dancer.ml.Dancer
 import com.po4yka.dancer.models.RecognitionModelHelper
 import com.po4yka.dancer.utils.ImageExt.flip
 import com.po4yka.dancer.utils.ImageExt.rotate
@@ -19,7 +19,7 @@ class PoseClassifierProcessor(
     context: Context
 ) {
 
-    private val model = DancerBalanced.newInstance(context)
+    private val model = Dancer.newInstance(context)
 
     @androidx.camera.core.ExperimentalGetImage
     fun classify(
@@ -53,11 +53,12 @@ class PoseClassifierProcessor(
         val tensorImage = TensorImage(DataType.FLOAT32)
         tensorImage.load(workingBitmap)
 
-        Timber.d(
-            "tensorBuffer before normalize: ${
-            tensorImage.tensorBuffer.floatArray.slice(1..10).joinToString(", ")
-            } \u2026"
-        )
+        val buffBeforeNormalize = tensorImage
+            .tensorBuffer
+            .floatArray
+            .slice(TEST_BUFFER_SLICE)
+            .joinToString(", ")
+        Timber.d("tensorBuffer before normalize: $buffBeforeNormalize \u2026")
 
         val imageProcessor = ImageProcessor.Builder()
             .add(ResizeOp(IMAGE_NEW_HEIGHT, IMAGE_NET_WIDTH, ResizeOp.ResizeMethod.BILINEAR))
@@ -86,13 +87,17 @@ class PoseClassifierProcessor(
 
         // --------------------------
 
-        Timber.d(
-            "tensorBuffer after normalize: ${
-            processedImage.tensorBuffer.floatArray.slice(1..10).joinToString(", ")
-            } \u2026"
-        )
+        val normalizedBuff = processedImage
+            .tensorBuffer
+            .floatArray
+            .slice(TEST_BUFFER_SLICE)
+            .joinToString(", ")
+        Timber.d("tensorBuffer after normalize: $normalizedBuff \u2026")
 
-        Timber.d("Processed image: width == ${processedImage.width}; height == ${processedImage.height}")
+        Timber.d(
+            "Processed image: width == ${processedImage.width}; " +
+                "height == ${processedImage.height}"
+        )
 
         val outputs = model.process(tensorBuffer)
         val outputFeatures = outputs.outputFeature0AsTensorBuffer
@@ -117,6 +122,8 @@ class PoseClassifierProcessor(
         // normalize the input from 0 to 1
         const val IMAGE_MEAN = 0.0f
         const val IMAGE_STD = 255.0f
+
+        private val TEST_BUFFER_SLICE = 1..10
 
         // --- TODO: remove this ---
 //        var SAVE_IMAGES_COUNT_BEFORE = 10

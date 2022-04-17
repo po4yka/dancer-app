@@ -21,6 +21,9 @@ object Dependencies {
         const val cameraView = "androidx.camera:camera-view:${Versions.cameraViewAndVideo}"
         const val cameraExtensions =
             "androidx.camera:camera-extensions:${Versions.cameraViewAndVideo}"
+
+        const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
+        const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
     }
 
     object Lifecycle {
