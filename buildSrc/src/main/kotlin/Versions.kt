@@ -8,7 +8,7 @@ object Versions {
     const val coreKtx = "1.9.0-alpha02"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"
-    const val material = "1.5.0"
+    const val material = "1.6.0-rc01"
     const val startup = "1.1.1"
 
     const val coil = "1.4.0"
@@ -21,7 +21,7 @@ object Versions {
 
     /* LIFECYCLE */
     const val composeActivity = "1.4.0"
-    const val lifecycle = "2.5.0-alpha06"
+    const val lifecycle = "2.5.0-beta01"
 
     /* TensorFlow */
     const val tensorFlow = "0.3.1"
@@ -42,14 +42,14 @@ object Versions {
     const val junit = "4.13.2"
     const val extJUnit = "1.1.3"
     const val espressoCore = "3.4.0"
-    const val mockitoCore = "4.4.0"
-    const val mockitoInline = "4.4.0"
+    const val mockitoCore = "4.5.0"
+    const val mockitoInline = "4.5.0"
     const val mockitoKotlin = "2.2.0"
 
     /* UTILS */
     const val gradleVersionsPlugin = "0.42.0"
     const val JLLeitschuhKtlintGradle = "10.2.1"
-    const val detekt = "1.20.0-RC2"
+    const val detekt = "1.20.0"
 
     const val accompanist = "0.23.1"
     const val timber = "5.0.1"
