@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Dancer</string>
     <string name="work_in_progress">This is currently work in progress</string>
     <string name="important_permission">This permission is really important for this app. Please grant the permission.</string>
     <string name="ok">OK</string>
@@ -17,8 +16,6 @@
     <string name="can_not_work_with_no_gallery_access">Unfortunately, a reduced functionality is available without a gallery access permission</string>
     <string name="camera_permission_request_text">You said you wanted a picture, so I\'m going to have to ask for permission.</string>
     <string name="gallery_permission_request_text">To use pictures from the gallery, you need access to the repository.</string>
-    <string name="change_camera">Сменить камеру</string>
-    <string name="recognition_mode">Режим распознавания</string>
     <string name="table_movement">Movement</string>
     <string name="table_probability">Probability</string>
 
@@ -37,4 +34,7 @@
     <string name="wap_3_right" translatable="false">wap_3_right</string>
     <string name="wap_4_left" translatable="false">wap_4_left</string>
     <string name="wap_4_right" translatable="false">wap_4_right</string>
+    <string name="app_name" translatable="false">Dancer</string>
+    <string name="recognition_mode">Recognition mode</string>
+    <string name="change_camera">Change lens</string>
 </resources>
