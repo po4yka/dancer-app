@@ -104,11 +104,9 @@ private fun getDefaultCell(context: Context) = getCellText(
     context = context,
     textGenerator = textGenerator@{ index, item ->
         if (item == null) return@textGenerator ""
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
         when (index) {
             0 -> stringResource(id = item.name.movementNameId)
-            1 -> String.format(df.format(item.probability))
+            1 -> String.format("%.2f", item.probability)
             else -> ""
         }
     },
