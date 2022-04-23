@@ -1,5 +1,6 @@
 package com.po4yka.dancer.ui.screens
 
+import android.Manifest
 import android.content.Context
 import android.os.Parcelable
 import android.util.Size
@@ -43,10 +44,10 @@ import com.po4yka.dancer.models.PoseDetectionStateResult
 import com.po4yka.dancer.models.RecognitionModelName
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
 import com.po4yka.dancer.models.RecognitionState
-import com.po4yka.dancer.ui.components.Permission
-import com.po4yka.dancer.ui.components.PermissionNotAvailable
 import com.po4yka.dancer.ui.components.camera.CameraControls
 import com.po4yka.dancer.ui.components.camera.CameraPreview
+import com.po4yka.dancer.ui.components.persmission.Permission
+import com.po4yka.dancer.ui.components.persmission.PermissionNotAvailable
 import com.po4yka.dancer.ui.components.resulttable.ResultTable
 import com.po4yka.dancer.utils.executor
 import com.po4yka.dancer.utils.getCameraProvider
@@ -72,12 +73,12 @@ fun CameraScreen(
     val executor = ContextCompat.getMainExecutor(context)
 
     Permission(
-        permission = android.Manifest.permission.CAMERA,
+        permission = Manifest.permission.CAMERA,
         rationaleTitle = stringResource(id = R.string.recognize_from_camera),
         rationaleIconId = R.drawable.ic_camera_light,
         rationaleDescription = stringResource(id = R.string.camera_permission_request_text),
         permissionNotAvailableContent = {
-            PermissionNotAvailable()
+            PermissionNotAvailable(unavailableExplanationResId = R.string.can_not_work_with_no_camera)
         }
     ) {
         Box {
