@@ -42,9 +42,13 @@ object Versions {
     const val junit = "4.13.2"
     const val extJUnit = "1.1.3"
     const val espressoCore = "3.4.0"
-    const val mockitoCore = "4.5.0"
-    const val mockitoInline = "4.5.0"
+    const val mockitoCore = "4.5.1"
+    const val mockitoInline = "4.5.1"
     const val mockitoKotlin = "2.2.0"
+
+    /* FIREBASE */
+    const val gms = "4.3.10"
+    const val perf = "1.4.1"
 
     /* UTILS */
     const val gradleVersionsPlugin = "0.42.0"

@@ -83,6 +83,13 @@ object Dependencies {
         const val coil = "io.coil-kt:coil-compose:${Versions.coil}"
     }
 
+    object Firebase {
+        const val gms = "com.google.gms:google-services:4.3.6"
+        const val bom = "com.google.firebase:firebase-bom:29.3.1"
+        const val analytics = "com.google.firebase:firebase-analytics-ktx"
+        const val performance = "com.google.firebase:firebase-perf-ktx"
+    }
+
     object Test {
         const val junit = "junit:junit:${Versions.junit}"
         const val extJUnit = "androidx.test.ext:junit:${Versions.extJUnit}"

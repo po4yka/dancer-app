@@ -1,5 +1,6 @@
 import Dependencies.AndroidX
 import Dependencies.Compose
+import Dependencies.Firebase
 import Dependencies.Hilt
 import Dependencies.Kotlin
 import Dependencies.Lifecycle
@@ -18,6 +19,8 @@ plugins {
     id("com.github.ben-manes.versions").version(Versions.gradleVersionsPlugin)
     id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.firebase-perf")
 
     kotlin("kapt")
 }
@@ -125,6 +128,10 @@ dependencies {
     implementation(Utils.accompanistPermission)
     implementation(Utils.accompanistUi)
     implementation(Utils.timber)
+
+    implementation(platform(Firebase.bom))
+    implementation(Firebase.analytics)
+    implementation(Firebase.performance)
 
     detektPlugins(Utils.detektFormatting)
 

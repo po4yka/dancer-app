@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "540246765998",
+    "project_id": "dancer-98f3a",
+    "storage_bucket": "dancer-98f3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540246765998:android:cd2312c9d21b3cca2cd83f",
+        "android_client_info": {
+          "package_name": "com.po4yka.dancer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540246765998-01mjmphpjk1m426jrtd4trtfd6hdsmkl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.po4yka.dancer",
+            "certificate_hash": "efbacc83b6189316e39c64bca2fb1e1474da5dde"
+          }
+        },
+        {
+          "client_id": "540246765998-bbtc6mvdrm1re5s11d7adok6pn6rgc16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwNQj_IgOIEvVK-s_hvp5HrkQdF5fpYXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540246765998-bbtc6mvdrm1re5s11d7adok6pn6rgc16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
