@@ -1,4 +1,7 @@
 <resources>
+    <string name="app_name" translatable="false">Dancer</string>
+    <string name="app_name_debug" translatable="false">Dancer Debug</string>
+
     <string name="work_in_progress">This is currently work in progress</string>
     <string name="important_permission">This permission is really important for this app. Please grant the permission.</string>
     <string name="ok">OK</string>
@@ -34,7 +37,6 @@
     <string name="wap_3_right" translatable="false">wap_3_right</string>
     <string name="wap_4_left" translatable="false">wap_4_left</string>
     <string name="wap_4_right" translatable="false">wap_4_right</string>
-    <string name="app_name" translatable="false">Dancer</string>
     <string name="recognition_mode">Recognition mode</string>
     <string name="change_camera">Change lens</string>
 </resources>

@@ -10,6 +10,8 @@ import Dependencies.Utils
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
+import java.nio.file.Paths
+import java.util.Properties
 
 plugins {
     id("kotlin-android")
@@ -26,6 +28,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            val properties = File(
+                rootDir,
+                Paths.get("/", "app", "signing.properties").toString()
+            ).inputStream().use {
+                Properties().apply { load(it) }
+            }
+            storeFile = File(properties.getProperty("storeFilePath"))
+            storePassword = properties.getProperty("storePassword")
+            keyPassword = properties.getProperty("keyPassword")
+            keyAlias = properties.getProperty("keyAlias")
+        }
+    }
     compileSdk = Config.compileSdkVersion
     buildToolsVersion = Config.buildToolsVersion
 
@@ -41,13 +57,19 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
+        }
+        debug {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            isDebuggable = true
         }
     }
 
