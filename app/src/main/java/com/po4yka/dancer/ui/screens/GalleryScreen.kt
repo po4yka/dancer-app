@@ -32,7 +32,9 @@ fun GalleryScreen(
         rationaleIconId = R.drawable.ic_gallery,
         rationaleDescription = stringResource(id = R.string.gallery_permission_request_text),
         permissionNotAvailableContent = {
-            PermissionNotAvailable(unavailableExplanationResId = R.string.can_not_work_with_no_gallery_access)
+            PermissionNotAvailable(
+                unavailableExplanationResId = R.string.can_not_work_with_no_gallery_access
+            )
         }
     ) {
         GalleryPicker(modifier = modifier)

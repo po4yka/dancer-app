@@ -78,7 +78,9 @@ fun CameraScreen(
         rationaleIconId = R.drawable.ic_camera_light,
         rationaleDescription = stringResource(id = R.string.camera_permission_request_text),
         permissionNotAvailableContent = {
-            PermissionNotAvailable(unavailableExplanationResId = R.string.can_not_work_with_no_camera)
+            PermissionNotAvailable(
+                unavailableExplanationResId = R.string.can_not_work_with_no_camera
+            )
         }
     ) {
         Box {
