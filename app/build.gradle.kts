@@ -36,10 +36,10 @@ android {
             ).inputStream().use {
                 Properties().apply { load(it) }
             }
-            storeFile = File(properties.getProperty("storeFilePath"))
-            storePassword = properties.getProperty("storePassword")
-            keyPassword = properties.getProperty("keyPassword")
-            keyAlias = properties.getProperty("keyAlias")
+            storeFile = File(properties.getProperty("storeFilePath") ?: return@create)
+            storePassword = properties.getProperty("storePassword") ?: return@create
+            keyPassword = properties.getProperty("keyPassword") ?: return@create
+            keyAlias = properties.getProperty("keyAlias") ?: return@create
         }
     }
     compileSdk = Config.compileSdkVersion
@@ -70,6 +70,7 @@ android {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             isDebuggable = true
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
