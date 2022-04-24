@@ -27,6 +27,7 @@ import com.po4yka.dancer.models.RecognitionModelName
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.Locale
 import kotlin.random.Random
 
 @Composable
@@ -106,7 +107,7 @@ private fun getDefaultCell(context: Context) = getCellText(
         if (item == null) return@textGenerator ""
         when (index) {
             0 -> stringResource(id = item.name.movementNameId)
-            1 -> String.format("%.2f", item.probability)
+            1 -> String.format(Locale.US, "%.2f", item.probability)
             else -> ""
         }
     },
