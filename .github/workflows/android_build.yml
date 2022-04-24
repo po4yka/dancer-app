@@ -15,7 +15,7 @@ jobs:
           java-version: '11.0.14+9'
 
       - name: Build Project
-        run: ./gradlew assemble
+        run: ./gradlew assembleDebug
 
       - name: Run Tests
         run: ./gradlew test
