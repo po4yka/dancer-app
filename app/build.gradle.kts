@@ -30,10 +30,12 @@ plugins {
 android {
     signingConfigs {
         create("release") {
-            val properties = File(
+            val propertiesFile = File(
                 rootDir,
                 Paths.get("/", "app", "signing.properties").toString()
-            ).inputStream().use {
+            )
+            if (!propertiesFile.exists()) return@create
+            val properties = propertiesFile.inputStream().use {
                 Properties().apply { load(it) }
             }
             storeFile = File(properties.getProperty("storeFilePath") ?: return@create)
