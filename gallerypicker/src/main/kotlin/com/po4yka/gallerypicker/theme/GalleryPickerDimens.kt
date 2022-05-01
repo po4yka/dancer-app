@@ -8,4 +8,6 @@ object GalleryPickerDimens {
     val Three = 24.dp
     val Six = 48.dp
     val Sixteen = 128.dp
+
+    const val cornerRadius = 12f
 }

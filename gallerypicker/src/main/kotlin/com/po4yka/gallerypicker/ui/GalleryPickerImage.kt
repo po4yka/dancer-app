@@ -15,7 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import coil.compose.rememberImagePainter
+import androidx.compose.ui.platform.LocalContext
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.transform.RoundedCornersTransformation
 import com.po4yka.gallerypicker.config.GalleryPickerConfiguration
 import com.po4yka.gallerypicker.data.GalleryPickerImage
 import com.po4yka.gallerypicker.theme.GalleryPickerDimens
@@ -47,7 +50,20 @@ internal fun GalleryPickerImage(
         contentAlignment = Alignment.Center,
     ) {
         Image(
-            painter = rememberImagePainter(galleryPickerImage.uri),
+            painter = rememberAsyncImagePainter(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(galleryPickerImage.uri)
+                    .crossfade(true)
+                    .transformations(
+                        RoundedCornersTransformation(
+                            topLeft = GalleryPickerDimens.cornerRadius,
+                            bottomLeft = GalleryPickerDimens.cornerRadius,
+                            bottomRight = GalleryPickerDimens.cornerRadius,
+                            topRight = GalleryPickerDimens.cornerRadius
+                        )
+                    )
+                    .build(),
+            ),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.padding(animatedPadding)
