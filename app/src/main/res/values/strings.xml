@@ -39,4 +39,7 @@
     <string name="wap_4_right" translatable="false">wap_4_right</string>
     <string name="recognition_mode">Recognition mode</string>
     <string name="change_camera">Change lens</string>
+    <string name="remove_image">Remove image</string>
+    <string name="save_image">Save image</string>
+    <string name="captured_image">Captured image</string>
 </resources>

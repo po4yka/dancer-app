@@ -16,16 +16,19 @@ import org.tensorflow.lite.support.label.TensorLabel
 import timber.log.Timber
 
 class PoseClassifierProcessor(
-    context: Context
+    private val context: Context
 ) {
 
-    private val model = Dancer.newInstance(context)
+    private var model: Dancer? = null
 
     @androidx.camera.core.ExperimentalGetImage
     fun classify(
         imageProxy: ImageProxy,
         needMirror: Boolean = false
     ): Map<String, Float> {
+
+        model = if (model == null) Dancer.newInstance(context) else model
+
         val img = imageProxy.image ?: return emptyMap()
 
         Timber.d("Analyze image: width == ${img.width}; height == ${img.height}")
@@ -40,15 +43,6 @@ class PoseClassifierProcessor(
         } else {
             bitmap
         }
-
-        // --- TODO: remove this ---
-
-//        if (SAVE_IMAGES_COUNT_BEFORE > 0) {
-//            saveMediaToStorage(context, workingBitmap, "before_process_$SAVE_IMAGES_COUNT_BEFORE")
-//            SAVE_IMAGES_COUNT_BEFORE--
-//        }
-
-        // ----------------------------
 
         val tensorImage = TensorImage(DataType.FLOAT32)
         tensorImage.load(workingBitmap)
@@ -67,26 +61,6 @@ class PoseClassifierProcessor(
         val processedImage = imageProcessor.process(tensorImage)
         val tensorBuffer = processedImage.tensorBuffer
 
-        // --- TODO: remove this ---
-
-//        val checkImageProcessor = ImageProcessor.Builder()
-//            .add(NormalizeOp(0.0f, 1 / 255.0f))
-//            .build()
-//
-//        val checkProcessedImage = checkImageProcessor.process(processedImage)
-//
-//        // SAVE BITMAP AFTER PROCESS
-//        if (SAVE_IMAGES_COUNT_AFTER > 0) {
-//            saveMediaToStorage(
-//                context,
-//                checkProcessedImage.bitmap,
-//                "after_process_$SAVE_IMAGES_COUNT_AFTER"
-//            )
-//            SAVE_IMAGES_COUNT_AFTER--
-//        }
-
-        // --------------------------
-
         val normalizedBuff = processedImage
             .tensorBuffer
             .floatArray
@@ -99,7 +73,7 @@ class PoseClassifierProcessor(
                 "height == ${processedImage.height}"
         )
 
-        val outputs = model.process(tensorBuffer)
+        val outputs = model?.process(tensorBuffer) ?: return emptyMap()
         val outputFeatures = outputs.outputFeature0AsTensorBuffer
         val tensorLabel =
             TensorLabel(RecognitionModelHelper.getClassesIds(), outputFeatures)
@@ -112,7 +86,8 @@ class PoseClassifierProcessor(
     }
 
     fun stop() {
-        model.close()
+        model?.close()
+        model = null
     }
 
     companion object {
@@ -124,9 +99,5 @@ class PoseClassifierProcessor(
         const val IMAGE_STD = 255.0f
 
         private val TEST_BUFFER_SLICE = 1..10
-
-        // --- TODO: remove this ---
-//        var SAVE_IMAGES_COUNT_BEFORE = 10
-//        var SAVE_IMAGES_COUNT_AFTER = 10
     }
 }

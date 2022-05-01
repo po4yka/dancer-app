@@ -22,4 +22,7 @@
     <string name="camera_permission_request_text">Для того, чтобы пользоваться камерой, необходимо предоставить разрешение</string>
     <string name="can_not_work_with_no_gallery_access">К сожалению, ограниченная функциональность доступна без доступа к камере</string>
     <string name="can_not_work_with_no_camera">К сожалению, ограниченная функциональность доступна без доступа к галерее</string>
+    <string name="remove_image">Удалить изображение</string>
+    <string name="save_image">Сохранить изображение</string>
+    <string name="captured_image">Снятое изображение</string>
 </resources>

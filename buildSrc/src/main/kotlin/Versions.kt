@@ -5,13 +5,13 @@ object Versions {
     const val kotlinCoroutines = "1.6.1"
 
     const val appCompat = "1.4.1"
-    const val coreKtx = "1.9.0-alpha02"
+    const val coreKtx = "1.9.0-alpha03"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"
     const val material = "1.6.0-rc01"
     const val startup = "1.1.1"
 
-    const val coil = "1.4.0"
+    const val coil = "2.0.0-rc03"
 
     /* COMPOSE */
     const val compose = "1.1.1"

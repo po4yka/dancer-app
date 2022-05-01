@@ -1,4 +1,4 @@
-package com.po4yka.dancer.ui.screens
+package com.po4yka.dancer.ui.screens.camera
 
 import android.Manifest
 import android.content.Context
@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.firebase.perf.metrics.AddTrace
 import com.po4yka.dancer.R
 import com.po4yka.dancer.classifier.MoveAnalyzer
 import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NET_WIDTH
@@ -55,16 +56,18 @@ import com.po4yka.dancer.utils.switchLens
 import com.po4yka.dancer.utils.switchRecognitionMode
 import com.po4yka.dancer.utils.takePicture
 import java.io.File
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@androidx.camera.core.ExperimentalGetImage
 @Composable
 @OptIn(
     ExperimentalPermissionsApi::class,
     ExperimentalCoroutinesApi::class
 )
+@androidx.camera.core.ExperimentalGetImage
+@AddTrace(name = "camera_screen", enabled = true)
 fun CameraScreen(
     modifier: Modifier = Modifier,
     onImageFile: (File) -> Unit = { },
@@ -106,7 +109,7 @@ fun CameraScreen(
                 mutableStateOf(
                     ImageCapture
                         .Builder()
-                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
                         .build()
                 )
             }
@@ -163,7 +166,7 @@ fun CameraScreen(
                         .align(Alignment.BottomCenter),
                     recognitionMode = recognitionState,
                     onCaptureClicked = {
-                        coroutineScope.launch {
+                        coroutineScope.launch(Dispatchers.IO) {
                             onImageFile(imageCaptureUseCase.takePicture(context.executor))
                         }
                     },
@@ -246,10 +249,11 @@ private suspend fun launchedEffects(
     }
 }
 
-@ExperimentalPermissionsApi
-@ExperimentalCoroutinesApi
 @androidx.camera.core.ExperimentalGetImage
-@androidx.compose.ui.tooling.preview.Preview
+@OptIn(
+    ExperimentalPermissionsApi::class,
+    ExperimentalCoroutinesApi::class
+)
 @Composable
 fun CameraScreenPreview() {
     Scaffold(

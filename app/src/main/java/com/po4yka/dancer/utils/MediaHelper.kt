@@ -3,6 +3,7 @@ package com.po4yka.dancer.utils
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -10,12 +11,35 @@ import android.provider.MediaStore
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 object MediaHelper {
 
     private const val MAX_QUALITY = 100
 
-    fun saveMediaToStorage(context: Context, bitmap: Bitmap, filename: String) {
+    fun saveMediaToStorageWithTimeStamp(context: Context, imageUri: Uri) {
+        runBlocking<Unit> {
+            launch(Dispatchers.IO) {
+                val contentResolver = context.contentResolver
+                val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, imageUri))
+                } else {
+                    @Suppress("DEPRECATION")
+                    MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                }
+                val currentDate: String =
+                    SimpleDateFormat("HH:mm:ss-dd-MM-yyyy", Locale.getDefault()).format(Date())
+                saveMediaToStorage(context, bitmap, currentDate)
+            }
+        }
+    }
+
+    private fun saveMediaToStorage(context: Context, bitmap: Bitmap, filename: String) {
 
         var fos: OutputStream? = null
 

@@ -16,6 +16,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.navigation.NavScreen
 import com.po4yka.dancer.navigation.Router
+import com.po4yka.dancer.ui.screens.camera.CameraContentScreen
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @androidx.camera.core.ExperimentalGetImage
@@ -111,7 +112,7 @@ fun MainScreenNavigation(
                 }
             }
 
-            CameraScreen(modifier = modifier)
+            CameraContentScreen(modifier = modifier)
         }
     }
 }

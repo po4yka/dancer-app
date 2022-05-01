@@ -1,4 +1,5 @@
 import Dependencies.AndroidX
+import Dependencies.Coil
 import Dependencies.Compose
 import Dependencies.Firebase
 import Dependencies.Hilt
@@ -54,8 +55,13 @@ android {
         targetSdk = Config.targetSdkVersion
         versionCode = Config.versionCode
         versionName = Config.versionName
+        multiDexEnabled = true
 
         testInstrumentationRunner = Config.testInstrumentationRunner
+
+        ndk {
+            abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a"))
+        }
     }
 
     buildTypes {
@@ -69,6 +75,8 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             isDebuggable = true
@@ -145,7 +153,6 @@ dependencies {
 
     implementation(TensorFlow.metadata)
     implementation(TensorFlow.gpu)
-    implementation(TensorFlow.vision)
     implementation(TensorFlow.support)
 
     implementation(Utils.accompanistInsets)
@@ -153,6 +160,8 @@ dependencies {
     implementation(Utils.accompanistPermission)
     implementation(Utils.accompanistUi)
     implementation(Utils.timber)
+
+    implementation(Coil.coil)
 
     implementation(platform(Firebase.bom))
     implementation(Firebase.analytics)
