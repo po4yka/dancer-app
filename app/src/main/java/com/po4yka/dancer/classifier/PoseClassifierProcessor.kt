@@ -8,11 +8,13 @@ import com.po4yka.dancer.utils.ImageExt.flip
 import com.po4yka.dancer.utils.ImageExt.rotate
 import com.po4yka.dancer.utils.ImageExt.toBitmap
 import org.tensorflow.lite.DataType
+import org.tensorflow.lite.gpu.CompatibilityList
 import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
 import org.tensorflow.lite.support.label.TensorLabel
+import org.tensorflow.lite.support.model.Model
 import timber.log.Timber
 
 class PoseClassifierProcessor(
@@ -27,7 +29,20 @@ class PoseClassifierProcessor(
         needMirror: Boolean = false
     ): Map<String, Float> {
 
-        model = if (model == null) Dancer.newInstance(context) else model
+        if (model == null) {
+            val compatList = CompatibilityList()
+            val options = if (compatList.isDelegateSupportedOnThisDevice) {
+                Timber.d("Delegate is supported on this device")
+                // if the device has a supported GPU, add the GPU delegate
+                Model.Options.Builder().setDevice(Model.Device.GPU).build()
+            } else {
+                Timber.d("Delegate is not supported on this device")
+                // if the GPU is not supported, run on 4 threads
+                Model.Options.Builder().setNumThreads(NO_GPU_THREAD_COUNT).build()
+            }
+
+            model = Dancer.newInstance(context, options)
+        }
 
         val img = imageProxy.image ?: return emptyMap()
 
@@ -99,5 +114,7 @@ class PoseClassifierProcessor(
         const val IMAGE_STD = 255.0f
 
         private val TEST_BUFFER_SLICE = 1..10
+
+        private const val NO_GPU_THREAD_COUNT = 4
     }
 }

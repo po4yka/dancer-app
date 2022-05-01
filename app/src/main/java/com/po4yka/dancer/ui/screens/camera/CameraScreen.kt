@@ -109,7 +109,7 @@ fun CameraScreen(
                 mutableStateOf(
                     ImageCapture
                         .Builder()
-                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                         .build()
                 )
             }
@@ -125,17 +125,19 @@ fun CameraScreen(
                 )
             }
 
-            val analyzer = MoveAnalyzer(context) { analyzeResults ->
-                val newProbabilities = analyzeResults.results
-                recognitionSuccess =
-                    if (analyzeResults.isDetected) {
-                        PoseDetectionStateResult.DETECTED
-                    } else {
-                        PoseDetectionStateResult.NOT_DETECTED
+            val analyzer = remember {
+                MoveAnalyzer(context) { analyzeResults ->
+                    val newProbabilities = analyzeResults.results
+                    recognitionSuccess =
+                        if (analyzeResults.isDetected) {
+                            PoseDetectionStateResult.DETECTED
+                        } else {
+                            PoseDetectionStateResult.NOT_DETECTED
+                        }
+                    movesProbabilities.apply {
+                        clear()
+                        newProbabilities.forEach { add(it) }
                     }
-                movesProbabilities.apply {
-                    clear()
-                    newProbabilities.forEach { add(it) }
                 }
             }
             imageAnalysisUseCase.setAnalyzer(executor) { imageProxy: ImageProxy ->

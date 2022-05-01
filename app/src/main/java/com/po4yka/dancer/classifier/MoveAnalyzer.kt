@@ -45,6 +45,6 @@ class MoveAnalyzer(
     }
 
     private companion object {
-        const val THRESHOLD_VALUE = 2f
+        const val THRESHOLD_VALUE = 3f
     }
 }
