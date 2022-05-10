@@ -1,6 +1,6 @@
 object Versions {
 
-    const val gradle = "7.1.3"
+    const val gradle = "7.2.0"
     const val kotlin = "1.6.10"
     const val kotlinCoroutines = "1.6.1"
 
@@ -8,7 +8,7 @@ object Versions {
     const val coreKtx = "1.9.0-alpha03"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"
-    const val material = "1.6.0-rc01"
+    const val material = "1.6.0"
     const val startup = "1.1.1"
 
     const val coil = "2.0.0-rc03"
@@ -29,7 +29,7 @@ object Versions {
     const val tensorflowGpu = "2.8.0"
 
     /* HILT */
-    const val hiltCoreVersion = "2.41"
+    const val hiltCoreVersion = "2.42"
     const val hiltVersion = "1.0.0"
     const val hiltComposeNavigation = "1.0.0"
     const val hiltGradlePlugin = "2.38.1"

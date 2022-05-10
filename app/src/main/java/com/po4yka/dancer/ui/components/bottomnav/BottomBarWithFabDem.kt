@@ -1,6 +1,5 @@
 package com.po4yka.dancer.ui.components.bottomnav
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.FabPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,15 +14,10 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.navigation.NavigationFloatingButton
 import com.po4yka.dancer.navigation.Router
 import com.po4yka.dancer.ui.screens.MainScreenNavigation
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @Composable
 @androidx.camera.core.ExperimentalGetImage
-@OptIn(
-    ExperimentalFoundationApi::class,
-    ExperimentalPermissionsApi::class,
-    ExperimentalCoroutinesApi::class,
-)
+@ExperimentalPermissionsApi
 fun BottomBarWithFabDem(
     onNavBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,

@@ -57,15 +57,11 @@ import com.po4yka.dancer.utils.switchRecognitionMode
 import com.po4yka.dancer.utils.takePicture
 import java.io.File
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @Composable
-@OptIn(
-    ExperimentalPermissionsApi::class,
-    ExperimentalCoroutinesApi::class
-)
+@ExperimentalPermissionsApi
 @androidx.camera.core.ExperimentalGetImage
 @AddTrace(name = "camera_screen", enabled = true)
 fun CameraScreen(
@@ -252,10 +248,7 @@ private suspend fun launchedEffects(
 }
 
 @androidx.camera.core.ExperimentalGetImage
-@OptIn(
-    ExperimentalPermissionsApi::class,
-    ExperimentalCoroutinesApi::class
-)
+@ExperimentalPermissionsApi
 @Composable
 fun CameraScreenPreview() {
     Scaffold(

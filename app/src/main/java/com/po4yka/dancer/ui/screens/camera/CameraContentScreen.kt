@@ -22,10 +22,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.R
 import com.po4yka.dancer.utils.MediaHelper.saveMediaToStorageWithTimeStamp
 
 @androidx.camera.core.ExperimentalGetImage
+@ExperimentalPermissionsApi
 @Composable
 fun CameraContentScreen(
     modifier: Modifier = Modifier

@@ -27,7 +27,7 @@ class MoveAnalyzer(
 
         onMovementsClassified.invoke(
             RecognitionResults(
-                isDetected = classificationRes.firstOrNull()?.probability ?: 0f > THRESHOLD_VALUE,
+                isDetected = (classificationRes.firstOrNull()?.probability ?: 0f) > THRESHOLD_VALUE,
                 results = classificationRes
             )
         )
@@ -45,6 +45,6 @@ class MoveAnalyzer(
     }
 
     private companion object {
-        const val THRESHOLD_VALUE = 3f
+        const val THRESHOLD_VALUE = 2.5f
     }
 }

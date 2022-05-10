@@ -2,7 +2,6 @@ package com.po4yka.dancer.ui.screens
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -17,15 +16,10 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.po4yka.dancer.navigation.NavScreen
 import com.po4yka.dancer.navigation.Router
 import com.po4yka.dancer.ui.screens.camera.CameraContentScreen
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @androidx.camera.core.ExperimentalGetImage
 @Composable
-@OptIn(
-    ExperimentalFoundationApi::class,
-    ExperimentalPermissionsApi::class,
-    ExperimentalCoroutinesApi::class,
-)
+@ExperimentalPermissionsApi
 fun MainScreenNavigation(
     navController: NavHostController,
     externalRouters: Map<String, Router>,

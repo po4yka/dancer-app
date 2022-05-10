@@ -153,6 +153,7 @@ dependencies {
 
     implementation(TensorFlow.metadata)
     implementation(TensorFlow.gpu)
+    implementation(TensorFlow.vision)
     implementation(TensorFlow.support)
 
     implementation(Utils.accompanistInsets)
