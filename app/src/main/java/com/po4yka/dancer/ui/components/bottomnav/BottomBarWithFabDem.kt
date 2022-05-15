@@ -1,5 +1,6 @@
 package com.po4yka.dancer.ui.components.bottomnav
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FabPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -40,7 +41,7 @@ fun BottomBarWithFabDem(
         floatingActionButton = {
             NavigationFloatingButton(navController, bottomBarState)
         }
-    ) {
+    ) { contentPadding ->
         MainScreenNavigation(
             navController = navController,
             externalRouters = externalRouters,
@@ -48,7 +49,7 @@ fun BottomBarWithFabDem(
             onStatusBarColorChange = onStatusBarColorChange,
             setDefaultNavBarColor = setDefaultNavBarColor,
             onBottomBarStateChanged = { isVisible -> bottomBarState = isVisible },
-            modifier = modifier
+            modifier = modifier.padding(contentPadding)
         )
     }
 }

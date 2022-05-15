@@ -1,7 +1,7 @@
 object Versions {
 
     const val gradle = "7.2.0"
-    const val kotlin = "1.6.10"
+    const val kotlin = "1.6.21"
     const val kotlinCoroutines = "1.6.1"
 
     const val appCompat = "1.4.1"
@@ -11,17 +11,17 @@ object Versions {
     const val material = "1.6.0"
     const val startup = "1.1.1"
 
-    const val coil = "2.0.0-rc03"
+    const val coil = "2.0.0"
 
     /* COMPOSE */
-    const val compose = "1.1.1"
-    const val composeCompiler = "1.1.1"
-    const val composeNavigation = "2.4.2"
+    const val compose = "1.2.0-beta01"
+    const val composeCompiler = "1.2.0-beta01"
+    const val composeNavigation = "2.5.0-rc01"
     const val constraintLayout = "2.1.3"
 
     /* LIFECYCLE */
-    const val composeActivity = "1.4.0"
-    const val lifecycle = "2.5.0-beta01"
+    const val composeActivity = "1.5.0-rc01"
+    const val lifecycle = "2.5.0-rc01"
 
     /* TensorFlow */
     const val tensorFlow = "0.3.1"
@@ -36,7 +36,7 @@ object Versions {
 
     /* CAMERA 2 */
     const val camera = "1.0.2"
-    const val cameraViewAndVideo = "1.1.0-beta03"
+    const val cameraViewAndVideo = "1.1.0-rc01"
 
     /* TESTING */
     const val junit = "4.13.2"

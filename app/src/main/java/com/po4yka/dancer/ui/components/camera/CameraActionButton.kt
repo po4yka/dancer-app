@@ -60,7 +60,7 @@ fun CameraActionButtonPreview() {
         modifier = Modifier
             .size(125.dp)
             .wrapContentSize()
-    ) { innerPadding ->
+    ) { contentPadding ->
         CameraActionButton(
             onClick = {},
             buttonActionRes = ButtonActionRes(
@@ -68,7 +68,7 @@ fun CameraActionButtonPreview() {
                 actionDescriptionStrId = R.string.change_camera
             ),
             modifier = Modifier
-                .padding(innerPadding)
+                .padding(contentPadding)
                 .size(100.dp)
         )
     }

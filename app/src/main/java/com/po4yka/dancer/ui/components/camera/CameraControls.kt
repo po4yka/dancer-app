@@ -64,14 +64,14 @@ fun CameraControlsPreview() {
         modifier = Modifier
             .size(125.dp)
             .wrapContentSize()
-    ) { innerPadding ->
+    ) { contentPadding ->
         CameraControls(
             recognitionMode = RecognitionState.ACTIVE,
             onCaptureClicked = {},
             onLensChangeClicked = {},
             onRecognitionModeSwitchClicked = {},
             modifier = Modifier
-                .padding(innerPadding)
+                .padding(contentPadding)
                 .size(100.dp)
         )
     }
