@@ -4,8 +4,8 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -52,15 +52,16 @@ fun GalleryPicker(
 
     Scaffold(
         modifier = modifier.fillMaxWidth()
-    ) {
+    ) { contentPadding ->
         val contentModifier = Modifier.padding(2.dp)
         val imagesCount = lazyGalleryPickerImages.itemCount
 
         if (imagesCount > 0) {
             LazyVerticalGrid(
                 modifier = Modifier
-                    .background(MaterialTheme.colors.surface),
-                cells = GridCells.Fixed(3),
+                    .background(MaterialTheme.colors.surface)
+                    .padding(contentPadding),
+                columns = GridCells.Fixed(3)
             ) {
 
                 items(imagesCount) { index ->

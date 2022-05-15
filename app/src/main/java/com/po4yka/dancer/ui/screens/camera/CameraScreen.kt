@@ -12,6 +12,7 @@ import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Scaffold
@@ -255,5 +256,7 @@ fun CameraScreenPreview() {
         modifier = Modifier
             .size(125.dp)
             .wrapContentSize()
-    ) { CameraScreen() }
+    ) { contentPadding ->
+        CameraScreen(modifier = Modifier.padding(contentPadding))
+    }
 }

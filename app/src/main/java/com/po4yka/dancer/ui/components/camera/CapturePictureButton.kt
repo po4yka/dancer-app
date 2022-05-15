@@ -67,10 +67,10 @@ fun PreviewCapturePictureButton() {
             .size(125.dp)
             .wrapContentSize(),
         backgroundColor = Color.Gray
-    ) { innerPadding ->
+    ) { contentPadding ->
         CapturePictureButton(
             modifier = Modifier
-                .padding(innerPadding)
+                .padding(contentPadding)
                 .size(100.dp)
         )
     }

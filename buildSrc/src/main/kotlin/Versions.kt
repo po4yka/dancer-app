@@ -1,7 +1,7 @@
 object Versions {
 
     const val gradle = "7.2.0"
-    const val kotlin = "1.6.10"
+    const val kotlin = "1.6.21"
     const val kotlinCoroutines = "1.6.1"
 
     const val appCompat = "1.4.1"
@@ -14,8 +14,8 @@ object Versions {
     const val coil = "2.0.0"
 
     /* COMPOSE */
-    const val compose = "1.1.1"
-    const val composeCompiler = "1.1.1"
+    const val compose = "1.2.0-beta01"
+    const val composeCompiler = "1.2.0-beta01"
     const val composeNavigation = "2.5.0-rc01"
     const val constraintLayout = "2.1.3"
 
@@ -24,8 +24,8 @@ object Versions {
     const val lifecycle = "2.5.0-rc01"
 
     /* TensorFlow */
-    const val tensorFlow = "0.4.0"
-    const val tensorflowMetadata = "0.4.0"
+    const val tensorFlow = "0.3.1"
+    const val tensorflowMetadata = "0.3.1"
     const val tensorflowGpu = "2.8.0"
 
     /* HILT */
