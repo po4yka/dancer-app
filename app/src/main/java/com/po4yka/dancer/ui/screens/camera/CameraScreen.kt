@@ -138,7 +138,11 @@ fun CameraScreen(
                 }
             }
             imageAnalysisUseCase.setAnalyzer(executor) { imageProxy: ImageProxy ->
-                analyzer.analyze(imageProxy)
+                try {
+                    analyzer.analyze(imageProxy)
+                } finally {
+                    imageProxy.close()
+                }
             }
 
             Box {
