@@ -2,7 +2,6 @@ package com.po4yka.dancer.ui.screens.camera
 
 import android.Manifest
 import android.content.Context
-import android.os.Parcelable
 import android.util.Size
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -19,15 +18,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.listSaver
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -35,14 +31,14 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.firebase.perf.metrics.AddTrace
 import com.po4yka.dancer.R
-import com.po4yka.dancer.classifier.MoveAnalyzer
-import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NET_WIDTH
-import com.po4yka.dancer.classifier.PoseClassifierProcessor.Companion.IMAGE_NEW_HEIGHT
+import com.po4yka.dancer.domain.model.PosePrediction
 import com.po4yka.dancer.models.PoseDetectionStateResult
+import com.po4yka.dancer.models.RecognitionModelHelper
 import com.po4yka.dancer.models.RecognitionModelName
 import com.po4yka.dancer.models.RecognitionModelPredictionResult
 import com.po4yka.dancer.models.RecognitionState
@@ -51,15 +47,28 @@ import com.po4yka.dancer.ui.components.camera.CameraPreview
 import com.po4yka.dancer.ui.components.persmission.Permission
 import com.po4yka.dancer.ui.components.persmission.PermissionNotAvailable
 import com.po4yka.dancer.ui.components.resulttable.ResultTable
+import com.po4yka.dancer.ui.viewmodel.CameraUiState
+import com.po4yka.dancer.ui.viewmodel.CameraViewModel
 import com.po4yka.dancer.utils.executor
 import com.po4yka.dancer.utils.getCameraProvider
 import com.po4yka.dancer.utils.switchLens
 import com.po4yka.dancer.utils.switchRecognitionMode
 import com.po4yka.dancer.utils.takePicture
-import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.io.File
+
+/**
+ * Converts domain PosePrediction to UI RecognitionModelPredictionResult.
+ */
+private fun PosePrediction.toUiModel(): RecognitionModelPredictionResult {
+    val recognitionName = RecognitionModelHelper.getClassById(this.moveName)
+    return RecognitionModelPredictionResult(
+        name = recognitionName,
+        probability = this.probability,
+    )
+}
 
 @Composable
 @ExperimentalPermissionsApi
@@ -68,6 +77,7 @@ import timber.log.Timber
 fun CameraScreen(
     modifier: Modifier = Modifier,
     onImageFile: (File) -> Unit = { },
+    viewModel: CameraViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val executor = ContextCompat.getMainExecutor(context)
@@ -79,16 +89,21 @@ fun CameraScreen(
         rationaleDescription = stringResource(id = R.string.camera_permission_request_text),
         permissionNotAvailableContent = {
             PermissionNotAvailable(
-                unavailableExplanationResId = R.string.can_not_work_with_no_camera
+                unavailableExplanationResId = R.string.can_not_work_with_no_camera,
             )
-        }
+        },
     ) {
         Box {
             val lifecycleOwner = LocalLifecycleOwner.current
             val coroutineScope = rememberCoroutineScope()
+
+            // Collect state from ViewModel
+            val uiState by viewModel.uiState.collectAsState()
+            val configuration by viewModel.configuration.collectAsState()
+
             var previewUseCase by remember {
                 mutableStateOf<UseCase>(
-                    Preview.Builder().build()
+                    Preview.Builder().build(),
                 )
             }
             var cameraLens by remember { mutableStateOf(CameraSelector.LENS_FACING_BACK) }
@@ -96,18 +111,13 @@ fun CameraScreen(
             var recognitionState by remember {
                 mutableStateOf(RecognitionState.ACTIVE)
             }
-            var recognitionSuccess by remember {
-                mutableStateOf(PoseDetectionStateResult.NOT_DETECTED)
-            }
-
-            val movesProbabilities = rememberMutableStateListOf<RecognitionModelPredictionResult>()
 
             val imageCaptureUseCase: ImageCapture by remember {
                 mutableStateOf(
                     ImageCapture
                         .Builder()
                         .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                        .build()
+                        .build(),
                 )
             }
 
@@ -115,31 +125,19 @@ fun CameraScreen(
                 mutableStateOf(
                     ImageAnalysis
                         .Builder()
-                        .setTargetResolution(Size(IMAGE_NET_WIDTH, IMAGE_NEW_HEIGHT))
+                        .setTargetResolution(Size(160, 256))
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                         .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888)
-                        .build()
+                        .build(),
                 )
             }
 
-            val analyzer = remember {
-                MoveAnalyzer(context) { analyzeResults ->
-                    val newProbabilities = analyzeResults.results
-                    recognitionSuccess =
-                        if (analyzeResults.isDetected) {
-                            PoseDetectionStateResult.DETECTED
-                        } else {
-                            PoseDetectionStateResult.NOT_DETECTED
-                        }
-                    movesProbabilities.apply {
-                        clear()
-                        newProbabilities.forEach { add(it) }
-                    }
-                }
-            }
+            // Set up analyzer to use ViewModel
             imageAnalysisUseCase.setAnalyzer(executor) { imageProxy: ImageProxy ->
                 try {
-                    analyzer.analyze(imageProxy)
+                    if (recognitionState == RecognitionState.ACTIVE && configuration.analysisEnabled) {
+                        viewModel.analyzePose(imageProxy)
+                    }
                 } finally {
                     imageProxy.close()
                 }
@@ -150,23 +148,42 @@ fun CameraScreen(
                     modifier = Modifier.fillMaxSize(),
                     onUseCase = {
                         previewUseCase = it
-                    }
+                    },
                 )
-                if (recognitionState == RecognitionState.ACTIVE) {
-                    if (!analyzer.isActive) analyzer.start()
-                    if (movesProbabilities.size == RecognitionModelName.values().size) {
-                        ResultTable(
-                            modifier = Modifier.align(Alignment.TopCenter),
-                            isDetected = recognitionSuccess,
-                            recognitionModelPredictionResults = movesProbabilities
-                        )
+
+                // Render UI based on state
+                when (val state = uiState) {
+                    is CameraUiState.Analyzing -> {
+                        if (recognitionState == RecognitionState.ACTIVE) {
+                            val predictions = state.analysisResult.predictions.map { it.toUiModel() }
+
+                            // Only show table if we have all expected results
+                            if (predictions.size == RecognitionModelName.values().size) {
+                                ResultTable(
+                                    modifier = Modifier.align(Alignment.TopCenter),
+                                    isDetected =
+                                        if (state.analysisResult.isDetected) {
+                                            PoseDetectionStateResult.DETECTED
+                                        } else {
+                                            PoseDetectionStateResult.NOT_DETECTED
+                                        },
+                                    recognitionModelPredictionResults = predictions,
+                                )
+                            }
+                        }
                     }
-                } else {
-                    analyzer.stop()
+                    is CameraUiState.Error -> {
+                        Timber.e("Camera error: ${state.message}")
+                    }
+                    else -> {
+                        // Idle or CameraReady - no results to display yet
+                    }
                 }
+
                 CameraControls(
-                    modifier = modifier
-                        .align(Alignment.BottomCenter),
+                    modifier =
+                        modifier
+                            .align(Alignment.BottomCenter),
                     recognitionMode = recognitionState,
                     onCaptureClicked = {
                         coroutineScope.launch(Dispatchers.IO) {
@@ -178,7 +195,7 @@ fun CameraScreen(
                     },
                     onRecognitionModeSwitchClicked = {
                         recognitionState = switchRecognitionMode(recognitionState)
-                    }
+                    },
                 )
             }
 
@@ -189,28 +206,22 @@ fun CameraScreen(
                     previewUseCase,
                     imageCaptureUseCase,
                     imageAnalysisUseCase,
-                    cameraLens
+                    cameraLens,
                 )
             }
 
-            DisposableEffect(lifecycleOwner) {
+            // Start analysis when screen appears
+            LaunchedEffect(Unit) {
+                viewModel.startAnalysis()
+            }
+
+            // Stop analysis when screen disappears
+            DisposableEffect(Unit) {
                 onDispose {
-                    analyzer.stop()
+                    viewModel.stopAnalysis()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun <T : Parcelable> rememberMutableStateListOf(vararg elements: T): SnapshotStateList<T> {
-    return rememberSaveable(
-        saver = listSaver(
-            save = { it.toList() },
-            restore = { it.toMutableStateList() }
-        )
-    ) {
-        elements.toList().toMutableStateList()
     }
 }
 
@@ -220,13 +231,14 @@ private suspend fun launchedEffects(
     previewUseCase: UseCase,
     imageCaptureUseCase: ImageCapture,
     imageAnalysisUseCase: ImageAnalysis,
-    cameraLens: Int
+    cameraLens: Int,
 ) {
     val cameraProvider = context.getCameraProvider()
-    val cameraSelector = CameraSelector
-        .Builder()
-        .requireLensFacing(cameraLens)
-        .build()
+    val cameraSelector =
+        CameraSelector
+            .Builder()
+            .requireLensFacing(cameraLens)
+            .build()
     val printFailedCamera: (ex: Exception) -> Unit = { ex: Exception ->
         Timber.e(ex, "Failed to bind camera use cases")
     }
@@ -238,12 +250,12 @@ private suspend fun launchedEffects(
             lifecycleOwner,
             cameraSelector,
             previewUseCase,
-            imageCaptureUseCase
+            imageCaptureUseCase,
         )
         cameraProvider.bindToLifecycle(
             lifecycleOwner,
             cameraSelector,
-            imageAnalysisUseCase
+            imageAnalysisUseCase,
         )
     } catch (ex: IllegalStateException) {
         printFailedCamera(ex)
@@ -257,9 +269,10 @@ private suspend fun launchedEffects(
 @Composable
 fun CameraScreenPreview() {
     Scaffold(
-        modifier = Modifier
-            .size(125.dp)
-            .wrapContentSize()
+        modifier =
+            Modifier
+                .size(125.dp)
+                .wrapContentSize(),
     ) { contentPadding ->
         CameraScreen(modifier = Modifier.padding(contentPadding))
     }

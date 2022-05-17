@@ -59,7 +59,7 @@ object Versions {
     const val JLLeitschuhKtlintGradle = "12.1.2"
     const val detekt = "1.23.7"
 
-    const val accompanist = "0.36.0"
+    const val accompanist = "0.30.1"
     const val timber = "5.0.1"
 
     /* DATASTORE */
