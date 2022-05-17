@@ -1,6 +1,5 @@
 package com.po4yka.dancer.data.repository
 
-import com.po4yka.dancer.data.adapter.UriAdapter
 import com.po4yka.dancer.data.local.dao.PoseAnalysisDao
 import com.po4yka.dancer.data.local.entity.PoseAnalysisEntity
 import com.po4yka.dancer.domain.model.DomainUri
@@ -29,13 +28,11 @@ import javax.inject.Inject
  * - URI adaptation between domain and Android framework types
  *
  * @property dao Data access object for pose analysis operations
- * @property uriAdapter Adapter for converting between domain and Android URIs
  */
 class ImageRepositoryImpl
     @Inject
     constructor(
         private val dao: PoseAnalysisDao,
-        private val uriAdapter: UriAdapter,
     ) : ImageRepository {
         override suspend fun saveAnalysis(
             id: String,

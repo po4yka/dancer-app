@@ -166,10 +166,7 @@ object DataModule {
      */
     @Provides
     @Singleton
-    fun provideImageRepository(
-        dao: PoseAnalysisDao,
-        uriAdapter: UriAdapter,
-    ): ImageRepository = ImageRepositoryImpl(dao, uriAdapter)
+    fun provideImageRepository(dao: PoseAnalysisDao): ImageRepository = ImageRepositoryImpl(dao)
 
     /**
      * Provides the UriAdapter for converting between domain and Android URIs.

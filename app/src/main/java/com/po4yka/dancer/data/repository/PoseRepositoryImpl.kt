@@ -78,9 +78,9 @@ class PoseRepositoryImpl
                                 }
                                 .sortedByDescending { it.probability }
 
-                        Timber.v(
-                            "[PoseRepository] Top prediction: ${predictions.firstOrNull()?.let { "${it.moveName} (${it.probability})" }}",
-                        )
+                        val topPrediction =
+                            predictions.firstOrNull()?.let { "${it.moveName} (${it.probability})" }
+                        Timber.v("[PoseRepository] Top prediction: $topPrediction")
                         predictions
                     }
                     is com.po4yka.dancer.data.models.Result.Error -> {

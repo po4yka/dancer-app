@@ -81,7 +81,10 @@ class PoseClassifierDataSource(
             val startTime = System.currentTimeMillis()
             Timber.d("[PoseClassifier] ========================================")
             Timber.d("[PoseClassifier] Starting classification")
-            Timber.d("[PoseClassifier] Image: ${imageData.width}x${imageData.height}, rotation=${imageData.rotation}, mirror=$needMirror")
+            Timber.d(
+                "[PoseClassifier] Image: ${imageData.width}x${imageData.height}, " +
+                    "rotation=${imageData.rotation}, mirror=$needMirror",
+            )
 
             // Convert ImageData to Bitmap
             val rotationDegree = imageData.rotation.toFloat()

@@ -162,7 +162,8 @@ class CameraViewModel
                 .onEach { config ->
                     _configuration.value = config
                     Timber.d(
-                        "Configuration updated: threshold=${config.threshold}, mirror=${config.mirrorMode}, enabled=${config.analysisEnabled}",
+                        "Configuration updated: threshold=${config.threshold}, " +
+                            "mirror=${config.mirrorMode}, enabled=${config.analysisEnabled}",
                     )
 
                     // Update UI state based on analysis enabled flag

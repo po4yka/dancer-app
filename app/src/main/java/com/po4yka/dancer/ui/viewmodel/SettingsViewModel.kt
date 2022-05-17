@@ -111,7 +111,8 @@ class SettingsViewModel
                 .onEach { config ->
                     _configuration.value = config
                     Timber.d(
-                        "Configuration loaded: threshold=${config.threshold}, mirror=${config.mirrorMode}, enabled=${config.analysisEnabled}",
+                        "Configuration loaded: threshold=${config.threshold}, " +
+                            "mirror=${config.mirrorMode}, enabled=${config.analysisEnabled}",
                     )
                 }
                 .catch { e ->

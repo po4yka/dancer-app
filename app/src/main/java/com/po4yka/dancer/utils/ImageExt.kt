@@ -36,5 +36,16 @@ object ImageExt {
         return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
     }
 
-    fun Bitmap.rotate(degrees: Float): Bitmap = Bitmap.createBitmap(this, 0, 0, width, height, Matrix().apply { postRotate(degrees) }, true)
+    fun Bitmap.rotate(degrees: Float): Bitmap =
+        Bitmap.createBitmap(
+            this,
+            0,
+            0,
+            width,
+            height,
+            Matrix().apply {
+                postRotate(degrees)
+            },
+            true,
+        )
 }
