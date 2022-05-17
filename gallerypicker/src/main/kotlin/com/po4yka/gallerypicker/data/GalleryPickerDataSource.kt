@@ -4,9 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 
 class GalleryPickerDataSource(
-    private val onFetch: (limit: Int, offset: Int) -> List<GalleryPickerImage>
+    private val onFetch: (limit: Int, offset: Int) -> List<GalleryPickerImage>,
 ) : PagingSource<Int, GalleryPickerImage>() {
-
     override fun getRefreshKey(state: PagingState<Int, GalleryPickerImage>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
@@ -24,8 +23,7 @@ class GalleryPickerDataSource(
         return LoadResult.Page(
             data = pictures,
             prevKey = prevKey,
-            nextKey = nextKey
+            nextKey = nextKey,
         )
     }
-
 }

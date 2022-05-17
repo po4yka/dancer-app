@@ -20,7 +20,6 @@ internal class GalleryPickerViewModel(
     private val galleryPickerConfiguration: GalleryPickerConfiguration,
     private val galleryPickerUriManager: GalleryPickerUriManager,
 ) : ViewModel() {
-
     private val selectedImageList: MutableList<GalleryPickerImage> = ArrayList()
     private val _selectedImage = MutableStateFlow(emptyList<GalleryPickerImage>())
     private var uri: Uri? = null
@@ -29,17 +28,22 @@ internal class GalleryPickerViewModel(
 
     fun getGalleryPickImage() = galleryPickerUriManager.getGalleryPickerImage(uri)
 
-    fun getImages(): Flow<PagingData<GalleryPickerImage>> = Pager(
-        config = PagingConfig(
-            pageSize = PAGE_SIZE,
-            initialLoadSize = INITIAL_LOAD_SIZE,
-            enablePlaceholders = true
-        )
-    ) {
-        galleryPickerRepository.getPicturePagingSource()
-    }.flow.cachedIn(viewModelScope)
+    fun getImages(): Flow<PagingData<GalleryPickerImage>> =
+        Pager(
+            config =
+                PagingConfig(
+                    pageSize = PAGE_SIZE,
+                    initialLoadSize = INITIAL_LOAD_SIZE,
+                    enablePlaceholders = true,
+                ),
+        ) {
+            galleryPickerRepository.getPicturePagingSource()
+        }.flow.cachedIn(viewModelScope)
 
-    fun isPhotoSelected(img: GalleryPickerImage, isSelected: Boolean) {
+    fun isPhotoSelected(
+        img: GalleryPickerImage,
+        isSelected: Boolean,
+    ) {
         if (isSelected) {
             if (galleryPickerConfiguration.multipleImagesAllowed) {
                 selectedImageList.add(img)
@@ -64,5 +68,4 @@ internal class GalleryPickerViewModel(
         const val PAGE_SIZE = 50
         const val INITIAL_LOAD_SIZE = 50
     }
-
 }

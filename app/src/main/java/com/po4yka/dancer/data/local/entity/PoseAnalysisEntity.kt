@@ -27,7 +27,8 @@ data class PoseAnalysisEntity(
     val timestamp: Long,
     val isDetected: Boolean,
     val confidence: Float,
-    val predictions: String, // JSON of List<PosePrediction>
+    // JSON of List<PosePrediction>
+    val predictions: String,
     val cameraLens: String?,
     val threshold: Float,
 )

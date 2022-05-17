@@ -92,5 +92,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun getStatusBarColorBasedOnTheme(useDarkIcons: Boolean) = if (useDarkIcons) Color.White else Color.Transparent
+    private fun getStatusBarColorBasedOnTheme(useDarkIcons: Boolean) =
+        if (useDarkIcons) Color.White else Color.Transparent
 }

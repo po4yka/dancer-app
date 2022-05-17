@@ -11,34 +11,39 @@ import com.po4yka.gallerypicker.data.GalleryPickerImage
 import com.po4yka.gallerypicker.utils.ImageCheck.MIN_IMAGE_HEIGHT
 import com.po4yka.gallerypicker.utils.ImageCheck.MIN_IMAGE_WIDTH
 
-private val projection = arrayOf(
-    MediaStore.Images.Media._ID,
-    MediaStore.Images.Media.DISPLAY_NAME,
-    MediaStore.Images.Media.DATE_TAKEN,
-    MediaStore.Images.Media.BUCKET_DISPLAY_NAME
-)
+private val projection =
+    arrayOf(
+        MediaStore.Images.Media._ID,
+        MediaStore.Images.Media.DISPLAY_NAME,
+        MediaStore.Images.Media.DATE_TAKEN,
+        MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+    )
 
 private object ImageCheck {
     const val MIN_IMAGE_WIDTH = 180.0f
     const val MIN_IMAGE_HEIGHT = 270.0f
 }
 
-internal fun Context.createCursor(limit: Int, offset: Int): Cursor? {
+internal fun Context.createCursor(
+    limit: Int,
+    offset: Int,
+): Cursor? {
     val selection =
         "${MediaStore.MediaColumns.WIDTH} >= $MIN_IMAGE_WIDTH AND ${MediaStore.MediaColumns.HEIGHT} >= $MIN_IMAGE_HEIGHT"
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        val bundle = bundleOf(
-            ContentResolver.QUERY_ARG_OFFSET to offset,
-            ContentResolver.QUERY_ARG_LIMIT to limit,
-            ContentResolver.QUERY_ARG_SQL_SELECTION to selection,
-            ContentResolver.QUERY_ARG_SORT_COLUMNS to arrayOf(MediaStore.Images.Media.DATE_ADDED),
-            ContentResolver.QUERY_ARG_SORT_DIRECTION to ContentResolver.QUERY_SORT_DIRECTION_DESCENDING
-        )
+        val bundle =
+            bundleOf(
+                ContentResolver.QUERY_ARG_OFFSET to offset,
+                ContentResolver.QUERY_ARG_LIMIT to limit,
+                ContentResolver.QUERY_ARG_SQL_SELECTION to selection,
+                ContentResolver.QUERY_ARG_SORT_COLUMNS to arrayOf(MediaStore.Images.Media.DATE_ADDED),
+                ContentResolver.QUERY_ARG_SORT_DIRECTION to ContentResolver.QUERY_SORT_DIRECTION_DESCENDING,
+            )
         contentResolver.query(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             projection,
             bundle,
-            null
+            null,
         )
     } else {
         contentResolver.query(
@@ -47,13 +52,15 @@ internal fun Context.createCursor(limit: Int, offset: Int): Cursor? {
             selection,
             null,
             "${MediaStore.Images.Media.DATE_ADDED} DESC LIMIT $limit OFFSET $offset",
-            null
+            null,
         )
     }
 }
 
-internal fun Context.fetchPagePicture(limit: Int, offset: Int): List<GalleryPickerImage> {
-
+internal fun Context.fetchPagePicture(
+    limit: Int,
+    offset: Int,
+): List<GalleryPickerImage> {
     val pictures = ArrayList<GalleryPickerImage>()
     val cursor = createCursor(limit, offset)
 
@@ -68,10 +75,11 @@ internal fun Context.fetchPagePicture(limit: Int, offset: Int): List<GalleryPick
 
             do {
                 val id = it.getLong(idColumn)
-                val contentUri = ContentUris.withAppendedId(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    id
-                )
+                val contentUri =
+                    ContentUris.withAppendedId(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        id,
+                    )
 
                 val dateTaken = it.getLong(dateTakenColumn)
                 val displayName = it.getString(displayNameColumn)
@@ -83,10 +91,9 @@ internal fun Context.fetchPagePicture(limit: Int, offset: Int): List<GalleryPick
                         displayName,
                         dateTaken,
                         id,
-                        folderName.toString()
-                    )
+                        folderName.toString(),
+                    ),
                 )
-
             } while (it.moveToNext())
         }
         cursor.close()

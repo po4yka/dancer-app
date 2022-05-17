@@ -116,7 +116,8 @@ object DataModule {
      */
     @Provides
     @Singleton
-    fun provideConfigurationRepository(dataStore: DataStore<Preferences>): ConfigurationRepository = ConfigurationRepositoryImpl(dataStore)
+    fun provideConfigurationRepository(dataStore: DataStore<Preferences>): ConfigurationRepository =
+        ConfigurationRepositoryImpl(dataStore)
 
     /**
      * Provides the Room database instance for the application.

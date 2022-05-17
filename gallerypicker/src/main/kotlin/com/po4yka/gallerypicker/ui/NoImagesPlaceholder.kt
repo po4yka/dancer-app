@@ -18,29 +18,28 @@ import androidx.compose.ui.unit.dp
 import com.po4yka.gallerypicker.R
 
 @Composable
-fun NoImagesPlaceholder(
-    modifier: Modifier = Modifier,
-) {
+fun NoImagesPlaceholder(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentSize()
-            .padding(24.dp)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .wrapContentSize()
+                .padding(24.dp),
     ) {
         Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.no_images_found),
             style = MaterialTheme.typography.subtitle1,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(16.dp))
         Text(
             text = stringResource(R.string.no_images_found_desc),
             style = MaterialTheme.typography.body2,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

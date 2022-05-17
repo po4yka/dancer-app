@@ -81,7 +81,7 @@ fun CustomPermissionDialogUI(
         ) {
             Image(
                 painter = painterResource(id = iconId),
-                contentDescription = null, // decorative
+                contentDescription = null,
                 contentScale = ContentScale.Fit,
                 colorFilter =
                     ColorFilter.tint(

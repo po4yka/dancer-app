@@ -35,7 +35,7 @@ fun CameraActionButton(
     ) {
         OutlinedButton(
             onClick = onClick,
-            modifier = Modifier.size(50.dp), // avoid the oval shape
+            modifier = Modifier.size(50.dp),
             border = BorderStroke(0.dp, Color.Transparent),
             shape = CircleShape,
             colors =
@@ -43,7 +43,7 @@ fun CameraActionButton(
                     backgroundColor = Color.Transparent,
                     contentColor = Color.White,
                 ),
-            contentPadding = PaddingValues(0.dp), // avoid the little icon
+            contentPadding = PaddingValues(0.dp),
         ) {
             Icon(
                 painter = painterResource(id = buttonActionRes.actionIconId),

@@ -42,7 +42,6 @@ internal fun GalleryPickerImage(
         } else {
             GalleryPickerDimens.Zero
         }
-
     }
 
     Box(
@@ -50,45 +49,48 @@ internal fun GalleryPickerImage(
         contentAlignment = Alignment.Center,
     ) {
         Image(
-            painter = rememberAsyncImagePainter(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(galleryPickerImage.uri)
-                    .crossfade(true)
-                    .transformations(
-                        RoundedCornersTransformation(
-                            topLeft = GalleryPickerDimens.cornerRadius,
-                            bottomLeft = GalleryPickerDimens.cornerRadius,
-                            bottomRight = GalleryPickerDimens.cornerRadius,
-                            topRight = GalleryPickerDimens.cornerRadius
-                        )
-                    )
-                    .build(),
-            ),
+            painter =
+                rememberAsyncImagePainter(
+                    model =
+                        ImageRequest.Builder(LocalContext.current)
+                            .data(galleryPickerImage.uri)
+                            .crossfade(true)
+                            .transformations(
+                                RoundedCornersTransformation(
+                                    topLeft = GalleryPickerDimens.cornerRadius,
+                                    bottomLeft = GalleryPickerDimens.cornerRadius,
+                                    bottomRight = GalleryPickerDimens.cornerRadius,
+                                    topRight = GalleryPickerDimens.cornerRadius,
+                                ),
+                            )
+                            .build(),
+                ),
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.padding(animatedPadding)
+            modifier = Modifier.padding(animatedPadding),
         )
         Box(
-            modifier = Modifier
-                .clickable {
-                    if (!galleryPickerConfiguration.multipleImagesAllowed) {
-                        if (images.count() < 1) {
+            modifier =
+                Modifier
+                    .clickable {
+                        if (!galleryPickerConfiguration.multipleImagesAllowed) {
+                            if (images.count() < 1) {
+                                selected.value = !selected.value
+                                onSelectedPhoto(galleryPickerImage, selected.value)
+                            } else {
+                                selected.value = false
+                                onSelectedPhoto(galleryPickerImage, selected.value)
+                            }
+                        } else {
                             selected.value = !selected.value
                             onSelectedPhoto(galleryPickerImage, selected.value)
-                        } else {
-                            selected.value = false
-                            onSelectedPhoto(galleryPickerImage, selected.value)
                         }
-                    } else {
-                        selected.value = !selected.value
-                        onSelectedPhoto(galleryPickerImage, selected.value)
                     }
-                }
-                .size(GalleryPickerDimens.Sixteen),
+                    .size(GalleryPickerDimens.Sixteen),
             contentAlignment = Alignment.TopEnd,
         ) {
             GalleryPickerImageIndicator(
-                text = images.indexOf(galleryPickerImage).plus(1).toString()
+                text = images.indexOf(galleryPickerImage).plus(1).toString(),
             )
         }
     }

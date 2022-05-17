@@ -121,7 +121,9 @@ object DomainModule {
      */
     @Provides
     @ViewModelScoped
-    fun provideGetCameraConfigurationUseCase(configurationRepository: ConfigurationRepository): GetCameraConfigurationUseCase =
+    fun provideGetCameraConfigurationUseCase(
+        configurationRepository: ConfigurationRepository,
+    ): GetCameraConfigurationUseCase =
         GetCameraConfigurationUseCase(
             configurationRepository = configurationRepository,
         )
@@ -138,7 +140,9 @@ object DomainModule {
      */
     @Provides
     @ViewModelScoped
-    fun provideUpdateCameraConfigurationUseCase(configurationRepository: ConfigurationRepository): UpdateCameraConfigurationUseCase =
+    fun provideUpdateCameraConfigurationUseCase(
+        configurationRepository: ConfigurationRepository,
+    ): UpdateCameraConfigurationUseCase =
         UpdateCameraConfigurationUseCase(
             configurationRepository = configurationRepository,
         )

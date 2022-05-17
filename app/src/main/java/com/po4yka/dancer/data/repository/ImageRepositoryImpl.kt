@@ -46,7 +46,7 @@ class ImageRepositoryImpl
                 val entity =
                     PoseAnalysisEntity(
                         id = id,
-                        imageUri = imageUri.value, // Use string value directly
+                        imageUri = imageUri.value,
                         timestamp = timestamp,
                         isDetected = result.isDetected,
                         confidence = result.confidence,
@@ -143,7 +143,7 @@ class ImageRepositoryImpl
                 jsonArray.toString()
             } catch (e: Exception) {
                 Timber.e(e, "Failed to serialize predictions")
-                "[]" // Return empty array on error
+                "[]"
             }
         }
 
@@ -173,7 +173,7 @@ class ImageRepositoryImpl
                 predictions
             } catch (e: Exception) {
                 Timber.e(e, "Failed to deserialize predictions from: $json")
-                emptyList() // Return empty list on error
+                emptyList()
             }
         }
     }

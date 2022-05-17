@@ -6,6 +6,6 @@ import androidx.compose.runtime.Composable
 @Composable
 fun GalleryPickerTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        content = content
+        content = content,
     )
 }

@@ -12,17 +12,15 @@ internal class GalleryPickerViewModelFactory(
     private val galleryPickerUriManager: GalleryPickerUriManager,
     private val galleryPickerConfiguration: GalleryPickerConfiguration,
 ) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(GalleryPickerViewModel::class.java)) {
             GalleryPickerViewModel(
                 this.galleryPickerRepository,
                 this.galleryPickerConfiguration,
-                this.galleryPickerUriManager
+                this.galleryPickerUriManager,
             ) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }
     }
-
 }

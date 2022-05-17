@@ -258,3 +258,15 @@ tasks.withType<Detekt>().configureEach {
 tasks.withType<DetektCreateBaselineTask>().configureEach {
     jvmTarget = Config.jvmTarget
 }
+
+// Ktlint configuration
+configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    android.set(true)
+    ignoreFailures.set(false)
+
+    filter {
+        exclude { entry ->
+            entry.file.toString().contains("generated/")
+        }
+    }
+}

@@ -33,37 +33,38 @@ import com.po4yka.gallerypicker.utils.GalleryPickerViewModelFactory
 @Composable
 fun GalleryPicker(
     modifier: Modifier = Modifier,
-    galleryPickerConfiguration: GalleryPickerConfiguration = GalleryPickerConfiguration()
+    galleryPickerConfiguration: GalleryPickerConfiguration = GalleryPickerConfiguration(),
 ) {
-
     val context = LocalContext.current
-    val galleryPickerViewModel: GalleryPickerViewModel = viewModel(
-        factory = GalleryPickerViewModelFactory(
-            GalleryPickerRepositoryImpl(
-                context,
-            ),
-            GalleryPickerUriManager(context),
-            galleryPickerConfiguration
+    val galleryPickerViewModel: GalleryPickerViewModel =
+        viewModel(
+            factory =
+                GalleryPickerViewModelFactory(
+                    GalleryPickerRepositoryImpl(
+                        context,
+                    ),
+                    GalleryPickerUriManager(context),
+                    galleryPickerConfiguration,
+                ),
         )
-    )
 
     val lazyGalleryPickerImages: LazyPagingItems<GalleryPickerImage> =
         galleryPickerViewModel.getImages().collectAsLazyPagingItems()
 
     Scaffold(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     ) { contentPadding ->
         val contentModifier = Modifier.padding(2.dp)
         val imagesCount = lazyGalleryPickerImages.itemCount
 
         if (imagesCount > 0) {
             LazyVerticalGrid(
-                modifier = Modifier
-                    .background(MaterialTheme.colors.surface)
-                    .padding(contentPadding),
-                columns = GridCells.Fixed(3)
+                modifier =
+                    Modifier
+                        .background(MaterialTheme.colors.surface)
+                        .padding(contentPadding),
+                columns = GridCells.Fixed(3),
             ) {
-
                 items(imagesCount) { index ->
                     lazyGalleryPickerImages[index]?.let { galleryPickImage ->
                         GalleryPickerImage(
@@ -74,19 +75,17 @@ fun GalleryPicker(
                             onSelectedPhoto = { image, isSelected ->
                                 galleryPickerViewModel.isPhotoSelected(
                                     img = image,
-                                    isSelected = isSelected
+                                    isSelected = isSelected,
                                 )
-                            }
+                            },
                         )
                     }
                 }
-
             }
         } else {
             NoImagesPlaceholder()
         }
     }
-
 }
 
 @Composable
@@ -102,11 +101,12 @@ internal fun GalleryPickerImageIndicator(text: String) {
             fontStyle = FontStyle.Normal,
             fontWeight = FontWeight.SemiBold,
             fontSize = 12.sp,
-            modifier = Modifier
-                .drawBehind {
-                    drawCircle(backgroundColor)
-                }
-                .padding(GalleryPickerDimens.One)
+            modifier =
+                Modifier
+                    .drawBehind {
+                        drawCircle(backgroundColor)
+                    }
+                    .padding(GalleryPickerDimens.One),
         )
     }
 }
