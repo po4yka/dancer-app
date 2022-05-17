@@ -18,13 +18,13 @@ import com.po4yka.gallerypicker.ui.GalleryPicker
 
 @OptIn(
     ExperimentalFoundationApi::class,
-    ExperimentalPermissionsApi::class
+    ExperimentalPermissionsApi::class,
 )
 @Composable
 fun GalleryScreen(
     @Suppress("UNUSED_PARAMETER") navController: NavController,
     @Suppress("UNUSED_PARAMETER") router: Router?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Permission(
         permission = Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -33,9 +33,9 @@ fun GalleryScreen(
         rationaleDescription = stringResource(id = R.string.gallery_permission_request_text),
         permissionNotAvailableContent = {
             PermissionNotAvailable(
-                unavailableExplanationResId = R.string.can_not_work_with_no_gallery_access
+                unavailableExplanationResId = R.string.can_not_work_with_no_gallery_access,
             )
-        }
+        },
     ) {
         GalleryPicker(modifier = modifier)
     }

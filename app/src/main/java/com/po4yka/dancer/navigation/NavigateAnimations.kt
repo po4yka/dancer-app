@@ -17,14 +17,16 @@ import androidx.compose.ui.Modifier
 @Composable
 fun PresentModal(content: @Composable () -> Unit) {
     AnimatedVisibility(
-        visibleState = remember {
-            MutableTransitionState(false)
-        }
-            .apply { targetState = true },
+        visibleState =
+            remember {
+                MutableTransitionState(false)
+            }
+                .apply { targetState = true },
         modifier = Modifier,
-        enter = slideInVertically(initialOffsetY = { NavigateAnimations.initialOffset }) +
-            fadeIn(initialAlpha = NavigateAnimations.initialAlpha),
-        exit = slideOutVertically() + fadeOut()
+        enter =
+            slideInVertically(initialOffsetY = { NavigateAnimations.initialOffset }) +
+                fadeIn(initialAlpha = NavigateAnimations.initialAlpha),
+        exit = slideOutVertically() + fadeOut(),
     ) {
         content()
     }
@@ -34,15 +36,16 @@ fun PresentModal(content: @Composable () -> Unit) {
 @Composable
 fun PresentNested(content: @Composable () -> Unit) {
     AnimatedVisibility(
-        visibleState = remember {
-            MutableTransitionState(
-                initialState = false
-            )
-        }
-            .apply { targetState = true },
+        visibleState =
+            remember {
+                MutableTransitionState(
+                    initialState = false,
+                )
+            }
+                .apply { targetState = true },
         modifier = Modifier,
         enter = slideInHorizontally(initialOffsetX = { it }) + fadeIn(initialAlpha = 0.3f),
-        exit = slideOutHorizontally() + fadeOut()
+        exit = slideOutHorizontally() + fadeOut(),
     ) {
         content()
     }

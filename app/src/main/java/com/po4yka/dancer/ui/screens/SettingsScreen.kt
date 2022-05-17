@@ -23,24 +23,25 @@ import com.po4yka.dancer.ui.theme.DancerTheme
 fun SettingsScreen(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentSize()
-            .padding(24.dp)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .wrapContentSize()
+                .padding(24.dp),
     ) {
         Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.work_in_progress),
             style = MaterialTheme.typography.subtitle1,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(16.dp))
         Text(
             text = "Here will be the settings",
             style = MaterialTheme.typography.body2,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

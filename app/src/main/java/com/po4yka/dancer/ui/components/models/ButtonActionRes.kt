@@ -5,5 +5,5 @@ import androidx.annotation.StringRes
 
 data class ButtonActionRes(
     @DrawableRes val actionIconId: Int,
-    @StringRes val actionDescriptionStrId: Int
+    @StringRes val actionDescriptionStrId: Int,
 )

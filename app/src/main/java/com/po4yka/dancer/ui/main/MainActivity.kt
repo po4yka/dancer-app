@@ -24,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @androidx.camera.core.ExperimentalGetImage
 @ExperimentalPermissionsApi
 class MainActivity : ComponentActivity() {
-
     @VisibleForTesting
     internal val viewModel: RootViewModel by viewModels()
 
@@ -45,21 +44,21 @@ class MainActivity : ComponentActivity() {
                         val setDefaultNavBarColor = {
                             systemUiController.setNavigationBarColor(
                                 color = originalNavBarColor,
-                                darkIcons = useDarkIcons
+                                darkIcons = useDarkIcons,
                             )
                         }
                         val setCustomNavBarColor =
                             { newColor: Color?, forcedUseDarkIcons: Boolean? ->
                                 systemUiController.setNavigationBarColor(
                                     color = newColor ?: originalNavBarColor,
-                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons
+                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons,
                                 )
                             }
                         val setCustomStatusBarColor =
                             { newColor: Color?, forcedUseDarkIcons: Boolean? ->
                                 systemUiController.setStatusBarColor(
                                     color = newColor ?: getStatusBarColorBasedOnTheme(useDarkIcons),
-                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons
+                                    darkIcons = forcedUseDarkIcons ?: useDarkIcons,
                                 )
                             }
 
@@ -67,17 +66,17 @@ class MainActivity : ComponentActivity() {
                             if (useDarkIcons) {
                                 systemUiController.setStatusBarColor(
                                     color = Color.White,
-                                    darkIcons = true
+                                    darkIcons = true,
                                 )
                             } else {
                                 systemUiController.setStatusBarColor(
                                     color = Color.Transparent,
-                                    darkIcons = false
+                                    darkIcons = false,
                                 )
                             }
                             systemUiController.setNavigationBarColor(
                                 originalNavBarColor,
-                                darkIcons = useDarkIcons
+                                darkIcons = useDarkIcons,
                             )
                         }
 
@@ -85,7 +84,7 @@ class MainActivity : ComponentActivity() {
                             onNavBarColorChange = setCustomNavBarColor,
                             onStatusBarColorChange = setCustomStatusBarColor,
                             setDefaultNavBarColor = setDefaultNavBarColor,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.fillMaxSize(),
                         )
                     }
                 }
@@ -93,6 +92,5 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun getStatusBarColorBasedOnTheme(useDarkIcons: Boolean) =
-        if (useDarkIcons) Color.White else Color.Transparent
+    private fun getStatusBarColorBasedOnTheme(useDarkIcons: Boolean) = if (useDarkIcons) Color.White else Color.Transparent
 }

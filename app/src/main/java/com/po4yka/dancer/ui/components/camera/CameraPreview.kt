@@ -17,21 +17,23 @@ fun CameraPreview(
     AndroidView(
         modifier = modifier,
         factory = { context ->
-            val previewView = PreviewView(context).apply {
-                this.scaleType = scaleType
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-            }
+            val previewView =
+                PreviewView(context).apply {
+                    this.scaleType = scaleType
+                    layoutParams =
+                        ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        )
+                }
             onUseCase(
                 Preview.Builder()
                     .build()
                     .also {
                         it.setSurfaceProvider(previewView.surfaceProvider)
-                    }
+                    },
             )
             previewView
-        }
+        },
     )
 }

@@ -24,7 +24,7 @@ fun BottomBarWithFabDem(
     onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
     modifier: Modifier = Modifier,
-    externalRouters: Map<String, Router> = emptyMap()
+    externalRouters: Map<String, Router> = emptyMap(),
 ) {
     // Stored in memory, NavHostController
     // Live through recompose and configuration changed cycle by rememberSavable
@@ -40,7 +40,7 @@ fun BottomBarWithFabDem(
         isFloatingActionButtonDocked = true,
         floatingActionButton = {
             NavigationFloatingButton(navController, bottomBarState)
-        }
+        },
     ) { contentPadding ->
         MainScreenNavigation(
             navController = navController,
@@ -49,7 +49,7 @@ fun BottomBarWithFabDem(
             onStatusBarColorChange = onStatusBarColorChange,
             setDefaultNavBarColor = setDefaultNavBarColor,
             onBottomBarStateChanged = { isVisible -> bottomBarState = isVisible },
-            modifier = modifier.padding(contentPadding)
+            modifier = modifier.padding(contentPadding),
         )
     }
 }

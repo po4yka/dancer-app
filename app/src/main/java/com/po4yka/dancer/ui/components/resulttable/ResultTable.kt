@@ -34,9 +34,8 @@ import kotlin.random.Random
 fun ResultTable(
     modifier: Modifier = Modifier,
     isDetected: PoseDetectionStateResult = PoseDetectionStateResult.NOT_DETECTED,
-    recognitionModelPredictionResults: List<RecognitionModelPredictionResult>
+    recognitionModelPredictionResults: List<RecognitionModelPredictionResult>,
 ) {
-
     val context = LocalContext.current
 
     val headerCellTitle = getHeaderCell(context)
@@ -46,114 +45,121 @@ fun ResultTable(
     Table(
         columnCount = integerResource(id = R.integer.result_table_column_count),
         data = recognitionModelPredictionResults,
-        colorSettings = TableColorSettings(
-            backgroundColor = Color.Transparent,
-            strokeColor = if (isDetected == PoseDetectionStateResult.DETECTED) {
-                Color.White
-            } else {
-                Color.Red
-            }
-        ),
-        modifier = modifier
-            .verticalScroll(rememberScrollState())
-            .wrapContentWidth(),
+        colorSettings =
+            TableColorSettings(
+                backgroundColor = Color.Transparent,
+                strokeColor =
+                    if (isDetected == PoseDetectionStateResult.DETECTED) {
+                        Color.White
+                    } else {
+                        Color.Red
+                    },
+            ),
+        modifier =
+            modifier
+                .verticalScroll(rememberScrollState())
+                .wrapContentWidth(),
         headerCellContent = headerCellTitle,
         cellBodyContent = cellText,
-        customCells = if (isDetected == PoseDetectionStateResult.DETECTED) {
-            listOf(
-                Pair(1, detectedRow)
-            )
-        } else {
-            emptyList()
-        }
+        customCells =
+            if (isDetected == PoseDetectionStateResult.DETECTED) {
+                listOf(
+                    Pair(1, detectedRow),
+                )
+            } else {
+                emptyList()
+            },
     )
 }
 
 @Composable
-private fun getHeaderCell(context: Context) = getCellText(
-    context = context,
-    textGenerator = { index, _ ->
-        when (index) {
-            0 -> stringResource(id = R.string.table_movement)
-            1 -> stringResource(id = R.string.table_value)
-            else -> ""
-        }
-    },
-    fontSize = dimensionResource(id = R.dimen.result_table_header_font_size).value.sp,
-    startMarginGenerator = { index ->
-        context.resources.getDimension(
+private fun getHeaderCell(context: Context) =
+    getCellText(
+        context = context,
+        textGenerator = { index, _ ->
             when (index) {
-                0 -> R.dimen.result_table_header_first_column_start_margin
-                1 -> R.dimen.result_table_header_second_column_start_margin
-                else -> R.dimen.result_table_zero_size
+                0 -> stringResource(id = R.string.table_movement)
+                1 -> stringResource(id = R.string.table_value)
+                else -> ""
             }
-        )
-    },
-    endPaddingGenerator = { index ->
-        context.resources.getDimension(
-            when (index) {
-                0 -> R.dimen.result_table_header_first_column_end_margin
-                1 -> R.dimen.result_table_header_second_column_end_margin
-                else -> R.dimen.result_table_zero_size
-            }
-        )
-    }
-)
+        },
+        fontSize = dimensionResource(id = R.dimen.result_table_header_font_size).value.sp,
+        startMarginGenerator = { index ->
+            context.resources.getDimension(
+                when (index) {
+                    0 -> R.dimen.result_table_header_first_column_start_margin
+                    1 -> R.dimen.result_table_header_second_column_start_margin
+                    else -> R.dimen.result_table_zero_size
+                },
+            )
+        },
+        endPaddingGenerator = { index ->
+            context.resources.getDimension(
+                when (index) {
+                    0 -> R.dimen.result_table_header_first_column_end_margin
+                    1 -> R.dimen.result_table_header_second_column_end_margin
+                    else -> R.dimen.result_table_zero_size
+                },
+            )
+        },
+    )
 
 @Composable
-private fun getDefaultCell(context: Context) = getCellText(
-    context = context,
-    textGenerator = textGenerator@{ index, item ->
-        if (item == null) return@textGenerator ""
-        when (index) {
-            0 -> stringResource(id = item.name.movementNameId)
-            1 -> String.format(Locale.US, "%.2f", item.probability)
-            else -> ""
-        }
-    },
-    fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
-    startMarginGenerator = { index ->
-        context.resources.getDimension(
+private fun getDefaultCell(context: Context) =
+    getCellText(
+        context = context,
+        textGenerator = textGenerator@{ index, item ->
+            if (item == null) return@textGenerator ""
             when (index) {
-                0 -> R.dimen.result_table_first_default_column_start_margin
-                1 -> R.dimen.result_table_second_default_column_start_margin
-                else -> R.dimen.result_table_zero_size
+                0 -> stringResource(id = item.name.movementNameId)
+                1 -> String.format(Locale.US, "%.2f", item.probability)
+                else -> ""
             }
-        )
-    },
-    endPaddingGenerator = {
-        context.resources.getDimension(R.dimen.result_table_default_column_end_margin)
-    }
-)
+        },
+        fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
+        startMarginGenerator = { index ->
+            context.resources.getDimension(
+                when (index) {
+                    0 -> R.dimen.result_table_first_default_column_start_margin
+                    1 -> R.dimen.result_table_second_default_column_start_margin
+                    else -> R.dimen.result_table_zero_size
+                },
+            )
+        },
+        endPaddingGenerator = {
+            context.resources.getDimension(R.dimen.result_table_default_column_end_margin)
+        },
+    )
 
 @Composable
-private fun getDetectedRow(context: Context) = getCellText(
-    context = context,
-    textGenerator = textGenerator@{ index, item ->
-        if (item == null) return@textGenerator ""
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
-        when (index) {
-            0 -> stringResource(id = item.name.movementNameId)
-            1 -> String.format(df.format(item.probability))
-            else -> ""
-        }
-    },
-    fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
-    textColor = Color.Green,
-    startMarginGenerator = { index ->
-        context.resources.getDimension(
+private fun getDetectedRow(context: Context) =
+    getCellText(
+        context = context,
+        textGenerator = textGenerator@{ index, item ->
+            if (item == null) return@textGenerator ""
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
             when (index) {
-                0 -> R.dimen.result_table_first_default_column_start_margin
-                1 -> R.dimen.result_table_second_default_column_start_margin
-                else -> R.dimen.result_table_zero_size
+                0 -> stringResource(id = item.name.movementNameId)
+                1 -> String.format(df.format(item.probability))
+                else -> ""
             }
-        )
-    },
-    endPaddingGenerator = {
-        context.resources.getDimension(R.dimen.result_table_default_column_end_margin)
-    }
-)
+        },
+        fontSize = dimensionResource(id = R.dimen.result_table_body_font_size).value.sp,
+        textColor = Color.Green,
+        startMarginGenerator = { index ->
+            context.resources.getDimension(
+                when (index) {
+                    0 -> R.dimen.result_table_first_default_column_start_margin
+                    1 -> R.dimen.result_table_second_default_column_start_margin
+                    else -> R.dimen.result_table_zero_size
+                },
+            )
+        },
+        endPaddingGenerator = {
+            context.resources.getDimension(R.dimen.result_table_default_column_end_margin)
+        },
+    )
 
 @Composable
 private fun getCellText(
@@ -166,7 +172,7 @@ private fun getCellText(
     },
     endPaddingGenerator: (index: Int) -> Float = { _ ->
         context.resources.getDimension(R.dimen.result_table_zero_size)
-    }
+    },
 ): @Composable (Int, RecognitionModelPredictionResult?) -> Unit {
     return { index, item ->
         Text(
@@ -174,13 +180,14 @@ private fun getCellText(
             fontSize = fontSize,
             color = textColor,
             textAlign = TextAlign.Start,
-            modifier = Modifier
-                .padding(
-                    start = Dp(startMarginGenerator(index)),
-                    end = Dp(endPaddingGenerator(index))
-                )
-                .wrapContentSize()
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .padding(
+                        start = Dp(startMarginGenerator(index)),
+                        end = Dp(endPaddingGenerator(index)),
+                    )
+                    .wrapContentSize()
+                    .fillMaxWidth(),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
@@ -190,12 +197,13 @@ private fun getCellText(
 @Preview
 @Composable
 fun ResultTablePreview() {
-    val resultTables = RecognitionModelName.values().map {
-        RecognitionModelPredictionResult(
-            it,
-            Random.nextFloat()
-        )
-    }
+    val resultTables =
+        RecognitionModelName.values().map {
+            RecognitionModelPredictionResult(
+                it,
+                Random.nextFloat(),
+            )
+        }
 
     ResultTable(recognitionModelPredictionResults = resultTables)
 }

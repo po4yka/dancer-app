@@ -50,14 +50,14 @@ fun CustomPermissionDialog(
     doNotShowRationale: MutableState<Boolean>,
 ) {
     Dialog(
-        onDismissRequest = { doNotShowRationale.value = true }
+        onDismissRequest = { doNotShowRationale.value = true },
     ) {
         CustomPermissionDialogUI(
             iconId = iconId,
             title = title,
             description = description,
             allowAction = allowAction,
-            doNotShowRationale = doNotShowRationale
+            doNotShowRationale = doNotShowRationale,
         )
     }
 }
@@ -74,23 +74,24 @@ fun CustomPermissionDialogUI(
     Card(
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp),
-        elevation = 8.dp
+        elevation = 8.dp,
     ) {
         Column(
-            modifier.background(Color.White)
+            modifier.background(Color.White),
         ) {
-
             Image(
                 painter = painterResource(id = iconId),
                 contentDescription = null, // decorative
                 contentScale = ContentScale.Fit,
-                colorFilter = ColorFilter.tint(
-                    color = BlueA500
-                ),
-                modifier = Modifier
-                    .padding(top = 25.dp)
-                    .height(75.dp)
-                    .fillMaxWidth(),
+                colorFilter =
+                    ColorFilter.tint(
+                        color = BlueA500,
+                    ),
+                modifier =
+                    Modifier
+                        .padding(top = 25.dp)
+                        .height(75.dp)
+                        .fillMaxWidth(),
             )
 
             Column(modifier = Modifier.padding(16.dp)) {
@@ -98,21 +99,23 @@ fun CustomPermissionDialogUI(
                     text = title,
                     textAlign = TextAlign.Center,
                     color = Color.Black,
-                    modifier = Modifier
-                        .padding(top = 5.dp)
-                        .fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .padding(top = 5.dp)
+                            .fillMaxWidth(),
                     style = MaterialTheme.typography.h5,
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Text(
                     text = description,
                     textAlign = TextAlign.Center,
                     color = Color.Black,
-                    modifier = Modifier
-                        .padding(top = 10.dp, start = 25.dp, end = 25.dp)
-                        .fillMaxWidth(),
-                    style = MaterialTheme.typography.body2
+                    modifier =
+                        Modifier
+                            .padding(top = 10.dp, start = 25.dp, end = 25.dp)
+                            .fillMaxWidth(),
+                    style = MaterialTheme.typography.body2,
                 )
             }
 
@@ -132,44 +135,46 @@ private fun CustomPermissionDialogBtn(
             .height(IntrinsicSize.Max)
             .padding(top = 10.dp)
             .background(BlueA400),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
-
         TextButton(
             onClick = {
                 doNotShowRationale.value = true
-            }
+            },
         ) {
             Text(
                 text = stringResource(id = R.string.not_now),
                 fontWeight = FontWeight.Bold,
                 color = SteelGray200,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(top = 5.dp, bottom = 5.dp)
-                    .align(Alignment.CenterVertically)
+                modifier =
+                    Modifier
+                        .padding(top = 5.dp, bottom = 5.dp)
+                        .align(Alignment.CenterVertically),
             )
         }
         Divider(
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(1.dp),
-            color = BlackAlpha24
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .width(1.dp),
+            color = BlackAlpha24,
         )
         TextButton(
             onClick = {
                 doNotShowRationale.value = true
                 allowAction.invoke()
-            }
+            },
         ) {
             Text(
                 text = stringResource(id = R.string.allow),
                 fontWeight = FontWeight.ExtraBold,
                 color = WhiteBlue20,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .padding(top = 5.dp, bottom = 5.dp)
-                    .align(Alignment.CenterVertically)
+                modifier =
+                    Modifier
+                        .padding(top = 5.dp, bottom = 5.dp)
+                        .align(Alignment.CenterVertically),
             )
         }
     }
@@ -184,6 +189,6 @@ fun MyDialogUIPreview() {
         title = "Receive Corgi",
         description = "Allow this very-very important permission for happiness of puppies.",
         allowAction = {},
-        doNotShowRationale = mutableStateOf(false)
+        doNotShowRationale = mutableStateOf(false),
     )
 }

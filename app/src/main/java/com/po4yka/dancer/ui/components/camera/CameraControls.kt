@@ -20,39 +20,45 @@ fun CameraControls(
     onCaptureClicked: () -> Unit,
     onLensChangeClicked: () -> Unit,
     onRecognitionModeSwitchClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(modifier = modifier) {
         CameraActionButton(
             onClick = onLensChangeClicked,
-            buttonActionRes = ButtonActionRes(
-                actionIconId = R.drawable.ic_change_camera,
-                actionDescriptionStrId = R.string.change_camera
-            ),
-            modifier = Modifier
-                .size(125.dp)
-                .padding(32.dp)
+            buttonActionRes =
+                ButtonActionRes(
+                    actionIconId = R.drawable.ic_change_camera,
+                    actionDescriptionStrId = R.string.change_camera,
+                ),
+            modifier =
+                Modifier
+                    .size(125.dp)
+                    .padding(32.dp),
         )
         CapturePictureButton(
-            modifier = Modifier
-                .size(100.dp)
-                .padding(16.dp)
-                .align(Alignment.CenterVertically),
-            onClick = onCaptureClicked
+            modifier =
+                Modifier
+                    .size(100.dp)
+                    .padding(16.dp)
+                    .align(Alignment.CenterVertically),
+            onClick = onCaptureClicked,
         )
         CameraActionButton(
             onClick = onRecognitionModeSwitchClicked,
-            buttonActionRes = ButtonActionRes(
-                actionIconId = if (recognitionMode == RecognitionState.ACTIVE) {
-                    R.drawable.ic_eye_open
-                } else {
-                    R.drawable.ic_eye_close
-                },
-                actionDescriptionStrId = R.string.recognition_mode
-            ),
-            modifier = Modifier
-                .size(125.dp)
-                .padding(32.dp)
+            buttonActionRes =
+                ButtonActionRes(
+                    actionIconId =
+                        if (recognitionMode == RecognitionState.ACTIVE) {
+                            R.drawable.ic_eye_open
+                        } else {
+                            R.drawable.ic_eye_close
+                        },
+                    actionDescriptionStrId = R.string.recognition_mode,
+                ),
+            modifier =
+                Modifier
+                    .size(125.dp)
+                    .padding(32.dp),
         )
     }
 }
@@ -61,18 +67,20 @@ fun CameraControls(
 @Composable
 fun CameraControlsPreview() {
     Scaffold(
-        modifier = Modifier
-            .size(125.dp)
-            .wrapContentSize()
+        modifier =
+            Modifier
+                .size(125.dp)
+                .wrapContentSize(),
     ) { contentPadding ->
         CameraControls(
             recognitionMode = RecognitionState.ACTIVE,
             onCaptureClicked = {},
             onLensChangeClicked = {},
             onRecognitionModeSwitchClicked = {},
-            modifier = Modifier
-                .padding(contentPadding)
-                .size(100.dp)
+            modifier =
+                Modifier
+                    .padding(contentPadding)
+                    .size(100.dp),
         )
     }
 }

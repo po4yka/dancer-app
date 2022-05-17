@@ -19,7 +19,7 @@ import com.po4yka.dancer.ui.theme.Azure100
 fun NavigationFloatingButton(
     navController: NavController,
     isVisible: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     AnimatedVisibility(
         visible = isVisible,
@@ -41,15 +41,15 @@ fun NavigationFloatingButton(
                 },
                 backgroundColor = Azure100,
                 contentColor = Color.White,
-                modifier = modifier
+                modifier = modifier,
             ) {
                 Icon(
                     modifier = Modifier,
                     painter = painterResource(id = NavScreen.Camera.iconId),
                     contentDescription = NavScreen.Camera.contentDescription,
-                    tint = Color.White
+                    tint = Color.White,
                 )
             }
-        }
+        },
     )
 }

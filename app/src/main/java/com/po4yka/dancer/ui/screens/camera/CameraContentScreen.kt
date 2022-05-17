@@ -29,42 +29,42 @@ import com.po4yka.dancer.utils.MediaHelper.saveMediaToStorageWithTimeStamp
 @androidx.camera.core.ExperimentalGetImage
 @ExperimentalPermissionsApi
 @Composable
-fun CameraContentScreen(
-    modifier: Modifier = Modifier
-) {
+fun CameraContentScreen(modifier: Modifier = Modifier) {
     var imageUri by remember { mutableStateOf(EMPTY_IMAGE_URI) }
     val context = LocalContext.current
 
     if (imageUri != EMPTY_IMAGE_URI) {
         Column(
-            modifier = modifier
-                .statusBarsPadding()
-                .padding(start = 16.dp, end = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                modifier
+                    .statusBarsPadding()
+                    .padding(start = 16.dp, end = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
                 painter = rememberAsyncImagePainter(imageUri),
-                contentDescription = stringResource(id = R.string.captured_image)
+                contentDescription = stringResource(id = R.string.captured_image),
             )
             Row(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
                 verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.SpaceAround
+                horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 Button(
                     onClick = {
                         saveMediaToStorageWithTimeStamp(context, imageUri)
                         imageUri = EMPTY_IMAGE_URI
-                    }
+                    },
                 ) {
                     Text(stringResource(id = R.string.save_image))
                 }
                 Button(
                     onClick = {
                         imageUri = EMPTY_IMAGE_URI
-                    }
+                    },
                 ) {
                     Text(stringResource(id = R.string.remove_image))
                 }
@@ -75,7 +75,7 @@ fun CameraContentScreen(
             modifier = modifier,
             onImageFile = { file ->
                 imageUri = file.toUri()
-            }
+            },
         )
     }
 }

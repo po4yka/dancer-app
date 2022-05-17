@@ -4,5 +4,5 @@ import androidx.compose.ui.graphics.Color
 
 data class TableColorSettings(
     val backgroundColor: Color,
-    val strokeColor: Color
+    val strokeColor: Color,
 )

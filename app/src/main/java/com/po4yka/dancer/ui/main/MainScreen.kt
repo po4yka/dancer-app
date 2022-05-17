@@ -24,9 +24,8 @@ fun MainScreen(
     onNavBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
     Surface(modifier = modifier, color = MaterialTheme.colors.background) {
         val navController = rememberNavController()
 
@@ -35,15 +34,16 @@ fun MainScreen(
                 // Set external roads, mostly for nested navigation.
                 // For example: from Gallery screen to the image info screen.
                 val routeExternalRoad =
-                    NavScreen.Gallery.route to createExternalRouter { screen, params ->
-                        navController.navigate(screen, params)
-                    }
+                    NavScreen.Gallery.route to
+                        createExternalRouter { screen, params ->
+                            navController.navigate(screen, params)
+                        }
                 BottomBarWithFabDem(
                     onNavBarColorChange = onNavBarColorChange,
                     onStatusBarColorChange = onStatusBarColorChange,
                     setDefaultNavBarColor = setDefaultNavBarColor,
                     modifier = Modifier.navigationBarsPadding(),
-                    externalRouters = mapOf(routeExternalRoad)
+                    externalRouters = mapOf(routeExternalRoad),
                 )
             }
         }
@@ -59,7 +59,7 @@ fun MainScreenPreview() {
         MainScreen(
             onNavBarColorChange = { _: Color?, _: Boolean? -> },
             onStatusBarColorChange = { _: Color?, _: Boolean? -> },
-            setDefaultNavBarColor = { }
+            setDefaultNavBarColor = { },
         )
     }
 }

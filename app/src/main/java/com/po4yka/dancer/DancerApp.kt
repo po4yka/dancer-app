@@ -7,7 +7,6 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class DancerApp : Application(), CameraXConfig.Provider {
-
     override fun getCameraXConfig(): CameraXConfig {
         return Camera2Config.defaultConfig()
     }

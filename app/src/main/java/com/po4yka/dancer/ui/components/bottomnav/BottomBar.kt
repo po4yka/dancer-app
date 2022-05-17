@@ -31,13 +31,13 @@ import com.po4yka.dancer.ui.theme.SteelGray500
 fun BottomBar(
     navController: NavController,
     isVisible: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
-    val navItems = listOf(
-        NavScreen.Gallery,
-        NavScreen.Settings
-    )
+    val navItems =
+        listOf(
+            NavScreen.Gallery,
+            NavScreen.Settings,
+        )
 
     AnimatedVisibility(
         visible = isVisible,
@@ -45,22 +45,23 @@ fun BottomBar(
         exit = slideOutVertically(targetOffsetY = { it }),
         content = {
             BottomAppBar(
-                modifier = modifier
-                    .height(65.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
+                modifier =
+                    modifier
+                        .height(65.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp)),
                 cutoutShape = CircleShape,
                 elevation = 0.dp,
                 backgroundColor = SteelGray500,
             ) {
                 BottomNavigation(
-                    modifier = Modifier
-                        .height(115.dp)
-                        .fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .height(115.dp)
+                            .fillMaxWidth(),
                     elevation = 0.dp,
-                    backgroundColor = SteelGray500
+                    backgroundColor = SteelGray500,
                 ) {
-
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -71,17 +72,16 @@ fun BottomBar(
                                 Icon(
                                     painter = painterResource(id = navItem.iconId),
                                     contentDescription = navItem.contentDescription,
-                                    modifier = Modifier.size(30.dp)
+                                    modifier = Modifier.size(30.dp),
                                 )
                             },
                             label = {
                                 Text(
                                     modifier = Modifier,
-                                    text = navItem.title
+                                    text = navItem.title,
                                 )
                             },
                             selected = currentRoute == navItem.route,
-
                             selectedContentColor = Sky300,
                             unselectedContentColor = Color.White.copy(alpha = 0.4f),
                             alwaysShowLabel = true,
@@ -101,11 +101,11 @@ fun BottomBar(
                                         restoreState = true
                                     }
                                 }
-                            }
+                            },
                         )
                     }
                 }
             }
-        }
+        },
     )
 }

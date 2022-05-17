@@ -27,27 +27,28 @@ import com.po4yka.dancer.ui.components.models.ButtonActionRes
 fun CameraActionButton(
     onClick: () -> Unit,
     buttonActionRes: ButtonActionRes,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomCenter
+        contentAlignment = Alignment.BottomCenter,
     ) {
         OutlinedButton(
             onClick = onClick,
             modifier = Modifier.size(50.dp), // avoid the oval shape
             border = BorderStroke(0.dp, Color.Transparent),
             shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Transparent,
-                contentColor = Color.White
-            ),
+            colors =
+                ButtonDefaults.buttonColors(
+                    backgroundColor = Color.Transparent,
+                    contentColor = Color.White,
+                ),
             contentPadding = PaddingValues(0.dp), // avoid the little icon
         ) {
             Icon(
                 painter = painterResource(id = buttonActionRes.actionIconId),
                 contentDescription = stringResource(buttonActionRes.actionDescriptionStrId),
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(30.dp),
             )
         }
     }
@@ -57,19 +58,22 @@ fun CameraActionButton(
 @Composable
 fun CameraActionButtonPreview() {
     Scaffold(
-        modifier = Modifier
-            .size(125.dp)
-            .wrapContentSize()
+        modifier =
+            Modifier
+                .size(125.dp)
+                .wrapContentSize(),
     ) { contentPadding ->
         CameraActionButton(
             onClick = {},
-            buttonActionRes = ButtonActionRes(
-                actionIconId = R.drawable.ic_change_camera,
-                actionDescriptionStrId = R.string.change_camera
-            ),
-            modifier = Modifier
-                .padding(contentPadding)
-                .size(100.dp)
+            buttonActionRes =
+                ButtonActionRes(
+                    actionIconId = R.drawable.ic_change_camera,
+                    actionDescriptionStrId = R.string.change_camera,
+                ),
+            modifier =
+                Modifier
+                    .padding(contentPadding)
+                    .size(100.dp),
         )
     }
 }

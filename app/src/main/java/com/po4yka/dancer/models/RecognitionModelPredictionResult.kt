@@ -6,17 +6,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RecognitionModelPredictionResult(
     val name: RecognitionModelName,
-    val probability: Float
+    val probability: Float,
 ) : Parcelable {
-
     companion object {
-        fun convertFromModel(
-            modelResults: Map<String, Float>
-        ): List<RecognitionModelPredictionResult> {
+        fun convertFromModel(modelResults: Map<String, Float>): List<RecognitionModelPredictionResult> {
             return modelResults.map {
                 RecognitionModelPredictionResult(
                     RecognitionModelHelper.getClassById(it.key),
-                    it.value
+                    it.value,
                 )
             }
         }

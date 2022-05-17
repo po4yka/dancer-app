@@ -37,22 +37,25 @@ fun CapturePictureButton(
         shape = CircleShape,
         border = BorderStroke(2.dp, accentColor),
         contentPadding = contentPadding,
-        colors = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color.Transparent,
-            contentColor = SteelGray150
-        ),
+        colors =
+            ButtonDefaults.outlinedButtonColors(
+                backgroundColor = Color.Transparent,
+                contentColor = SteelGray150,
+            ),
         onClick = { /* GNDN */ },
-        enabled = false
+        enabled = false,
     ) {
         Button(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier =
+                Modifier
+                    .fillMaxSize(),
             shape = CircleShape,
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = accentColor
-            ),
+            colors =
+                ButtonDefaults.buttonColors(
+                    backgroundColor = accentColor,
+                ),
             interactionSource = interactionSource,
-            onClick = onClick
+            onClick = onClick,
         ) {
             // No content
         }
@@ -63,15 +66,17 @@ fun CapturePictureButton(
 @Composable
 fun PreviewCapturePictureButton() {
     Scaffold(
-        modifier = Modifier
-            .size(125.dp)
-            .wrapContentSize(),
-        backgroundColor = Color.Gray
+        modifier =
+            Modifier
+                .size(125.dp)
+                .wrapContentSize(),
+        backgroundColor = Color.Gray,
     ) { contentPadding ->
         CapturePictureButton(
-            modifier = Modifier
-                .padding(contentPadding)
-                .size(100.dp)
+            modifier =
+                Modifier
+                    .padding(contentPadding)
+                    .size(100.dp),
         )
     }
 }

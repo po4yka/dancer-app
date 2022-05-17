@@ -24,26 +24,27 @@ import com.po4yka.dancer.R
 @Composable
 fun PermissionNotAvailable(
     @StringRes unavailableExplanationResId: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentSize()
+        modifier =
+            modifier
+                .fillMaxSize()
+                .wrapContentSize(),
     ) {
         Text(
             stringResource(id = unavailableExplanationResId),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Button(onClick = {
             context.startActivity(
                 Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                     data = Uri.fromParts("package", context.packageName, null)
-                }
+                },
             )
         }) {
             Text(stringResource(id = R.string.open_settings))

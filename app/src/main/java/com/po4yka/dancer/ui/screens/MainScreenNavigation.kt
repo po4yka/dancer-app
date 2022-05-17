@@ -27,9 +27,8 @@ fun MainScreenNavigation(
     onNavBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     onStatusBarColorChange: (newColor: Color?, forcedUseDarkIcons: Boolean?) -> Unit,
     setDefaultNavBarColor: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-
     NavHost(navController = navController, startDestination = NavScreen.Gallery.route) {
         composable(NavScreen.Gallery.route) {
             LaunchedEffect(Unit) {
@@ -40,12 +39,13 @@ fun MainScreenNavigation(
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current
             DisposableEffect(Unit) {
-                val callback = object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        setDefaultNavBarColor.invoke()
-                        navController.popBackStack()
+                val callback =
+                    object : OnBackPressedCallback(true) {
+                        override fun handleOnBackPressed() {
+                            setDefaultNavBarColor.invoke()
+                            navController.popBackStack()
+                        }
                     }
-                }
                 backDispatcher?.onBackPressedDispatcher?.addCallback(callback)
                 onDispose {
                     callback.remove()
@@ -55,9 +55,10 @@ fun MainScreenNavigation(
             GalleryScreen(
                 navController = navController,
                 router = externalRouters[route],
-                modifier = modifier
-                    .statusBarsPadding()
-                    .navigationBarsPadding(bottom = true)
+                modifier =
+                    modifier
+                        .statusBarsPadding()
+                        .navigationBarsPadding(bottom = true),
             )
         }
 
@@ -70,12 +71,13 @@ fun MainScreenNavigation(
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current
             DisposableEffect(Unit) {
-                val callback = object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        setDefaultNavBarColor.invoke()
-                        navController.popBackStack()
+                val callback =
+                    object : OnBackPressedCallback(true) {
+                        override fun handleOnBackPressed() {
+                            setDefaultNavBarColor.invoke()
+                            navController.popBackStack()
+                        }
                     }
-                }
                 backDispatcher?.onBackPressedDispatcher?.addCallback(callback)
                 onDispose {
                     callback.remove()
@@ -94,12 +96,13 @@ fun MainScreenNavigation(
 
             val backDispatcher = LocalOnBackPressedDispatcherOwner.current
             DisposableEffect(Unit) {
-                val callback = object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        setDefaultNavBarColor.invoke()
-                        navController.popBackStack()
+                val callback =
+                    object : OnBackPressedCallback(true) {
+                        override fun handleOnBackPressed() {
+                            setDefaultNavBarColor.invoke()
+                            navController.popBackStack()
+                        }
                     }
-                }
                 backDispatcher?.onBackPressedDispatcher?.addCallback(callback)
                 onDispose {
                     callback.remove()

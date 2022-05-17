@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 enum class RecognitionModelName(
     val id: String,
-    @StringRes val movementNameId: Int
+    @StringRes val movementNameId: Int,
 ) : Parcelable {
     MOVEMENT_DAB_LEFT("0", R.string.dab_left),
     MOVEMENT_DAB_RIGHT("1", R.string.dab_right),
@@ -24,11 +24,10 @@ enum class RecognitionModelName(
     MOVEMENT_WAP_3_LEFT("10", R.string.wap_3_left),
     MOVEMENT_WAP_3_RIGHT("11", R.string.wap_3_right),
     MOVEMENT_WAP_4_LEFT("12", R.string.wap_4_left),
-    MOVEMENT_WAP_4_RIGHT("13", R.string.wap_4_right)
+    MOVEMENT_WAP_4_RIGHT("13", R.string.wap_4_right),
 }
 
 object RecognitionModelHelper {
-
     fun getClassesNames(context: Context): List<String> {
         return RecognitionModelName.values().map { context.resources.getString(it.movementNameId) }
     }

@@ -33,31 +33,34 @@ fun <T> Table(
     modifier: Modifier = Modifier,
     headerCellContent: @Composable (index: Int, item: T?) -> Unit,
     cellBodyContent: @Composable (index: Int, item: T?) -> Unit,
-    customCells: List<Pair<Int, @Composable (index: Int, item: T?) -> Unit>> = emptyList()
+    customCells: List<Pair<Int, @Composable (index: Int, item: T?) -> Unit>> = emptyList(),
 ) {
     Surface(
-        modifier = modifier
-            .background(colorSettings.backgroundColor)
-            .padding(top = 80.dp),
+        modifier =
+            modifier
+                .background(colorSettings.backgroundColor)
+                .padding(top = 80.dp),
         shape = RoundedCornerShape(6.dp),
-        color = colorSettings.backgroundColor
+        color = colorSettings.backgroundColor,
     ) {
         LazyRow(
-            modifier = Modifier
-                .border(
-                    BorderStroke(1.dp, colorSettings.strokeColor),
-                    RoundedCornerShape(30.dp)
-                ),
+            modifier =
+                Modifier
+                    .border(
+                        BorderStroke(1.dp, colorSettings.strokeColor),
+                        RoundedCornerShape(30.dp),
+                    ),
         ) {
             items((0 until columnCount).toList()) { columnIndex ->
                 Column(
-                    modifier = Modifier.padding(
-                        start = 8.dp,
-                        top = 6.dp,
-                        end = 8.dp,
-                        bottom = 8.dp
-                    ),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    modifier =
+                        Modifier.padding(
+                            start = 8.dp,
+                            top = 6.dp,
+                            end = 8.dp,
+                            bottom = 8.dp,
+                        ),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     data.forEachIndexed { index, _ ->
                         Surface(
