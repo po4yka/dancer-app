@@ -15,6 +15,7 @@
     <string name="feature_not_available">Функция не доступна</string>
     <string name="recognize_from_camera">Определить с камеры</string>
     <string name="table_probability">Вероятность</string>
+    <string name="table_value">Значение</string>
     <string name="table_movement">Движение</string>
     <string name="recognition_mode">Режим распознавания</string>
     <string name="change_camera">Сменить камеру</string>

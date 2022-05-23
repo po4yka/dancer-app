@@ -21,6 +21,7 @@
     <string name="gallery_permission_request_text">To use pictures from the gallery, you need access to the repository.</string>
     <string name="table_movement">Movement</string>
     <string name="table_probability">Probability</string>
+    <string name="table_value">Value</string>
 
     <string name="dab_left" translatable="false">dab_left</string>
     <string name="dab_right" translatable="false">dab_right</string>

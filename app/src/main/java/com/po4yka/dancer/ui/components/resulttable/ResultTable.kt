@@ -75,7 +75,7 @@ private fun getHeaderCell(context: Context) = getCellText(
     textGenerator = { index, _ ->
         when (index) {
             0 -> stringResource(id = R.string.table_movement)
-            1 -> stringResource(id = R.string.table_probability)
+            1 -> stringResource(id = R.string.table_value)
             else -> ""
         }
     },

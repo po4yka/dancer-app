@@ -11,7 +11,7 @@ object Versions {
     const val material = "1.6.0"
     const val startup = "1.1.1"
 
-    const val coil = "2.0.0"
+    const val coil = "2.1.0"
 
     /* COMPOSE */
     const val compose = "1.2.0-beta01"
@@ -26,7 +26,7 @@ object Versions {
     /* TensorFlow */
     const val tensorFlow = "0.3.1"
     const val tensorflowMetadata = "0.3.1"
-    const val tensorflowGpu = "2.8.0"
+    const val tensorflowGpu = "2.9.0"
 
     /* HILT */
     const val hiltCoreVersion = "2.42"
