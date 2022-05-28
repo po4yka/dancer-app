@@ -85,7 +85,7 @@ object Dependencies {
 
     object Firebase {
         const val gms = "com.google.gms:google-services:4.3.10"
-        const val bom = "com.google.firebase:firebase-bom:30.0.1"
+        const val bom = "com.google.firebase:firebase-bom:30.1.0"
         const val analytics = "com.google.firebase:firebase-analytics-ktx"
         const val performance = "com.google.firebase:firebase-perf-ktx"
     }

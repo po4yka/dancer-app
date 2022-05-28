@@ -1,11 +1,11 @@
 object Versions {
 
-    const val gradle = "7.2.0"
+    const val gradle = "7.2.1"
     const val kotlin = "1.6.21"
-    const val kotlinCoroutines = "1.6.1"
+    const val kotlinCoroutines = "1.6.2"
 
     const val appCompat = "1.4.1"
-    const val coreKtx = "1.9.0-alpha03"
+    const val coreKtx = "1.9.0-alpha04"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"
     const val material = "1.6.0"
@@ -14,10 +14,10 @@ object Versions {
     const val coil = "2.1.0"
 
     /* COMPOSE */
-    const val compose = "1.2.0-beta01"
-    const val composeCompiler = "1.2.0-beta01"
+    const val compose = "1.2.0-beta02"
+    const val composeCompiler = "1.2.0-beta02"
     const val composeNavigation = "2.5.0-rc01"
-    const val constraintLayout = "2.1.3"
+    const val constraintLayout = "2.1.4"
 
     /* LIFECYCLE */
     const val composeActivity = "1.5.0-rc01"
@@ -42,8 +42,8 @@ object Versions {
     const val junit = "4.13.2"
     const val extJUnit = "1.1.3"
     const val espressoCore = "3.4.0"
-    const val mockitoCore = "4.5.1"
-    const val mockitoInline = "4.5.1"
+    const val mockitoCore = "4.6.0"
+    const val mockitoInline = "4.6.0"
     const val mockitoKotlin = "2.2.0"
 
     /* FIREBASE */
