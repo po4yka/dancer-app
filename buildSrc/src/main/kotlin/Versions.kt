@@ -4,18 +4,18 @@ object Versions {
     const val kotlin = "1.6.21"
     const val kotlinCoroutines = "1.6.2"
 
-    const val appCompat = "1.4.1"
+    const val appCompat = "1.4.2"
     const val coreKtx = "1.9.0-alpha04"
     const val paging = "3.1.1"
     const val pagingCompose = "1.0.0-alpha14"
-    const val material = "1.6.0"
+    const val material = "1.6.1"
     const val startup = "1.1.1"
 
     const val coil = "2.1.0"
 
     /* COMPOSE */
-    const val compose = "1.2.0-beta02"
-    const val composeCompiler = "1.2.0-beta02"
+    const val compose = "1.2.0-beta03"
+    const val composeCompiler = "1.2.0-beta03"
     const val composeNavigation = "2.5.0-rc01"
     const val constraintLayout = "2.1.4"
 
@@ -36,7 +36,7 @@ object Versions {
 
     /* CAMERA 2 */
     const val camera = "1.0.2"
-    const val cameraViewAndVideo = "1.1.0-rc01"
+    const val cameraViewAndVideo = "1.1.0-rc02"
 
     /* TESTING */
     const val junit = "4.13.2"
