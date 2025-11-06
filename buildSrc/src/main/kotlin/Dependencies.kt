@@ -24,6 +24,13 @@ object Dependencies {
 
         const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
         const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
+
+        const val datastorePreferences =
+            "androidx.datastore:datastore-preferences:${Versions.datastore}"
+
+        const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+        const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+        const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
     }
 
     object Lifecycle {
@@ -62,7 +69,9 @@ object Dependencies {
     object TensorFlow {
         const val metadata =
             "org.tensorflow:tensorflow-lite-metadata:${Versions.tensorflowMetadata}"
-        const val gpu = "org.tensorflow:tensorflow-lite-gpu:${Versions.tensorflowGpu}"
+        // GPU delegate removed due to incompatibility with tensorflow-lite-support:0.4.4
+        // Using XNNPACK CPU delegate instead, which provides excellent performance on ARM64
+        // const val gpu = "org.tensorflow:tensorflow-lite-gpu:${Versions.tensorflowGpu}"
         const val vision = "org.tensorflow:tensorflow-lite-task-vision:${Versions.tensorFlow}"
         const val support = "org.tensorflow:tensorflow-lite-support:${Versions.tensorFlow}"
     }

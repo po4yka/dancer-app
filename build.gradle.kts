@@ -35,7 +35,9 @@ subprojects {
         outputColorName.set("RED")
     }
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "11"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
 }
 
@@ -46,14 +48,13 @@ tasks.getByPath(":app:preBuild").apply {
 }
 
 tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.apply {
-        freeCompilerArgs = freeCompilerArgs +
-            "-opt-in=kotlin.time.ExperimentalTime" +
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi" +
-            "-opt-in=kotlinx.coroutines.FlowPreview"
+    compilerOptions {
+        freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
+        freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
+        freeCompilerArgs.add("-opt-in=kotlinx.coroutines.FlowPreview")
     }
 }
 
 tasks.register("clean", Delete::class.java) {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory)
 }

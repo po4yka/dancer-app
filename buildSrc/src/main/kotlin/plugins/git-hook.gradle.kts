@@ -4,7 +4,7 @@ package plugins
 import Dependencies.Ktlint
 
 fun isLinuxOrMacOs(): Boolean {
-    val osName = System.getProperty("os.name").toLowerCase()
+    val osName = System.getProperty("os.name").lowercase()
     return osName.contains("linux") || osName.contains("mac os") || osName.contains("macos")
 }
 

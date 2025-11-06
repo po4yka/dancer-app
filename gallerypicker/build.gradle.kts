@@ -1,17 +1,23 @@
 plugins {
     id("kotlin-android")
     id("com.android.library")
+    id("org.jetbrains.kotlin.plugin.compose") version Versions.kotlin
 }
 
 android {
+    namespace = "com.po4yka.gallerypicker"
+
     compileSdk = Config.compileSdkVersion
     buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
         minSdk = Config.minSdkVersion
-        targetSdk = Config.targetSdkVersion
 
         testInstrumentationRunner = Config.testInstrumentationRunner
+    }
+
+    lint {
+        targetSdk = Config.targetSdkVersion
     }
 
     buildTypes {
@@ -19,7 +25,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -29,17 +35,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = Config.jvmTarget
-        freeCompilerArgs = listOf("-Xjvm-default=all-compatibility")
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+            freeCompilerArgs.add("-Xjvm-default=all-compatibility")
+        }
     }
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
 }
 

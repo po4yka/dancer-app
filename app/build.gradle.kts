@@ -24,21 +24,26 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
     id("com.google.firebase.firebase-perf")
+    id("org.jetbrains.kotlin.plugin.compose") version Versions.kotlin
 
     kotlin("kapt")
 }
 
 android {
+    namespace = "com.po4yka.dancer"
+
     signingConfigs {
         create("release") {
-            val propertiesFile = File(
-                rootDir,
-                Paths.get("/", "app", "signing.properties").toString()
-            )
+            val propertiesFile =
+                File(
+                    rootDir,
+                    Paths.get("/", "app", "signing.properties").toString(),
+                )
             if (!propertiesFile.exists()) return@create
-            val properties = propertiesFile.inputStream().use {
-                Properties().apply { load(it) }
-            }
+            val properties =
+                propertiesFile.inputStream().use {
+                    Properties().apply { load(it) }
+                }
             storeFile = File(properties.getProperty("storeFilePath") ?: return@create)
             storePassword = properties.getProperty("storePassword") ?: return@create
             keyPassword = properties.getProperty("keyPassword") ?: return@create
@@ -62,6 +67,21 @@ android {
         ndk {
             abiFilters.addAll(listOf("armeabi-v7a", "arm64-v8a"))
         }
+
+        // Enable 16KB page size support for Android 15+ devices
+        // This ensures native libraries are properly aligned for devices with 16KB memory pages
+        // See: https://developer.android.com/guide/practices/page-sizes
+        @Suppress("UnstableApiUsage")
+        androidResources {
+            generateLocaleConfig = false
+        }
+    }
+
+    // Configure packaging options for 16KB page size alignment
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
     }
 
     buildTypes {
@@ -70,7 +90,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("release")
         }
@@ -94,18 +114,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = Config.jvmTarget
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+        }
     }
 
     buildFeatures {
         compose = true
         mlModelBinding = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        buildConfig = true
     }
 
     androidResources {
@@ -121,6 +140,10 @@ dependencies {
     implementation(AndroidX.material)
     implementation(AndroidX.startup)
     implementation(AndroidX.constraintLayout)
+    implementation(AndroidX.datastorePreferences)
+    implementation(AndroidX.roomRuntime)
+    implementation(AndroidX.roomKtx)
+    kapt(AndroidX.roomCompiler)
 
     implementation(Kotlin.stdlib)
     implementation(Kotlin.coroutines)
@@ -152,14 +175,13 @@ dependencies {
     implementation(AndroidX.cameraExtensions)
 
     implementation(TensorFlow.metadata)
-    implementation(TensorFlow.gpu)
+    // GPU delegate commented out - using XNNPACK CPU delegate for better compatibility
+    // implementation(TensorFlow.gpu)
     implementation(TensorFlow.vision)
     implementation(TensorFlow.support)
 
-    implementation(Utils.accompanistInsets)
     implementation(Utils.accompanistSystemUiController)
     implementation(Utils.accompanistPermission)
-    implementation(Utils.accompanistUi)
     implementation(Utils.timber)
 
     implementation(Coil.coil)
@@ -181,10 +203,10 @@ dependencies {
     androidTestImplementation(Test.composeUiTestJunit)
 }
 
-/* Gradle Versions Plugin Setup */
+// Gradle Versions Plugin Setup
 
 fun String.isNonStable(): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA", "RC").any { toUpperCase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA", "RC").any { uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(this)
     return isStable.not()
@@ -193,36 +215,25 @@ fun String.isNonStable(): Boolean {
 // Reference: https://github.com/ben-manes/gradle-versions-plugin#kotlin-dsl
 tasks.withType<DependencyUpdatesTask> {
 
-    // reject all non stable versions
+    // Reject all non-stable versions (alpha, beta, rc, etc.)
     rejectVersionIf {
         candidate.version.isNonStable()
     }
 
-    // disallow release candidates as upgradable versions from stable versions
+    // Disallow release candidates as upgradable versions from stable versions
     rejectVersionIf {
         candidate.version.isNonStable() && !currentVersion.isNonStable()
     }
 
-    // using the full syntax
-    resolutionStrategy {
-        componentSelection {
-            all {
-                if (candidate.version.isNonStable() && !currentVersion.isNonStable()) {
-                    reject("Release candidate")
-                }
-            }
-        }
-    }
-
-    // optional parameters
+    // Check for Gradle updates
     checkForGradleUpdate = true
 }
 
-/* Detekt */
+// Detekt
 
 // Reference: https://github.com/detekt/detekt#with-gradle
 detekt {
-    config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
+    config.setFrom(files("${rootProject.projectDir}/config/detekt/detekt.yml"))
     buildUponDefaultConfig = true // preconfigure defaults
     allRules = false // activate all available (even unstable) rules.
     autoCorrect = true
